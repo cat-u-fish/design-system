@@ -21,7 +21,8 @@
 ### 快速参考
 
 - **[📋 Design Token 完整参考](./tokens-reference.md)** - 所有 Token 的完整列表（793 行）
-- **[🎨 Figma 导入指南](./figma-import-guide.md)** - Tokens Studio 插件完整导入教程
+- **[🎨 Figma 导入指南](./figma-import-guide.md)** - Tokens Studio 插件完整导入教程（付费版）
+- **[🆓 Figma 免费版方案](./figma-free-version-guide.md)** - 无需付费许可证的手动创建方案
 - **[📦 tokens.json](./tokens.json)** - Tokens Studio 标准格式文件（可直接导入）
 
 ---
