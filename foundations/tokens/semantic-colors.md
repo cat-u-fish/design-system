@@ -309,11 +309,11 @@ const MyButton = styled.button`
 
 - [Design Token 规范](../README.md) - 总览和基础概念
 - [设计原理](../design-principles.md) - 数学公式和设计哲学
-- [扩展色板](../color-palette.md) - 12 色完整原始色板
+- [扩展色板](../color-palette.md) - Material Design 17 色标准色板
 - [暗色模式](../dark-mode.md) - 暗色模式完整映射
 
 ---
 
-**文档版本：** v1.0
+**文档版本：** v2.0 (Material Design)
 **最后更新：** 2025-11-16
 **维护者：** 设计系统团队
