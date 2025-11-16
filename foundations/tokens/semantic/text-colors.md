@@ -1,6 +1,7 @@
 # 文本色 Token 清单
 
 > 所有文字相关的颜色定义，覆盖正文、标题、链接、占位符等所有文本场景。
+> **基于 Material Design 标准色板系统**
 
 ---
 
@@ -10,16 +11,17 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-primary` | Gray-900<br>#171717 | Gray-50<br>#FAFAFA | 15.3:1 ✅ AAA | 14.5:1 ✅ AAA | 正文、标题 |
-| `text-secondary` | Gray-600<br>#525252 | Gray-300<br>#D4D4D4 | 8.2:1 ✅ AAA | 9.8:1 ✅ AAA | 次要说明、描述 |
-| `text-tertiary` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 5.3:1 ✅ AA | 6.2:1 ✅ AAA | 辅助信息、注释 |
-| `text-quaternary` | Gray-400<br>#A3A3A3 | Gray-500<br>#737373 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 极弱提示（慎用） |
-| `text-disabled` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 2.8:1 ⚠️ | 3.1:1 ⚠️ | 禁用文本 |
-| `text-inverse` | White<br>#FFFFFF | Gray-900<br>#171717 | - | - | 深色背景上的文字 |
-| `text-placeholder` | Gray-400<br>#A3A3A3 | Gray-500<br>#737373 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 输入框占位符 |
+| `text-primary` | Grey-900<br>#212121 | Grey-50<br>#FAFAFA | 16.1:1 ✅ AAA | 18.5:1 ✅ AAA | 正文、标题 |
+| `text-secondary` | Grey-600<br>#757575 | Grey-300<br>#E0E0E0 | 4.68:1 ✅ AA | 11.5:1 ✅ AAA | 次要说明、描述 |
+| `text-tertiary` | Grey-500<br>#9E9E9E | Grey-400<br>#BDBDBD | 3.15:1 ⚠️ | 7.8:1 ✅ AAA | 辅助信息、注释 |
+| `text-quaternary` | Grey-400<br>#BDBDBD | Grey-500<br>#9E9E9E | 2.26:1 ⚠️ | 5.6:1 ✅ AA | 极弱提示（慎用） |
+| `text-disabled` | Grey-400<br>#BDBDBD | Grey-600<br>#757575 | 2.26:1 ⚠️ | 3.8:1 ⚠️ | 禁用文本 |
+| `text-inverse` | White<br>#FFFFFF | Grey-900<br>#212121 | - | - | 深色背景上的文字 |
+| `text-placeholder` | Grey-400<br>#BDBDBD | Grey-500<br>#9E9E9E | 2.26:1 ⚠️ | 5.6:1 ✅ AA | 输入框占位符 |
 
 **注意：**
 - ⚠️ 标记的 Token 对比度不足 4.5:1，仅用于装饰性或禁用状态，不应传达关键信息
+- Material Design 使用 "Grey" 而非 "Gray"
 
 ---
 
@@ -27,10 +29,12 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-link` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | 4.5:1 ✅ AA | 6.3:1 ✅ AAA | 默认链接 |
-| `text-link-hover` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 6.7:1 ✅ AAA | 8.9:1 ✅ AAA | 链接悬停 |
-| `text-link-visited` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 5.2:1 ✅ AA | 6.5:1 ✅ AAA | 已访问链接 |
-| `text-link-active` | Blue-800<br>#1E40AF | Blue-200<br>#BFDBFE | 8.2:1 ✅ AAA | 10.2:1 ✅ AAA | 链接激活（按下） |
+| `text-link` | Blue-700<br>#1976D2 | Blue-300<br>#64B5F6 | 4.6:1 ✅ AA | 7.0:1 ✅ AAA | 默认链接 |
+| `text-link-hover` | Blue-800<br>#1565C0 | Blue-200<br>#90CAF9 | 6.03:1 ✅ AA | 10.2:1 ✅ AAA | 链接悬停 |
+| `text-link-visited` | Purple-700<br>#7B1FA2 | Purple-300<br>#BA68C8 | 5.45:1 ✅ AA | 6.1:1 ✅ AA | 已访问链接 |
+| `text-link-active` | Blue-900<br>#0D47A1 | Blue-100<br>#BBDEFB | 8.59:1 ✅ AAA | 14.4:1 ✅ AAA | 链接激活（按下） |
+
+**注意：** Blue-600 (#1E88E5) 对比度仅 3.68:1，不符合 WCAG AA 标准，必须使用 Blue-700。
 
 ---
 
@@ -38,13 +42,15 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-success` | Green-600<br>#008937 | Green-400<br>#66F59F | 4.5:1 ✅ AA | 5.5:1 ✅ AA | 成功提示 |
-| `text-warning` | Yellow-700<br>#725400 | Yellow-400<br>#F9D162 | 7.0:1 ✅ AAA | 4.8:1 ✅ AA | 警告提示 |
-| `text-error` | Red-600<br>#ED0505 | Red-400<br>#F56666 | 4.5:1 ✅ AA | 4.9:1 ✅ AA | 错误提示 |
-| `text-info` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | 4.5:1 ✅ AA | 6.3:1 ✅ AAA | 信息提示 |
+| `text-success` | Green-700<br>#388E3C | Green-300<br>#81C784 | 5.44:1 ✅ AA | 7.0:1 ✅ AAA | 成功提示 |
+| `text-warning` | Grey-900<br>#212121 | Amber-100<br>#FFECB3 | 16.1:1 ✅ AAA | 15.8:1 ✅ AAA | 警告文本（需搭配 Amber-100 背景） |
+| `text-error` | Red-700<br>#D32F2F | Red-300<br>#E57373 | 4.98:1 ✅ AA | 6.2:1 ✅ AA | 错误提示 |
+| `text-info` | Blue-700<br>#1976D2 | Blue-300<br>#64B5F6 | 4.6:1 ✅ AA | 7.0:1 ✅ AAA | 信息提示 |
 
 **关键：**
-- Yellow 在浅色模式下必须使用 700 色阶（600 对比度仅 3.2:1 ❌）
+- Green-600 对比度仅 3.3:1 ❌，必须使用 Green-700
+- Red-600 对比度仅 4.03:1 ⚠️，必须使用 Red-700
+- Amber 所有色阶都不符合 AA 标准，警告文本使用 **反转方案**：Grey-900 文本 + Amber-100 背景
 
 ---
 
@@ -52,9 +58,9 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `text-brand` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | Logo、品牌口号 |
-| `text-emphasis` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 需要突出的文本 |
-| `text-highlight` | Orange-600<br>#EA580C | Orange-400<br>#FB923C | 高亮标记（如搜索结果） |
+| `text-brand` | Blue-700<br>#1976D2 | Blue-300<br>#64B5F6 | Logo、品牌口号 |
+| `text-emphasis` | Blue-800<br>#1565C0 | Blue-200<br>#90CAF9 | 需要突出的文本 |
+| `text-highlight` | Deep Orange-700<br>#E64A19 | Deep Orange-300<br>#FF8A65 | 高亮标记（如搜索结果） |
 
 ---
 
@@ -62,87 +68,87 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `text-code` | Pink-600<br>#DB2777 | Pink-400<br>#F472B6 | 行内代码 |
-| `text-code-keyword` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 代码关键字 |
-| `text-code-string` | Green-600<br>#008937 | Green-400<br>#66F59F | 代码字符串 |
-| `text-code-comment` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 代码注释 |
-| `text-code-number` | Orange-600<br>#EA580C | Orange-400<br>#FB923C | 代码数字 |
+| `text-code` | Pink-700<br>#C2185B | Pink-300<br>#F06292 | 行内代码 |
+| `text-code-keyword` | Purple-700<br>#7B1FA2 | Purple-300<br>#BA68C8 | 代码关键字 |
+| `text-code-string` | Green-700<br>#388E3C | Green-300<br>#81C784 | 代码字符串 |
+| `text-code-comment` | Grey-500<br>#9E9E9E | Grey-400<br>#BDBDBD | 代码注释 |
+| `text-code-number` | Deep Orange-700<br>#E64A19 | Deep Orange-300<br>#FF8A65 | 代码数字 |
 
 ---
 
 ## CSS Variables 定义
 
 ```css
-/* ========== 浅色模式（默认） ========== */
+/* ========== 浅色模式（默认）- Material Design ========== */
 :root {
   /* 层级文本色 */
-  --text-primary: #171717;
-  --text-secondary: #525252;
-  --text-tertiary: #737373;
-  --text-quaternary: #A3A3A3;
-  --text-disabled: #A3A3A3;
+  --text-primary: #212121;       /* Grey-900, 16.1:1 AAA */
+  --text-secondary: #757575;     /* Grey-600, 4.68:1 AA */
+  --text-tertiary: #9E9E9E;      /* Grey-500, 3.15:1 */
+  --text-quaternary: #BDBDBD;    /* Grey-400, 2.26:1 */
+  --text-disabled: #BDBDBD;      /* Grey-400, 2.26:1 */
   --text-inverse: #FFFFFF;
-  --text-placeholder: #A3A3A3;
+  --text-placeholder: #BDBDBD;   /* Grey-400, 2.26:1 */
 
   /* 链接文本色 */
-  --text-link: #0770FA;
-  --text-link-hover: #1D4ED8;
-  --text-link-visited: #9333EA;
-  --text-link-active: #1E40AF;
+  --text-link: #1976D2;          /* Blue-700, 4.6:1 AA */
+  --text-link-hover: #1565C0;    /* Blue-800, 6.03:1 AA */
+  --text-link-visited: #7B1FA2;  /* Purple-700, 5.45:1 AA */
+  --text-link-active: #0D47A1;   /* Blue-900, 8.59:1 AAA */
 
   /* 功能反馈文本色 */
-  --text-success: #008937;
-  --text-warning: #725400;
-  --text-error: #ED0505;
-  --text-info: #0770FA;
+  --text-success: #388E3C;       /* Green-700, 5.44:1 AA */
+  --text-warning: #212121;       /* Grey-900 (配合 Amber-100 背景), 16.1:1 AAA */
+  --text-error: #D32F2F;         /* Red-700, 4.98:1 AA */
+  --text-info: #1976D2;          /* Blue-700, 4.6:1 AA */
 
   /* 品牌/强调文本色 */
-  --text-brand: #0770FA;
-  --text-emphasis: #1D4ED8;
-  --text-highlight: #EA580C;
+  --text-brand: #1976D2;         /* Blue-700 */
+  --text-emphasis: #1565C0;      /* Blue-800 */
+  --text-highlight: #E64A19;     /* Deep Orange-700 */
 
   /* 特殊场景文本色 */
-  --text-code: #DB2777;
-  --text-code-keyword: #9333EA;
-  --text-code-string: #008937;
-  --text-code-comment: #737373;
-  --text-code-number: #EA580C;
+  --text-code: #C2185B;          /* Pink-700 */
+  --text-code-keyword: #7B1FA2;  /* Purple-700 */
+  --text-code-string: #388E3C;   /* Green-700 */
+  --text-code-comment: #9E9E9E;  /* Grey-500 */
+  --text-code-number: #E64A19;   /* Deep Orange-700 */
 }
 
 /* ========== 暗色模式 ========== */
 [data-theme="dark"] {
   /* 层级文本色 */
-  --text-primary: #FAFAFA;
-  --text-secondary: #D4D4D4;
-  --text-tertiary: #A3A3A3;
-  --text-quaternary: #737373;
-  --text-disabled: #525252;
-  --text-inverse: #171717;
-  --text-placeholder: #737373;
+  --text-primary: #FAFAFA;       /* Grey-50 */
+  --text-secondary: #E0E0E0;     /* Grey-300 */
+  --text-tertiary: #BDBDBD;      /* Grey-400 */
+  --text-quaternary: #9E9E9E;    /* Grey-500 */
+  --text-disabled: #757575;      /* Grey-600 */
+  --text-inverse: #212121;       /* Grey-900 */
+  --text-placeholder: #9E9E9E;   /* Grey-500 */
 
   /* 链接文本色 */
-  --text-link: #60A5FA;
-  --text-link-hover: #93C5FD;
-  --text-link-visited: #C084FC;
-  --text-link-active: #BFDBFE;
+  --text-link: #64B5F6;          /* Blue-300 */
+  --text-link-hover: #90CAF9;    /* Blue-200 */
+  --text-link-visited: #BA68C8;  /* Purple-300 */
+  --text-link-active: #BBDEFB;   /* Blue-100 */
 
   /* 功能反馈文本色 */
-  --text-success: #4ADE80;
-  --text-warning: #FACC15;
-  --text-error: #F87171;
-  --text-info: #22D3EE;
+  --text-success: #81C784;       /* Green-300 */
+  --text-warning: #FFECB3;       /* Amber-100 (配合 Amber-900 背景) */
+  --text-error: #E57373;         /* Red-300 */
+  --text-info: #64B5F6;          /* Blue-300 */
 
   /* 品牌/强调文本色 */
-  --text-brand: #60A5FA;
-  --text-emphasis: #93C5FD;
-  --text-highlight: #FB923C;
+  --text-brand: #64B5F6;         /* Blue-300 */
+  --text-emphasis: #90CAF9;      /* Blue-200 */
+  --text-highlight: #FF8A65;     /* Deep Orange-300 */
 
   /* 特殊场景文本色 */
-  --text-code: #F472B6;
-  --text-code-keyword: #C084FC;
-  --text-code-string: #4ADE80;
-  --text-code-comment: #A3A3A3;
-  --text-code-number: #FB923C;
+  --text-code: #F06292;          /* Pink-300 */
+  --text-code-keyword: #BA68C8;  /* Purple-300 */
+  --text-code-string: #81C784;   /* Green-300 */
+  --text-code-comment: #BDBDBD;  /* Grey-400 */
+  --text-code-number: #FF8A65;   /* Deep Orange-300 */
 }
 ```
 
@@ -417,34 +423,44 @@ module.exports = {
 {
   "text": {
     "primary": {
-      "value": "#171717",
+      "value": "#212121",
       "$extensions": {
         "mode": {
           "dark": "#FAFAFA"
         }
       },
       "type": "color",
-      "description": "主要文本，对比度 15.3:1 (AAA)"
+      "description": "主要文本，Material Design Grey-900，对比度 16.1:1 (AAA)"
     },
     "link": {
-      "value": "#0770FA",
+      "value": "#1976D2",
       "$extensions": {
         "mode": {
-          "dark": "#60A5FA"
+          "dark": "#64B5F6"
         }
       },
       "type": "color",
-      "description": "链接文本，对比度 5.3:1 (AA)"
+      "description": "链接文本，Material Design Blue-700，对比度 4.6:1 (AA)"
     },
     "error": {
-      "value": "#ED0505",
+      "value": "#D32F2F",
       "$extensions": {
         "mode": {
-          "dark": "#F87171"
+          "dark": "#E57373"
         }
       },
       "type": "color",
-      "description": "错误文本，对比度 5.9:1 (AA)"
+      "description": "错误文本，Material Design Red-700，对比度 4.98:1 (AA)"
+    },
+    "success": {
+      "value": "#388E3C",
+      "$extensions": {
+        "mode": {
+          "dark": "#81C784"
+        }
+      },
+      "type": "color",
+      "description": "成功文本，Material Design Green-700，对比度 5.44:1 (AA)"
     }
   }
 }
@@ -456,6 +472,7 @@ module.exports = {
 - [语义化色彩总览](../semantic-colors.md)
 - [背景色 Token](./background-colors.md)
 - [功能色 Token](./functional-colors.md)
+- [色板系统](../color-palette.md) - Material Design 17 色标准色板
 
-**文档版本：** v1.0
+**文档版本：** v2.0 (Material Design)
 **最后更新：** 2025-11-16

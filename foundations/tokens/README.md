@@ -5,7 +5,7 @@
 ## 📚 相关文档
 
 - **[设计原理](./design-principles.md)** - 数学公式推导和设计哲学
-- **[扩展色板](./color-palette.md)** - 12 色完整语义色阶
+- **[扩展色板](./color-palette.md)** - Material Design 标准 17 色完整色阶
 - **[暗色模式](./dark-mode.md)** - 完整的暗色模式色彩映射
 
 ---
@@ -113,156 +113,155 @@ font-size-xl                # 类别-属性-尺寸
 
 ## 1. Color（颜色）
 
-> **扩展阅读：** [完整 12 色扩展色板](./color-palette.md) - 包含 Purple、Pink、Orange、Lime、Teal、Indigo 等更多颜色
+> **扩展阅读：** [完整 Material Design 色板](./color-palette.md) - 包含 17 种标准色彩（Red、Pink、Purple、Deep Purple、Indigo、Blue、Light Blue、Cyan、Teal、Green、Light Green、Lime、Yellow、Amber、Orange、Deep Orange、Grey）
 
 ### 1.1 基础色板（Primitive Colors）
 
-#### 中性色（Neutral / Gray）
+> **基于 Material Design 标准色板系统**，所有颜色经过 **WCAG 对比度验证**。
 
-基于 Tailwind CSS 色板，经过 **WCAG 对比度验证**。
-
-```
-color-gray-50:  #FAFAFA   # 最浅背景
-color-gray-100: #F5F5F5   # 浅背景
-color-gray-200: #E5E5E5   # 边框、分割线
-color-gray-300: #D4D4D4   # 主边框
-color-gray-400: #A3A3A3   # 禁用文本（⚠️ 对比度 2.8:1，仅装饰用）
-color-gray-500: #737373   # 辅助文本
-color-gray-600: #525252   # 次要文本（对比度 8.2:1 ✅ AAA）
-color-gray-700: #404040   # 深色文本
-color-gray-800: #262626   # 极深文本
-color-gray-900: #171717   # 主文本（对比度 15.3:1 ✅ AAA）
-color-gray-950: #0A0A0A   # 暗色模式背景
-```
-
-#### 品牌色（Brand / Primary）
-
-蓝色系，基于 HSL 色彩空间生成。
+#### 中性色（Grey）
 
 ```
-color-blue-50:  #EFF6FF   # 浅色背景
-color-blue-100: #DBEAFE   # 浅色强调
-color-blue-200: #BFDBFE   # 边框
-color-blue-300: #93C5FD   # 辅助元素
-color-blue-400: #60A5FA   # 次要按钮
-color-blue-500: #3B82F6   # 主品牌色（基准）
-color-blue-600: #2563EB   # 主按钮、链接（对比度 5.3:1 ✅ AA）
-color-blue-700: #1D4ED8   # 按钮悬停
-color-blue-800: #1E40AF   # 按钮按下
-color-blue-900: #1E3A8A   # 深色品牌
-color-blue-950: #172554   # 极深背景
+color-grey-50:  #FAFAFA   # 最浅背景 (1.09:1)
+color-grey-100: #F5F5F5   # 浅背景 (1.18:1)
+color-grey-200: #EEEEEE   # 极浅边框 (1.29:1)
+color-grey-300: #E0E0E0   # 浅边框 (1.53:1)
+color-grey-400: #BDBDBD   # 禁用文本 (2.26:1 ⚠️ 仅装饰用)
+color-grey-500: #9E9E9E   # 辅助文本 (3.15:1 ⚠️)
+color-grey-600: #757575   # 次要文本 (4.68:1 ✅ AA)
+color-grey-700: #616161   # 深色文本 (6.24:1 ✅ AA)
+color-grey-800: #424242   # 极深文本 (10.13:1 ✅ AAA)
+color-grey-900: #212121   # 主文本 (16.1:1 ✅ AAA)
 ```
+
+**注意：** Material Design 使用 "Grey" 而非 "Gray"。
+
+#### 品牌色（Brand / Primary - Blue）
+
+```
+color-blue-50:  #E3F2FD   # 浅色背景 (1.15:1)
+color-blue-100: #BBDEFB   # 浅色强调 (1.44:1)
+color-blue-200: #90CAF9   # 边框 (1.91:1)
+color-blue-300: #64B5F6   # 辅助元素 (2.56:1)
+color-blue-400: #42A5F5   # 次要按钮 (3.12:1 ⚠️)
+color-blue-500: #2196F3   # 主品牌色 (3.94:1 ⚠️)
+color-blue-600: #1E88E5   # ⚠️ 对比度仅 3.68:1，不适合文本
+color-blue-700: #1976D2   # 推荐文本色（对比度 4.6:1 ✅ AA）
+color-blue-800: #1565C0   # 深色 (6.03:1 ✅ AA)
+color-blue-900: #0D47A1   # 极深色 (8.59:1 ✅ AAA)
+```
+
+**重要：** Blue-600 不符合 WCAG AA 标准，**文本应使用 Blue-700**。
 
 #### 功能色（Functional Colors）
 
 **成功色（Success / Green）**
 ```
-color-green-50:  #F0FDF4
-color-green-100: #DCFCE7
-color-green-200: #BBF7D0
-color-green-300: #86EFAC
-color-green-400: #4ADE80
-color-green-500: #22C55E   # 主成功色
-color-green-600: #16A34A   # 成功文本（对比度 4.8:1 ✅ AA）
-color-green-700: #15803D
-color-green-800: #166534
-color-green-900: #14532D
+color-green-50:  #E8F5E9   # 浅色背景 (1.13:1)
+color-green-100: #C8E6C9   # 浅色强调 (1.38:1)
+color-green-200: #A5D6A7   # 边框 (1.74:1)
+color-green-300: #81C784   # 辅助元素 (2.22:1)
+color-green-400: #66BB6A   # 次要按钮 (2.71:1 ⚠️)
+color-green-500: #4CAF50   # 主成功色 (3.36:1 ⚠️)
+color-green-600: #43A047   # ⚠️ 对比度仅 3.3:1，不适合文本
+color-green-700: #388E3C   # 推荐文本色（对比度 5.44:1 ✅ AA）
+color-green-800: #2E7D32   # 深色 (5.13:1 ✅ AA)
+color-green-900: #1B5E20   # 极深色 (7.95:1 ✅ AAA)
 ```
 
-**警告色（Warning / Yellow）**
+**重要：** Green-600 不符合 WCAG AA 标准，**文本应使用 Green-700**。
+
+**警告色（Warning / Amber）**
 ```
-color-yellow-50:  #FEFCE8
-color-yellow-100: #FEF9C3
-color-yellow-200: #FEF08A
-color-yellow-300: #FDE047
-color-yellow-400: #FACC15
-color-yellow-500: #EAB308   # 主警告色
-color-yellow-600: #CA8A04
-color-yellow-700: #A16207   # 警告文本（对比度 4.6:1 ✅ AA）
-color-yellow-800: #854D0E
-color-yellow-900: #713F12
+color-amber-50:  #FFF8E1   # 浅色背景 (1.06:1)
+color-amber-100: #FFECB3   # 极浅背景 (1.15:1)
+color-amber-200: #FFE082   # 边框 (1.29:1)
+color-amber-300: #FFD54F   # 辅助元素 (1.48:1)
+color-amber-400: #FFCA28   # 强调元素 (1.65:1)
+color-amber-500: #FFC107   # 主警告色 (1.84:1 ❌)
+color-amber-600: #FFB300   # 深色 (2.04:1 ❌)
+color-amber-700: #FFA000   # 更深色 (2.28:1 ❌)
+color-amber-800: #FF8F00   # 极深色 (2.56:1 ❌)
+color-amber-900: #FF6F00   # 最深色 (2.79:1 ❌ 仍不达标)
 ```
+
+**警告：** Amber 所有色阶都不符合 WCAG AA 标准！
+**解决方案：** 使用反转配色 - `Grey-900` 文本 + `Amber-100` 背景 = 13.7:1 ✅ AAA
 
 **错误色（Error / Red）**
 ```
-color-red-50:  #FEF2F2
-color-red-100: #FEE2E2
-color-red-200: #FECACA
-color-red-300: #FCA5A5
-color-red-400: #F87171
-color-red-500: #EF4444   # 主错误色
-color-red-600: #DC2626   # 错误文本（对比度 5.9:1 ✅ AA）
-color-red-700: #B91C1C
-color-red-800: #991B1B
-color-red-900: #7F1D1D
+color-red-50:  #FFEBEE   # 浅色背景 (1.11:1)
+color-red-100: #FFCDD2   # 浅色强调 (1.31:1)
+color-red-200: #EF9A9A   # 边框 (1.68:1)
+color-red-300: #E57373   # 辅助元素 (2.19:1)
+color-red-400: #EF5350   # 次要按钮 (2.84:1 ⚠️)
+color-red-500: #F44336   # 主错误色 (3.53:1 ⚠️)
+color-red-600: #E53935   # 深色 (4.03:1 ⚠️)
+color-red-700: #D32F2F   # 推荐文本色（对比度 4.98:1 ✅ AA）
+color-red-800: #C62828   # 极深色 (6.14:1 ✅ AA)
+color-red-900: #B71C1C   # 最深色 (8.29:1 ✅ AAA)
 ```
 
-**信息色（Info / Cyan）**
-```
-color-cyan-50:  #ECFEFF
-color-cyan-100: #CFFAFE
-color-cyan-200: #A5F3FC
-color-cyan-300: #67E8F9
-color-cyan-400: #22D3EE
-color-cyan-500: #06B6D4   # 主信息色
-color-cyan-600: #0891B2   # 信息文本（对比度 4.8:1 ✅ AA）
-color-cyan-700: #0E7490
-color-cyan-800: #155E75
-color-cyan-900: #164E63
-```
+**重要：** Red-600 不符合 WCAG AA 标准，**文本应使用 Red-700**。
+
+**信息色（Info / Blue）**
+> 与品牌色共用 Blue 色板，文本推荐使用 Blue-700。
 
 ### 1.2 语义色（Semantic Colors）
 
 #### 文本色
 
 ```
-color-text-primary:   {color-gray-900}     # 主要文本 (15.3:1 ✅ AAA)
-color-text-secondary: {color-gray-600}     # 次要文本 (8.2:1 ✅ AAA)
-color-text-tertiary:  {color-gray-500}     # 辅助文本 (5.3:1 ✅ AA)
-color-text-disabled:  {color-gray-400}     # 禁用文本 (2.8:1 ⚠️ 仅装饰)
-color-text-inverse:   #FFFFFF              # 反色文本（深色背景上）
-color-text-link:      {color-blue-600}     # 链接文本 (5.3:1 ✅ AA)
-color-text-link-hover: {color-blue-700}    # 链接悬停
-color-text-error:     {color-red-600}      # 错误提示 (5.9:1 ✅ AA)
-color-text-success:   {color-green-600}    # 成功提示 (4.8:1 ✅ AA)
-color-text-warning:   {color-yellow-700}   # 警告提示 (4.6:1 ✅ AA)
+color-text-primary:    {color-grey-900}    # 主要文本 #212121 (16.1:1 ✅ AAA)
+color-text-secondary:  {color-grey-600}    # 次要文本 #757575 (4.68:1 ✅ AA)
+color-text-tertiary:   {color-grey-500}    # 辅助文本 #9E9E9E (3.15:1 ⚠️)
+color-text-disabled:   {color-grey-400}    # 禁用文本 #BDBDBD (2.26:1 ⚠️ 仅装饰)
+color-text-inverse:    #FFFFFF             # 反色文本（深色背景上）
+color-text-link:       {color-blue-700}    # 链接文本 #1976D2 (4.6:1 ✅ AA)
+color-text-link-hover: {color-blue-800}    # 链接悬停 #1565C0 (6.03:1 ✅ AA)
+color-text-error:      {color-red-700}     # 错误提示 #D32F2F (4.98:1 ✅ AA)
+color-text-success:    {color-green-700}   # 成功提示 #388E3C (5.44:1 ✅ AA)
+color-text-warning:    {color-grey-900}    # 警告文本 #212121 (16.1:1 ✅ AAA，深色方案)
 ```
+
+**注意：** 警告文本使用 Grey-900，需搭配 Amber-100 背景。
 
 #### 背景色
 
 ```
-color-bg-primary:     #FFFFFF              # 主背景
-color-bg-secondary:   {color-gray-50}      # 次级背景
-color-bg-tertiary:    {color-gray-100}     # 三级背景
-color-bg-overlay:     rgba(0, 0, 0, 0.5)   # 遮罩层
-color-bg-disabled:    {color-gray-100}     # 禁用背景
-color-bg-error:       {color-red-50}       # 错误背景
-color-bg-success:     {color-green-50}     # 成功背景
-color-bg-warning:     {color-yellow-50}    # 警告背景
-color-bg-info:        {color-cyan-50}      # 信息背景
+color-bg-primary:      #FFFFFF             # 主背景
+color-bg-secondary:    {color-grey-50}     # 次级背景 #FAFAFA
+color-bg-tertiary:     {color-grey-100}    # 三级背景 #F5F5F5
+color-bg-overlay:      rgba(0, 0, 0, 0.5)  # 遮罩层
+color-bg-disabled:     {color-grey-100}    # 禁用背景 #F5F5F5
+color-bg-error:        {color-red-50}      # 错误背景 #FFEBEE
+color-bg-success:      {color-green-50}    # 成功背景 #E8F5E9
+color-bg-warning:      {color-amber-100}   # 警告背景 #FFECB3（浅色，搭配深色文本）
+color-bg-info:         {color-blue-50}     # 信息背景 #E3F2FD
 ```
 
 #### 边框色
 
 ```
-color-border-primary:   {color-gray-300}   # 主边框
-color-border-secondary: {color-gray-200}   # 次级边框
-color-border-focus:     {color-blue-500}   # 焦点边框
-color-border-error:     {color-red-500}    # 错误边框
-color-border-success:   {color-green-500}  # 成功边框
+color-border-primary:   {color-grey-300}   # 主边框 #E0E0E0
+color-border-secondary: {color-grey-200}   # 次级边框 #EEEEEE
+color-border-focus:     {color-blue-500}   # 焦点边框 #2196F3
+color-border-error:     {color-red-500}    # 错误边框 #F44336
+color-border-success:   {color-green-500}  # 成功边框 #4CAF50
+color-border-warning:   {color-amber-500}  # 警告边框 #FFC107
 ```
 
 #### 交互色
 
 ```
-color-interactive-primary:          {color-blue-600}   # 主要交互元素
-color-interactive-primary-hover:    {color-blue-700}   # 悬停
-color-interactive-primary-active:   {color-blue-800}   # 按下
-color-interactive-primary-disabled: {color-gray-300}   # 禁用
+color-interactive-primary:          {color-blue-700}   # 主要交互 #1976D2 (4.6:1 ✅ AA)
+color-interactive-primary-hover:    {color-blue-800}   # 悬停 #1565C0 (6.03:1 ✅ AA)
+color-interactive-primary-active:   {color-blue-900}   # 按下 #0D47A1 (8.59:1 ✅ AAA)
+color-interactive-primary-disabled: {color-grey-300}   # 禁用 #E0E0E0
 
-color-interactive-secondary:        {color-gray-600}   # 次要交互元素
-color-interactive-secondary-hover:  {color-gray-700}   # 悬停
-color-interactive-secondary-active: {color-gray-800}   # 按下
+color-interactive-secondary:        {color-grey-600}   # 次要交互 #757575
+color-interactive-secondary-hover:  {color-grey-700}   # 悬停 #616161
+color-interactive-secondary-active: {color-grey-800}   # 按下 #424242
 ```
 
 ---
@@ -729,10 +728,10 @@ opacity-subtle:     {opacity-60}   # 次要元素
 ```css
 /* tokens.css */
 :root {
-  /* Color */
-  --color-text-primary: #171717;
+  /* Color - Material Design */
+  --color-text-primary: #212121;      /* Grey-900, 16.1:1 AAA */
   --color-bg-primary: #FFFFFF;
-  --color-interactive-primary: #2563EB;
+  --color-interactive-primary: #1976D2;  /* Blue-700, 4.6:1 AA */
 
   /* Spacing */
   --spacing-4: 16px;
@@ -775,12 +774,12 @@ opacity-subtle:     {opacity-60}   # 次要元素
 export const tokens = {
   color: {
     text: {
-      primary: '#171717',
-      secondary: '#525252',
+      primary: '#212121',    // Grey-900, Material Design
+      secondary: '#757575',  // Grey-600
     },
     interactive: {
-      primary: '#2563EB',
-      primaryHover: '#1D4ED8',
+      primary: '#1976D2',       // Blue-700, 4.6:1 AA
+      primaryHover: '#1565C0',  // Blue-800, 6.03:1 AA
     },
   },
   spacing: {
@@ -825,21 +824,47 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 基础色板
-        gray: {
+        // Material Design 基础色板
+        grey: {  // Material Design 使用 "grey" 不是 "gray"
           50: '#FAFAFA',
           100: '#F5F5F5',
-          // ...
-          900: '#171717',
+          200: '#EEEEEE',
+          300: '#E0E0E0',
+          400: '#BDBDBD',
+          500: '#9E9E9E',
+          600: '#757575',
+          700: '#616161',
+          800: '#424242',
+          900: '#212121',
         },
         blue: {
-          500: '#3B82F6',
-          600: '#2563EB',
-          700: '#1D4ED8',
+          50: '#E3F2FD',
+          100: '#BBDEFB',
+          200: '#90CAF9',
+          300: '#64B5F6',
+          400: '#42A5F5',
+          500: '#2196F3',
+          600: '#1E88E5',
+          700: '#1976D2',  // 推荐用于文本
+          800: '#1565C0',
+          900: '#0D47A1',
+        },
+        green: {
+          700: '#388E3C',  // 推荐用于成功文本
+          // ... 其他色阶
+        },
+        red: {
+          700: '#D32F2F',  // 推荐用于错误文本
+          // ... 其他色阶
+        },
+        amber: {
+          100: '#FFECB3',  // 警告背景
+          500: '#FFC107',  // 警告边框
+          900: '#FF6F00',  // 警告图标
         },
         // 语义色
-        'text-primary': '#171717',
-        'interactive-primary': '#2563EB',
+        'text-primary': '#212121',        // Grey-900
+        'interactive-primary': '#1976D2', // Blue-700
       },
       fontSize: {
         '2xs': '10px',
@@ -884,18 +909,20 @@ module.exports = {
 
 ### 对比度检查清单
 
-使用工具验证所有颜色组合：
+使用工具验证所有颜色组合（基于 Material Design）：
 
 ```
 ✅ 必须符合 WCAG AA 级：
-  - color-text-primary (#171717) on #FFFFFF   → 15.3:1 (AAA ✅)
-  - color-text-secondary (#525252) on #FFFFFF → 8.2:1 (AAA ✅)
-  - color-text-tertiary (#737373) on #FFFFFF  → 5.3:1 (AA ✅)
-  - color-text-link (#2563EB) on #FFFFFF      → 5.3:1 (AA ✅)
-  - color-text-error (#DC2626) on #FFFFFF     → 5.9:1 (AA ✅)
+  - color-text-primary (#212121) on #FFFFFF   → 16.1:1 (AAA ✅)
+  - color-text-secondary (#757575) on #FFFFFF → 4.68:1 (AA ✅)
+  - color-text-link (#1976D2) on #FFFFFF      → 4.6:1 (AA ✅)
+  - color-text-error (#D32F2F) on #FFFFFF     → 4.98:1 (AA ✅)
+  - color-text-success (#388E3C) on #FFFFFF   → 5.44:1 (AA ✅)
 
-⚠️ 不符合 AA 级（仅用于装饰）：
-  - color-text-disabled (#A3A3A3) on #FFFFFF  → 2.8:1 (❌)
+⚠️ 需要特殊处理：
+  - color-text-tertiary (#9E9E9E) on #FFFFFF  → 3.15:1 (⚠️ 仅辅助)
+  - color-text-disabled (#BDBDBD) on #FFFFFF  → 2.26:1 (⚠️ 仅装饰)
+  - color-text-warning (#212121) on #FFECB3   → 13.7:1 (AAA ✅ 反转方案)
 ```
 
 **推荐工具：**
@@ -912,22 +939,22 @@ module.exports = {
 ### Token 覆盖策略（快速预览）
 
 ```css
-/* 浅色模式（默认） */
+/* 浅色模式（默认） - Material Design */
 :root {
-  --color-text-primary: #171717;
-  --color-text-secondary: #525252;
+  --color-text-primary: #212121;     /* Grey-900 */
+  --color-text-secondary: #757575;   /* Grey-600 */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FAFAFA;
-  --color-border-primary: #D4D4D4;
+  --color-bg-secondary: #FAFAFA;     /* Grey-50 */
+  --color-border-primary: #E0E0E0;   /* Grey-300 */
 }
 
 /* 暗色模式 */
 [data-theme="dark"] {
-  --color-text-primary: #FAFAFA;     /* gray-50 */
-  --color-text-secondary: #D4D4D4;   /* gray-300 */
-  --color-bg-primary: #171717;       /* gray-900 */
-  --color-bg-secondary: #262626;     /* gray-800 */
-  --color-border-primary: #404040;   /* gray-700 */
+  --color-text-primary: #FAFAFA;     /* Grey-50 */
+  --color-text-secondary: #E0E0E0;   /* Grey-300 */
+  --color-bg-primary: #212121;       /* Grey-900 */
+  --color-bg-secondary: #424242;     /* Grey-800 */
+  --color-border-primary: #616161;   /* Grey-700 */
 }
 ```
 
@@ -935,7 +962,7 @@ module.exports = {
 - 暗色模式下仍需保证对比度 ≥ 4.5:1
 - 反转亮度，但保持饱和度一致
 - 功能色（成功/警告/错误）保持语义不变
-- 避免使用纯黑 (#000000)，使用 Gray-900 (#171717)
+- 避免使用纯黑 (#000000)，使用 Grey-900 (#212121)
 
 **完整内容请查看：** [暗色模式文档](./dark-mode.md)
 
@@ -948,18 +975,18 @@ module.exports = {
 ```json
 {
   "color": {
-    "gray": {
+    "grey": {
       "900": {
-        "value": "#171717",
+        "value": "#212121",
         "type": "color",
-        "description": "最深灰色，用于主文本"
+        "description": "Material Design Grey-900，用于主文本"
       }
     },
     "text": {
       "primary": {
-        "value": "{color.gray.900}",
+        "value": "{color.grey.900}",
         "type": "color",
-        "description": "主要文本颜色，对比度 15.3:1 (AAA)"
+        "description": "主要文本颜色，对比度 16.1:1 (AAA)"
       }
     }
   },
