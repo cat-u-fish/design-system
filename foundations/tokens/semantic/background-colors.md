@@ -35,8 +35,8 @@
 |-------|---------|---------|------|
 | `bg-hover` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 通用悬停背景 |
 | `bg-active` | Gray-100<br>#F5F5F5 | Gray-700<br>#404040 | 通用激活背景 |
-| `bg-selected` | Blue-50<br>#EFF6FF | Blue-950<br>#172554 | 选中项背景 |
-| `bg-selected-hover` | Blue-100<br>#DBEAFE | Blue-900<br>#1E3A8A | 选中项悬停 |
+| `bg-selected` | Blue-50<br>#F5F7FA | Blue-950<br>#011C40 | 选中项背景 |
+| `bg-selected-hover` | Blue-100<br>#E9EFF7 | Blue-900<br>#1E3A8A | 选中项悬停 |
 | `bg-disabled` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 禁用背景 |
 
 ---
@@ -45,12 +45,12 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-success` | Green-50<br>#F0FDF4 | Green-950<br>#052E16 | 成功背景（淡绿） |
-| `bg-success-subtle` | Green-50<br>#F0FDF4 | rgba(Green-500, 0.1) | 极淡成功背景 |
-| `bg-warning` | Yellow-50<br>#FEFCE8 | Yellow-950<br>#422006 | 警告背景（淡黄） |
-| `bg-warning-subtle` | Yellow-50<br>#FEFCE8 | rgba(Yellow-500, 0.1) | 极淡警告背景 |
-| `bg-error` | Red-50<br>#FEF2F2 | Red-950<br>#450A0A | 错误背景（淡红） |
-| `bg-error-subtle` | Red-50<br>#FEF2F2 | rgba(Red-500, 0.1) | 极淡错误背景 |
+| `bg-success` | Green-50<br>#F4FAF7 | Green-950<br>#003314 | 成功背景（淡绿） |
+| `bg-success-subtle` | Green-50<br>#F4FAF7 | rgba(Green-500, 0.1) | 极淡成功背景 |
+| `bg-warning` | Yellow-50<br>#FBF9F4 | Yellow-950<br>#332500 | 警告背景（淡黄） |
+| `bg-warning-subtle` | Yellow-50<br>#FBF9F4 | rgba(Yellow-500, 0.1) | 极淡警告背景 |
+| `bg-error` | Red-50<br>#FAF4F4 | Red-950<br>#380000 | 错误背景（淡红） |
+| `bg-error-subtle` | Red-50<br>#FAF4F4 | rgba(Red-500, 0.1) | 极淡错误背景 |
 | `bg-info` | Cyan-50<br>#ECFEFF | Cyan-950<br>#083344 | 信息背景（淡蓝） |
 | `bg-info-subtle` | Cyan-50<br>#ECFEFF | rgba(Cyan-500, 0.1) | 极淡信息背景 |
 
@@ -89,7 +89,7 @@
 | `bg-table-header` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 表头背景 |
 | `bg-table-row` | White<br>#FFFFFF | Gray-900<br>#171717 | 表格行默认背景 |
 | `bg-table-row-hover` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 表格行悬停 |
-| `bg-table-row-selected` | Blue-50<br>#EFF6FF | Blue-950<br>#172554 | 表格行选中 |
+| `bg-table-row-selected` | Blue-50<br>#F5F7FA | Blue-950<br>#011C40 | 表格行选中 |
 | `bg-table-zebra` | Gray-50<br>#FAFAFA | Gray-850<br>rgba(31,41,55,0.5) | 斑马纹（偶数行） |
 
 ---
@@ -109,12 +109,12 @@
   
   /* 状态 */
   --bg-hover: #FAFAFA;
-  --bg-selected: #EFF6FF;
+  --bg-selected: #F5F7FA;
   
   /* 功能反馈 */
-  --bg-success: #F0FDF4;
-  --bg-warning: #FEFCE8;
-  --bg-error: #FEF2F2;
+  --bg-success: #F4FAF7;
+  --bg-warning: #FBF9F4;
+  --bg-error: #FAF4F4;
   --bg-info: #ECFEFF;
   
   /* 遮罩 */
@@ -137,12 +137,12 @@
   
   /* 状态 */
   --bg-hover: #262626;
-  --bg-selected: #172554;
+  --bg-selected: #011C40;
   
   /* 功能反馈 */
-  --bg-success: #052E16;
-  --bg-warning: #422006;
-  --bg-error: #450A0A;
+  --bg-success: #003314;
+  --bg-warning: #332500;
+  --bg-error: #380000;
   --bg-info: #083344;
   
   /* 遮罩 */

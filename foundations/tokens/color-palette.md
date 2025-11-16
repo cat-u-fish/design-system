@@ -62,20 +62,21 @@ color-gray-950: #0A0A0A
 
 ### 2. Blue（蓝色） - 主品牌色
 
-**色相：** H = 217°
+**色相：** H = 214°
+**用户定义：** `#1D75E8`
 
 ```
-color-blue-50:  #EFF6FF
-color-blue-100: #DBEAFE
-color-blue-200: #BFDBFE
-color-blue-300: #93C5FD
-color-blue-400: #60A5FA
-color-blue-500: #3B82F6   # 主品牌色
-color-blue-600: #2563EB   # 对比度 5.3:1 ✅
-color-blue-700: #1D4ED8
-color-blue-800: #1E40AF
-color-blue-900: #1E3A8A
-color-blue-950: #172554
+color-blue-50:  #F5F7FA
+color-blue-100: #E9EFF7
+color-blue-200: #CEDEF3
+color-blue-300: #9DC1F1
+color-blue-400: #68A4F3
+color-blue-500: #3B8CF7   # 主品牌色
+color-blue-600: #0770FA   # 对比度 4.5:1 ✅ AA
+color-blue-700: #0354BD   # 对比度 7.0:1 ✅ AAA
+color-blue-800: #02449B
+color-blue-900: #013272
+color-blue-950: #011C40
 ```
 
 **用途：** 主要交互元素、链接、强调
@@ -129,19 +130,20 @@ color-pink-950: #500724
 ### 5. Red（红色） - 错误/危险
 
 **色相：** H = 0°
+**用户定义：** `#F51D1D`
 
 ```
-color-red-50:  #FEF2F2
-color-red-100: #FEE2E2
-color-red-200: #FECACA
-color-red-300: #FCA5A5
-color-red-400: #F87171
-color-red-500: #EF4444   # 主错误色
-color-red-600: #DC2626   # 对比度 5.9:1 ✅
-color-red-700: #B91C1C
-color-red-800: #991B1B
-color-red-900: #7F1D1D
-color-red-950: #450A0A
+color-red-50:  #FAF4F4
+color-red-100: #F7E8E8
+color-red-200: #F4CDCD
+color-red-300: #F49A9A
+color-red-400: #F56666
+color-red-500: #F83A3A   # 主错误色
+color-red-600: #ED0505   # 对比度 4.5:1 ✅ AA
+color-red-700: #B60202   # 对比度 7.0:1 ✅ AAA
+color-red-800: #940000
+color-red-900: #6B0000
+color-red-950: #380000
 ```
 
 **用途：** 错误提示、删除操作、危险警告
@@ -172,23 +174,25 @@ color-orange-950: #431407
 
 ### 7. Yellow（黄色） - 警告/提示
 
-**色相：** H = 45°
+**色相：** H = 44°
+**用户定义：** `#FFBC00`
 
 ```
-color-yellow-50:  #FEFCE8
-color-yellow-100: #FEF9C3
-color-yellow-200: #FEF08A
-color-yellow-300: #FDE047
-color-yellow-400: #FACC15
-color-yellow-500: #EAB308   # 主警告色
-color-yellow-600: #CA8A04
-color-yellow-700: #A16207   # 对比度 4.6:1 ✅
-color-yellow-800: #854D0E
-color-yellow-900: #713F12
-color-yellow-950: #422006
+color-yellow-50:  #FBF9F4
+color-yellow-100: #F8F4E7
+color-yellow-200: #F6EACB
+color-yellow-300: #F7DD97
+color-yellow-400: #F9D162
+color-yellow-500: #FFC933   # 主警告色
+color-yellow-600: #997000   # 对比度 4.5:1（已偏棕色）
+color-yellow-700: #725400   # 对比度 7.0:1 ✅ AAA（推荐）
+color-yellow-800: #664B00
+color-yellow-900: #4C3800
+color-yellow-950: #332500
 ```
 
 **用途：** 警告提示、待处理状态、高亮标记
+**注意：** 黄色本身亮度高，600 级为达到对比度已偏棕色，建议功能色使用 **Yellow-700**
 
 ---
 
@@ -216,20 +220,21 @@ color-lime-950: #1A2E05
 
 ### 9. Green（绿色） - 成功/确认
 
-**色相：** H = 142°
+**色相：** H = 144°
+**用户定义：** `#009E3E`
 
 ```
-color-green-50:  #F0FDF4
-color-green-100: #DCFCE7
-color-green-200: #BBF7D0
-color-green-300: #86EFAC
-color-green-400: #4ADE80
-color-green-500: #22C55E   # 主成功色
-color-green-600: #16A34A   # 对比度 4.8:1 ✅
-color-green-700: #15803D
-color-green-800: #166534
-color-green-900: #14532D
-color-green-950: #052E16
+color-green-50:  #F4FAF7
+color-green-100: #E8F7EE
+color-green-200: #CDF4DC
+color-green-300: #9AF4BE
+color-green-400: #66F59F
+color-green-500: #38FA86   # 主成功色
+color-green-600: #008937   # 对比度 4.5:1 ✅ AA
+color-green-700: #006829   # 对比度 7.0:1 ✅ AAA
+color-green-800: #006629
+color-green-900: #004C1F
+color-green-950: #003314
 ```
 
 **用途：** 成功提示、确认操作、正向反馈
@@ -307,10 +312,10 @@ color-indigo-950: #1E1B4B
 ### 功能色映射
 
 ```
-成功（Success）:   Green-600   #16A34A
-警告（Warning）:   Yellow-700  #A16207
-错误（Error）:     Red-600     #DC2626
-信息（Info）:      Cyan-600    #0891B2
+成功（Success）:   Green-600   #008937  (对比度 4.5:1 ✅)
+警告（Warning）:   Yellow-700  #725400  (对比度 7.0:1 ✅，600 偏棕色不推荐)
+错误（Error）:     Red-600     #ED0505  (对比度 4.5:1 ✅)
+信息（Info）:      Blue-600    #0770FA  (对比度 4.5:1 ✅)
 ```
 
 ### 扩展语义色
@@ -318,19 +323,19 @@ color-indigo-950: #1E1B4B
 ```
 # 状态色
 color-status-pending:    {color-orange-600}   # 待处理
-color-status-processing: {color-blue-600}     # 处理中
-color-status-completed:  {color-green-600}    # 已完成
+color-status-processing: #0770FA              # 处理中 (Blue-600)
+color-status-completed:  #008937              # 已完成 (Green-600)
 color-status-canceled:   {color-gray-600}     # 已取消
-color-status-failed:     {color-red-600}      # 失败
+color-status-failed:     #ED0505              # 失败 (Red-600)
 
 # 优先级色
-color-priority-critical:  {color-red-600}     # 紧急
+color-priority-critical:  #ED0505             # 紧急 (Red-600)
 color-priority-high:      {color-orange-600}  # 高
-color-priority-medium:    {color-yellow-700}  # 中
+color-priority-medium:    #725400             # 中 (Yellow-700)
 color-priority-low:       {color-gray-600}    # 低
 
 # 数据可视化色
-color-chart-1:  {color-blue-600}     # 图表主色
+color-chart-1:  #0770FA              # 图表主色 (Blue-600)
 color-chart-2:  {color-purple-600}   # 图表辅色 1
 color-chart-3:  {color-teal-600}     # 图表辅色 2
 color-chart-4:  {color-orange-600}   # 图表辅色 3
@@ -341,7 +346,7 @@ color-chart-6:  {color-lime-600}     # 图表辅色 5
 color-social-like:      {color-pink-600}     # 喜欢/收藏
 color-social-share:     {color-cyan-600}     # 分享
 color-social-comment:   {color-purple-600}   # 评论
-color-social-follow:    {color-blue-600}     # 关注
+color-social-follow:    #0770FA              # 关注 (Blue-600)
 ```
 
 ---
@@ -352,9 +357,9 @@ color-social-follow:    {color-blue-600}     # 关注
 
 **8 色方案（高对比度）：**
 ```
-viz-cat-1:  #2563EB   (Blue-600)
+viz-cat-1:  #0770FA   (Blue-600)
 viz-cat-2:  #9333EA   (Purple-600)
-viz-cat-3:  #16A34A   (Green-600)
+viz-cat-3:  #008937   (Green-600)
 viz-cat-4:  #EA580C   (Orange-600)
 viz-cat-5:  #DB2777   (Pink-600)
 viz-cat-6:  #0891B2   (Cyan-600)
@@ -377,11 +382,11 @@ viz-seq-blue-5: {color-blue-900}
 
 **红-蓝发散：**
 ```
-viz-div-1: {color-red-700}     # 负极
-viz-div-2: {color-red-400}
-viz-div-3: {color-gray-200}    # 中性
-viz-div-4: {color-blue-400}
-viz-div-5: {color-blue-700}    # 正极
+viz-div-1: #B60202              # 负极 (Red-700)
+viz-div-2: #F56666              # (Red-400)
+viz-div-3: {color-gray-200}     # 中性
+viz-div-4: #68A4F3              # (Blue-400)
+viz-div-5: #0354BD              # 正极 (Blue-700)
 ```
 
 ---
@@ -393,14 +398,14 @@ viz-div-5: {color-blue-700}    # 正极
 | 颜色 | 600 色阶对比度 | 700 色阶对比度 | 推荐用途 |
 |-----|--------------|--------------|---------|
 | Gray | 8.2:1 ✅ AAA | 8.6:1 ✅ AAA | 常规文本 |
-| Blue | 5.3:1 ✅ AA | 6.7:1 ✅ AAA | 链接文本 |
+| Blue | 4.5:1 ✅ AA | 7.0:1 ✅ AAA | 链接文本 |
 | Purple | 5.2:1 ✅ AA | 7.1:1 ✅ AAA | 创意文本 |
 | Pink | 5.5:1 ✅ AA | 7.8:1 ✅ AAA | 强调文本 |
-| Red | 5.9:1 ✅ AA | 8.2:1 ✅ AAA | 错误文本 |
+| Red | 4.5:1 ✅ AA | 7.0:1 ✅ AAA | 错误文本 |
 | Orange | 4.8:1 ✅ AA | 6.5:1 ✅ AAA | 警示文本 |
-| Yellow | 3.2:1 ❌ | 4.6:1 ✅ AA | 警告文本（仅 700） |
+| Yellow | 4.5:1 ⚠️ 已偏棕 | 7.0:1 ✅ AAA | 警告文本（推荐 700） |
 | Lime | 4.7:1 ✅ AA | 6.4:1 ✅ AAA | 新鲜文本 |
-| Green | 4.8:1 ✅ AA | 6.8:1 ✅ AAA | 成功文本 |
+| Green | 4.5:1 ✅ AA | 7.0:1 ✅ AAA | 成功文本 |
 | Teal | 5.3:1 ✅ AA | 6.9:1 ✅ AAA | 数据文本 |
 | Cyan | 4.8:1 ✅ AA | 6.7:1 ✅ AAA | 信息文本 |
 | Indigo | 5.1:1 ✅ AA | 7.0:1 ✅ AAA | 专业文本 |
@@ -408,7 +413,8 @@ viz-div-5: {color-blue-700}    # 正极
 **规则：**
 - ✅ 使用 600 色阶：常规文本（≥ 4.5:1）
 - ✅ 使用 700 色阶：确保 AAA 级（≥ 7:1）
-- ❌ Yellow 600 不符合 AA，必须使用 700
+- ⚠️ Yellow 600 虽达标但已偏棕色，建议使用 700
+- 🎯 **Blue、Green、Red 已更新为用户定义的功能色**
 
 ---
 

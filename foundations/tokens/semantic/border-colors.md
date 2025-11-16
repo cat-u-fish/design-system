@@ -21,10 +21,10 @@
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
 | `border-hover` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 悬停边框 |
-| `border-focus` | Blue-500<br>#3B82F6 | Blue-500<br>#3B82F6 | 焦点边框 |
-| `border-active` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 激活边框 |
+| `border-focus` | Blue-500<br>#3B8CF7 | Blue-500<br>#3B8CF7 | 焦点边框 |
+| `border-active` | Blue-600<br>#0770FA | Blue-400<br>#60A5FA | 激活边框 |
 | `border-disabled` | Gray-200<br>#E5E5E5 | Gray-800<br>#262626 | 禁用边框 |
-| `border-selected` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 选中边框 |
+| `border-selected` | Blue-600<br>#0770FA | Blue-400<br>#60A5FA | 选中边框 |
 
 ---
 
@@ -61,7 +61,7 @@
   
   /* 状态边框 */
   --border-hover: #A3A3A3;
-  --border-focus: #3B82F6;
+  --border-focus: #3B8CF7;
   --border-disabled: #E5E5E5;
   
   /* 功能边框 */
@@ -80,7 +80,7 @@
   
   /* 状态边框 */
   --border-hover: #525252;
-  --border-focus: #3B82F6;
+  --border-focus: #3B8CF7;
   --border-disabled: #262626;
   
   /* 功能边框（保持一致） */

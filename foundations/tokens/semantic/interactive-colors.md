@@ -10,7 +10,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `interactive-primary` | Blue-600<br>#2563EB | Blue-500<br>#3B82F6 | 主按钮默认 |
+| `interactive-primary` | Blue-600<br>#0770FA | Blue-500<br>#3B8CF7 | 主按钮默认 |
 | `interactive-primary-hover` | Blue-700<br>#1D4ED8 | Blue-400<br>#60A5FA | 主按钮悬停 |
 | `interactive-primary-active` | Blue-800<br>#1E40AF | Blue-300<br>#93C5FD | 主按钮按下 |
 | `interactive-primary-disabled` | Gray-300<br>#D4D4D4 | Gray-700<br>#404040 | 主按钮禁用 |
@@ -32,7 +32,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `interactive-danger` | Red-600<br>#DC2626 | Red-500<br>#EF4444 | 危险按钮默认 |
+| `interactive-danger` | Red-600<br>#ED0505 | Red-500<br>#EF4444 | 危险按钮默认 |
 | `interactive-danger-hover` | Red-700<br>#B91C1C | Red-400<br>#F87171 | 危险按钮悬停 |
 | `interactive-danger-active` | Red-800<br>#991B1B | Red-300<br>#FCA5A5 | 危险按钮按下 |
 | `interactive-danger-disabled` | Gray-300<br>#D4D4D4 | Gray-700<br>#404040 | 危险按钮禁用 |
@@ -43,7 +43,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `interactive-success` | Green-600<br>#16A34A | Green-500<br>#22C55E | 成功按钮默认 |
+| `interactive-success` | Green-600<br>#008937 | Green-500<br>#22C55E | 成功按钮默认 |
 | `interactive-success-hover` | Green-700<br>#15803D | Green-400<br>#4ADE80 | 成功按钮悬停 |
 | `interactive-success-active` | Green-800<br>#166534 | Green-300<br>#86EFAC | 成功按钮按下 |
 
@@ -55,7 +55,7 @@
 |-------|---------|---------|------|
 | `interactive-icon` | Gray-600<br>#525252 | Gray-400<br>#A3A3A3 | 默认图标 |
 | `interactive-icon-hover` | Gray-900<br>#171717 | Gray-200<br>#E5E5E5 | 图标悬停 |
-| `interactive-icon-active` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 图标激活 |
+| `interactive-icon-active` | Blue-600<br>#0770FA | Blue-400<br>#60A5FA | 图标激活 |
 | `interactive-icon-disabled` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 图标禁用 |
 
 ---
@@ -64,7 +64,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `interactive-link` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 链接默认 |
+| `interactive-link` | Blue-600<br>#0770FA | Blue-400<br>#60A5FA | 链接默认 |
 | `interactive-link-hover` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 链接悬停 |
 | `interactive-link-visited` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 已访问链接 |
 | `interactive-link-active` | Blue-800<br>#1E40AF | Blue-200<br>#BFDBFE | 链接按下 |
@@ -76,7 +76,7 @@
 ```css
 :root {
   /* 主要交互 */
-  --interactive-primary: #2563EB;
+  --interactive-primary: #0770FA;
   --interactive-primary-hover: #1D4ED8;
   --interactive-primary-active: #1E40AF;
   --interactive-primary-disabled: #D4D4D4;
@@ -86,7 +86,7 @@
   --interactive-secondary-hover: #404040;
   
   /* 危险交互 */
-  --interactive-danger: #DC2626;
+  --interactive-danger: #ED0505;
   --interactive-danger-hover: #B91C1C;
   
   /* 图标交互 */
@@ -96,7 +96,7 @@
 
 [data-theme="dark"] {
   /* 主要交互 */
-  --interactive-primary: #3B82F6;
+  --interactive-primary: #3B8CF7;
   --interactive-primary-hover: #60A5FA;
   --interactive-primary-active: #93C5FD;
   --interactive-primary-disabled: #404040;

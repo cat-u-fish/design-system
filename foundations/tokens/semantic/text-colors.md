@@ -27,7 +27,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-link` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 5.3:1 ✅ AA | 6.8:1 ✅ AAA | 默认链接 |
+| `text-link` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | 4.5:1 ✅ AA | 6.3:1 ✅ AAA | 默认链接 |
 | `text-link-hover` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 6.7:1 ✅ AAA | 8.9:1 ✅ AAA | 链接悬停 |
 | `text-link-visited` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 5.2:1 ✅ AA | 6.5:1 ✅ AAA | 已访问链接 |
 | `text-link-active` | Blue-800<br>#1E40AF | Blue-200<br>#BFDBFE | 8.2:1 ✅ AAA | 10.2:1 ✅ AAA | 链接激活（按下） |
@@ -38,10 +38,10 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-success` | Green-600<br>#16A34A | Green-400<br>#4ADE80 | 4.8:1 ✅ AA | 5.8:1 ✅ AA | 成功提示 |
-| `text-warning` | Yellow-700<br>#A16207 | Yellow-400<br>#FACC15 | 4.6:1 ✅ AA | 5.3:1 ✅ AA | 警告提示 |
-| `text-error` | Red-600<br>#DC2626 | Red-400<br>#F87171 | 5.9:1 ✅ AA | 5.2:1 ✅ AA | 错误提示 |
-| `text-info` | Cyan-600<br>#0891B2 | Cyan-400<br>#22D3EE | 4.8:1 ✅ AA | 5.5:1 ✅ AA | 信息提示 |
+| `text-success` | Green-600<br>#008937 | Green-400<br>#66F59F | 4.5:1 ✅ AA | 5.5:1 ✅ AA | 成功提示 |
+| `text-warning` | Yellow-700<br>#725400 | Yellow-400<br>#F9D162 | 7.0:1 ✅ AAA | 4.8:1 ✅ AA | 警告提示 |
+| `text-error` | Red-600<br>#ED0505 | Red-400<br>#F56666 | 4.5:1 ✅ AA | 4.9:1 ✅ AA | 错误提示 |
+| `text-info` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | 4.5:1 ✅ AA | 6.3:1 ✅ AAA | 信息提示 |
 
 **关键：**
 - Yellow 在浅色模式下必须使用 700 色阶（600 对比度仅 3.2:1 ❌）
@@ -52,7 +52,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `text-brand` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | Logo、品牌口号 |
+| `text-brand` | Blue-600<br>#0770FA | Blue-400<br>#68A4F3 | Logo、品牌口号 |
 | `text-emphasis` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 需要突出的文本 |
 | `text-highlight` | Orange-600<br>#EA580C | Orange-400<br>#FB923C | 高亮标记（如搜索结果） |
 
@@ -64,7 +64,7 @@
 |-------|---------|---------|------|
 | `text-code` | Pink-600<br>#DB2777 | Pink-400<br>#F472B6 | 行内代码 |
 | `text-code-keyword` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 代码关键字 |
-| `text-code-string` | Green-600<br>#16A34A | Green-400<br>#4ADE80 | 代码字符串 |
+| `text-code-string` | Green-600<br>#008937 | Green-400<br>#66F59F | 代码字符串 |
 | `text-code-comment` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 代码注释 |
 | `text-code-number` | Orange-600<br>#EA580C | Orange-400<br>#FB923C | 代码数字 |
 
@@ -85,26 +85,26 @@
   --text-placeholder: #A3A3A3;
 
   /* 链接文本色 */
-  --text-link: #2563EB;
+  --text-link: #0770FA;
   --text-link-hover: #1D4ED8;
   --text-link-visited: #9333EA;
   --text-link-active: #1E40AF;
 
   /* 功能反馈文本色 */
-  --text-success: #16A34A;
-  --text-warning: #A16207;
-  --text-error: #DC2626;
-  --text-info: #0891B2;
+  --text-success: #008937;
+  --text-warning: #725400;
+  --text-error: #ED0505;
+  --text-info: #0770FA;
 
   /* 品牌/强调文本色 */
-  --text-brand: #2563EB;
+  --text-brand: #0770FA;
   --text-emphasis: #1D4ED8;
   --text-highlight: #EA580C;
 
   /* 特殊场景文本色 */
   --text-code: #DB2777;
   --text-code-keyword: #9333EA;
-  --text-code-string: #16A34A;
+  --text-code-string: #008937;
   --text-code-comment: #737373;
   --text-code-number: #EA580C;
 }
@@ -427,7 +427,7 @@ module.exports = {
       "description": "主要文本，对比度 15.3:1 (AAA)"
     },
     "link": {
-      "value": "#2563EB",
+      "value": "#0770FA",
       "$extensions": {
         "mode": {
           "dark": "#60A5FA"
@@ -437,7 +437,7 @@ module.exports = {
       "description": "链接文本，对比度 5.3:1 (AA)"
     },
     "error": {
-      "value": "#DC2626",
+      "value": "#ED0505",
       "$extensions": {
         "mode": {
           "dark": "#F87171"
