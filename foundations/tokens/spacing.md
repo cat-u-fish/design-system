@@ -18,13 +18,13 @@
 
 ### 生成公式
 
-\`\`\`
+```
 Spacing(n) = 4px × n
-\`\`\`
+```
 
 ### Token 清单
 
-\`\`\`
+```
 spacing-0:    0px      # 无间距
 spacing-0.5:  2px      # 微间距（图标微调）
 spacing-1:    4px      # 最小单位（图标与文字）
@@ -45,7 +45,7 @@ spacing-32:   128px    # 超大间距
 spacing-40:   160px    #
 spacing-48:   192px    #
 spacing-64:   256px    # 特大间距
-\`\`\`
+```
 
 ### 设计策略
 
@@ -64,31 +64,31 @@ spacing-64:   256px    # 特大间距
 
 ### 组件内边距（Padding）
 
-\`\`\`
+```
 spacing-padding-xs:   {spacing-2}    # 8px   (小按钮、标签)
 spacing-padding-sm:   {spacing-3}    # 12px  (按钮)
 spacing-padding-md:   {spacing-4}    # 16px  (卡片，推荐)
 spacing-padding-lg:   {spacing-6}    # 24px  (大卡片)
 spacing-padding-xl:   {spacing-8}    # 32px  (面板)
-\`\`\`
+```
 
 ### 组件外边距（Margin）
 
-\`\`\`
+```
 spacing-margin-xs:    {spacing-2}    # 8px   (紧凑间距)
 spacing-margin-sm:    {spacing-4}    # 16px  (标准间距)
 spacing-margin-md:    {spacing-6}    # 24px  (表单项间距)
 spacing-margin-lg:    {spacing-8}    # 32px  (区块间距)
 spacing-margin-xl:    {spacing-12}   # 48px  (大区块间距)
-\`\`\`
+```
 
 ### 页面布局间距
 
-\`\`\`
+```
 spacing-section:      {spacing-16}   # 64px  (页面模块间距)
 spacing-container:    {spacing-6}    # 24px  (容器内边距)
 spacing-gutter:       {spacing-4}    # 16px  (栅格间隙)
-\`\`\`
+```
 
 ---
 
@@ -96,18 +96,18 @@ spacing-gutter:       {spacing-4}    # 16px  (栅格间隙)
 
 用于特殊布局场景（如偏移、重叠）
 
-\`\`\`
+```
 spacing-n-1:    -4px
 spacing-n-2:    -8px
 spacing-n-3:    -12px
 spacing-n-4:    -16px
 spacing-n-6:    -24px
 spacing-n-8:    -32px
-\`\`\`
+```
 
 ### 使用场景
 
-- **重叠布局**：头像堆叠（\`margin-left: var(--spacing-n-2)\`）
+- **重叠布局**：头像堆叠（`margin-left: var(--spacing-n-2)`）
 - **偏移调整**：微调元素位置
 - **抵消边距**：取消父容器多余间距
 
@@ -115,7 +115,7 @@ spacing-n-8:    -32px
 
 ## CSS Variables 定义
 
-\`\`\`css
+```css
 :root {
   /* 基础间距 */
   --spacing-0: 0px;
@@ -164,7 +164,7 @@ spacing-n-8:    -32px
   --spacing-n-6: -24px;
   --spacing-n-8: -32px;
 }
-\`\`\`
+```
 
 ---
 
@@ -172,7 +172,7 @@ spacing-n-8:    -32px
 
 ### 组件内边距
 
-\`\`\`css
+```css
 .button-sm {
   padding: var(--spacing-2) var(--spacing-3);  /* 8px 12px */
 }
@@ -188,11 +188,11 @@ spacing-n-8:    -32px
 .modal {
   padding: var(--spacing-6);  /* 24px */
 }
-\`\`\`
+```
 
 ### 组件间距
 
-\`\`\`css
+```css
 .form-group {
   margin-bottom: var(--spacing-6);  /* 24px 表单项间距 */
 }
@@ -204,16 +204,16 @@ spacing-n-8:    -32px
 .stack > * + * {
   margin-top: var(--spacing-4);  /* 16px 垂直堆叠间距 */
 }
-\`\`\`
+```
 
 ### 栅格间隙
 
-\`\`\`css
+```css
 .grid {
   display: grid;
   gap: var(--spacing-gutter);  /* 16px */
 }
-\`\`\`
+```
 
 ---
 
@@ -222,42 +222,42 @@ spacing-n-8:    -32px
 ### 1. 优先使用语义化 Token
 
 ✅ **推荐：**
-\`\`\`css
+```css
 .card {
   padding: var(--spacing-padding-md);
   margin-bottom: var(--spacing-margin-md);
 }
-\`\`\`
+```
 
 ❌ **不推荐：**
-\`\`\`css
+```css
 .card {
   padding: 16px;  /* 硬编码 */
   margin-bottom: 24px;
 }
-\`\`\`
+```
 
 ### 2. 保持一致的间距比例
 
 ✅ **推荐：**
-\`\`\`css
+```css
 .section {
   padding-top: var(--spacing-16);     /* 64px */
   padding-bottom: var(--spacing-16);  /* 64px */
 }
-\`\`\`
+```
 
 ❌ **不推荐：**
-\`\`\`css
+```css
 .section {
   padding-top: var(--spacing-16);     /* 64px */
   padding-bottom: var(--spacing-12);  /* 48px，不一致 */
 }
-\`\`\`
+```
 
 ### 3. 使用 Stack 布局（推荐）
 
-\`\`\`css
+```css
 /* 垂直堆叠元素 */
 .stack > * + * {
   margin-top: var(--spacing-4);
@@ -267,7 +267,7 @@ spacing-n-8:    -32px
 .inline-stack > * + * {
   margin-left: var(--spacing-2);
 }
-\`\`\`
+```
 
 ---
 
