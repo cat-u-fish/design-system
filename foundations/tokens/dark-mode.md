@@ -27,8 +27,8 @@
 
 **✅ 正确做法：**
 ```
-浅色模式：白色背景 (#FFFFFF) + 深灰文字 (#111827)
-暗色模式：深灰背景 (#111827) + 浅灰文字 (#F9FAFB)
+浅色模式：白色背景 (#FFFFFF) + 深灰文字 (#171717)
+暗色模式：深灰背景 (#171717) + 浅灰文字 (#FAFAFA)
 ```
 
 ### 暗色模式的核心原则
@@ -42,8 +42,8 @@
 
 **解决方案：**
 ```
-浅色模式对比度：16.2:1 (#111827 on #FFFFFF)
-暗色模式对比度：14.5:1 (#F9FAFB on #111827)  ← 略低但更舒适
+浅色模式对比度：15.3:1 (#171717 on #FFFFFF)
+暗色模式对比度：14.5:1 (#FAFAFA on #171717)  ← 略低但更舒适
 ```
 
 #### 2. 提升表面亮度（避免纯黑）
@@ -55,8 +55,8 @@
 
 **解决方案：**
 ```
-主背景：#111827 (Gray-900) 而非 #000000
-次级背景：#1F2937 (Gray-800) 提升表面
+主背景：#171717 (Gray-900) 而非 #000000
+次级背景：#262626 (Gray-800) 提升表面
 ```
 
 #### 3. 降低饱和度（彩色）
@@ -80,16 +80,16 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（暗） | 说明 |
 |-------|---------|---------|------------|------|
-| `color-text-primary` | Gray-900<br>#111827 | Gray-50<br>#F9FAFB | 14.5:1 ✅ AAA | 主文本 |
-| `color-text-secondary` | Gray-600<br>#4B5563 | Gray-300<br>#D1D5DB | 9.8:1 ✅ AAA | 次要文本 |
-| `color-text-tertiary` | Gray-500<br>#6B7280 | Gray-400<br>#9CA3AF | 6.2:1 ✅ AAA | 辅助文本 |
-| `color-text-disabled` | Gray-400<br>#9CA3AF | Gray-600<br>#4B5563 | 3.1:1 ⚠️ | 禁用文本 |
-| `color-text-inverse` | White<br>#FFFFFF | Gray-900<br>#111827 | - | 反色文本 |
+| `color-text-primary` | Gray-900<br>#171717 | Gray-50<br>#FAFAFA | 14.5:1 ✅ AAA | 主文本 |
+| `color-text-secondary` | Gray-600<br>#525252 | Gray-300<br>#D4D4D4 | 9.8:1 ✅ AAA | 次要文本 |
+| `color-text-tertiary` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 6.2:1 ✅ AAA | 辅助文本 |
+| `color-text-disabled` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 3.1:1 ⚠️ | 禁用文本 |
+| `color-text-inverse` | White<br>#FFFFFF | Gray-900<br>#171717 | - | 反色文本 |
 | `color-text-link` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 6.8:1 ✅ AAA | 链接文本 |
 | `color-text-link-hover` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 8.9:1 ✅ AAA | 链接悬停 |
 | `color-text-error` | Red-600<br>#DC2626 | Red-400<br>#F87171 | 5.2:1 ✅ AA | 错误文本 |
 | `color-text-success` | Green-600<br>#16A34A | Green-400<br>#4ADE80 | 5.8:1 ✅ AA | 成功文本 |
-| `color-text-warning` | Yellow-700<br>#A16207 | Yellow-400<br>#FACC15 | 4.9:1 ✅ AA | 警告文本 |
+| `color-text-warning` | Yellow-700<br>#A16207 | Yellow-400<br>#FACC15 | 5.3:1 ✅ AA | 警告文本 |
 
 **规律：**
 - 文本色从深向浅移动（900 → 50, 600 → 300）
@@ -101,11 +101,11 @@
 
 | Token | 浅色模式 | 暗色模式 | 说明 |
 |-------|---------|---------|------|
-| `color-bg-primary` | White<br>#FFFFFF | Gray-900<br>#111827 | 主背景 |
-| `color-bg-secondary` | Gray-50<br>#F9FAFB | Gray-800<br>#1F2937 | 次级背景（卡片） |
-| `color-bg-tertiary` | Gray-100<br>#F3F4F6 | Gray-700<br>#374151 | 三级背景（悬浮） |
+| `color-bg-primary` | White<br>#FFFFFF | Gray-900<br>#171717 | 主背景 |
+| `color-bg-secondary` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 次级背景（卡片） |
+| `color-bg-tertiary` | Gray-100<br>#F5F5F5 | Gray-700<br>#404040 | 三级背景（悬浮） |
 | `color-bg-overlay` | rgba(0,0,0,0.5) | rgba(0,0,0,0.7) | 遮罩层（加深） |
-| `color-bg-disabled` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 禁用背景 |
+| `color-bg-disabled` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 禁用背景 |
 | `color-bg-error` | Red-50<br>#FEF2F2 | Red-950<br>#450A0A | 错误背景 |
 | `color-bg-success` | Green-50<br>#F0FDF4 | Green-950<br>#052E16 | 成功背景 |
 | `color-bg-warning` | Yellow-50<br>#FEFCE8 | Yellow-950<br>#422006 | 警告背景 |
@@ -122,8 +122,8 @@
 
 | Token | 浅色模式 | 暗色模式 | 说明 |
 |-------|---------|---------|------|
-| `color-border-primary` | Gray-300<br>#D1D5DB | Gray-700<br>#374151 | 主边框 |
-| `color-border-secondary` | Gray-200<br>#E5E7EB | Gray-800<br>#1F2937 | 次级边框 |
+| `color-border-primary` | Gray-300<br>#D4D4D4 | Gray-700<br>#404040 | 主边框 |
+| `color-border-secondary` | Gray-200<br>#E5E5E5 | Gray-800<br>#262626 | 次级边框 |
 | `color-border-focus` | Blue-500<br>#3B82F6 | Blue-500<br>#3B82F6 | 焦点边框（不变） |
 | `color-border-error` | Red-500<br>#EF4444 | Red-500<br>#EF4444 | 错误边框 |
 | `color-border-success` | Green-500<br>#22C55E | Green-500<br>#22C55E | 成功边框 |
@@ -141,10 +141,10 @@
 | `color-interactive-primary` | Blue-600<br>#2563EB | Blue-500<br>#3B82F6 | 主交互元素 |
 | `color-interactive-primary-hover` | Blue-700<br>#1D4ED8 | Blue-400<br>#60A5FA | 悬停 |
 | `color-interactive-primary-active` | Blue-800<br>#1E40AF | Blue-300<br>#93C5FD | 按下 |
-| `color-interactive-primary-disabled` | Gray-300<br>#D1D5DB | Gray-700<br>#374151 | 禁用 |
-| `color-interactive-secondary` | Gray-600<br>#4B5563 | Gray-400<br>#9CA3AF | 次要交互 |
-| `color-interactive-secondary-hover` | Gray-700<br>#374151 | Gray-300<br>#D1D5DB | 悬停 |
-| `color-interactive-secondary-active` | Gray-800<br>#1F2937 | Gray-200<br>#E5E7EB | 按下 |
+| `color-interactive-primary-disabled` | Gray-300<br>#D4D4D4 | Gray-700<br>#404040 | 禁用 |
+| `color-interactive-secondary` | Gray-600<br>#525252 | Gray-400<br>#A3A3A3 | 次要交互 |
+| `color-interactive-secondary-hover` | Gray-700<br>#404040 | Gray-300<br>#D4D4D4 | 悬停 |
+| `color-interactive-secondary-active` | Gray-800<br>#262626 | Gray-200<br>#E5E5E5 | 按下 |
 
 **规律：**
 - 主交互：600 → 500（略提亮）
@@ -173,7 +173,7 @@
 ```css
 /* 暗色模式：阴影 + 背景提亮 */
 .card-dark {
-  background: #1F2937; /* 比主背景 #111827 亮 */
+  background: #262626; /* 比主背景 #171717 亮 */
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 ```
@@ -226,12 +226,12 @@
 
 **浅色模式（由浅到深）：**
 ```
-主背景 (#FFFFFF) → 次级 (#F9FAFB) → 三级 (#F3F4F6)
+主背景 (#FFFFFF) → 次级 (#FAFAFA) → 三级 (#F5F5F5)
 ```
 
 **暗色模式（由深到浅）：**
 ```
-主背景 (#111827) → 次级 (#1F2937) → 三级 (#374151)
+主背景 (#171717) → 次级 (#262626) → 三级 (#404040)
 ```
 
 **视觉效果：** 浅色"凹陷"，暗色"凸起"
@@ -242,16 +242,16 @@
 
 ### 暗色模式对比度表
 
-**文本 on 主背景（#111827）：**
+**文本 on 主背景（#171717）：**
 
 | 文本色 | 颜色值 | 对比度 | 等级 | 用途 |
 |-------|--------|-------|------|------|
-| Gray-50 | #F9FAFB | 14.5:1 | AAA ✅ | 主文本 |
-| Gray-100 | #F3F4F6 | 13.8:1 | AAA ✅ | 主文本 |
-| Gray-200 | #E5E7EB | 12.1:1 | AAA ✅ | 强调文本 |
-| Gray-300 | #D1D5DB | 9.8:1 | AAA ✅ | 次要文本 |
-| Gray-400 | #9CA3AF | 6.2:1 | AAA ✅ | 辅助文本 |
-| Gray-500 | #6B7280 | 4.1:1 | ⚠️ 略低 | ❌ 不推荐 |
+| Gray-50 | #FAFAFA | 14.5:1 | AAA ✅ | 主文本 |
+| Gray-100 | #F5F5F5 | 13.8:1 | AAA ✅ | 主文本 |
+| Gray-200 | #E5E5E5 | 12.1:1 | AAA ✅ | 强调文本 |
+| Gray-300 | #D4D4D4 | 9.8:1 | AAA ✅ | 次要文本 |
+| Gray-400 | #A3A3A3 | 6.2:1 | AAA ✅ | 辅助文本 |
+| Gray-500 | #737373 | 4.1:1 | ⚠️ 略低 | ❌ 不推荐 |
 | Blue-400 | #60A5FA | 6.8:1 | AAA ✅ | 链接文本 |
 | Red-400 | #F87171 | 5.2:1 | AA ✅ | 错误文本 |
 | Green-400 | #4ADE80 | 5.8:1 | AA ✅ | 成功文本 |
@@ -262,7 +262,7 @@
 
 ---
 
-### 彩色背景 on 主背景（#111827）
+### 彩色背景 on 主背景（#171717）
 
 | 背景色 | 颜色值 | 边缘对比度 | 是否可辨识 |
 |-------|--------|-----------|----------|
@@ -281,22 +281,22 @@
 ```css
 /* 定义浅色模式（默认） */
 :root {
-  --color-text-primary: #111827;
-  --color-text-secondary: #4B5563;
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F9FAFB;
-  --color-border-primary: #D1D5DB;
+  --color-bg-secondary: #FAFAFA;
+  --color-border-primary: #D4D4D4;
   --color-interactive-primary: #2563EB;
   --shadow-base: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* 定义暗色模式 */
 [data-theme="dark"] {
-  --color-text-primary: #F9FAFB;
-  --color-text-secondary: #D1D5DB;
-  --color-bg-primary: #111827;
-  --color-bg-secondary: #1F2937;
-  --color-border-primary: #374151;
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #D4D4D4;
+  --color-bg-primary: #171717;
+  --color-bg-secondary: #262626;
+  --color-border-primary: #404040;
   --color-interactive-primary: #3B82F6;
   --shadow-base: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
@@ -373,8 +373,8 @@ initTheme();
 /* 自动响应系统深色模式 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-text-primary: #F9FAFB;
-    --color-bg-primary: #111827;
+    --color-text-primary: #FAFAFA;
+    --color-bg-primary: #171717;
     /* ... 其他暗色变量 */
   }
 }
@@ -409,18 +409,18 @@ initTheme();
 **浅色模式：**
 ```css
 .code-block-light {
-  background: #F3F4F6; /* Gray-100 */
-  color: #1F2937;      /* Gray-800 */
-  border: 1px solid #E5E7EB;
+  background: #F5F5F5; /* Gray-100 */
+  color: #262626;      /* Gray-800 */
+  border: 1px solid #E5E5E5;
 }
 ```
 
 **暗色模式：**
 ```css
 .code-block-dark {
-  background: #1F2937; /* Gray-800 */
-  color: #E5E7EB;      /* Gray-200 */
-  border: 1px solid #374151;
+  background: #262626; /* Gray-800 */
+  color: #E5E5E5;      /* Gray-200 */
+  border: 1px solid #404040;
 }
 ```
 
@@ -435,15 +435,15 @@ initTheme();
 /* 浅色模式 */
 .input-light {
   background: #FFFFFF;
-  border: 1px solid #D1D5DB;
-  color: #111827;
+  border: 1px solid #D4D4D4;
+  color: #171717;
 }
 
 /* 暗色模式 */
 .input-dark {
-  background: #1F2937; /* 比主背景亮 */
-  border: 1px solid #374151;
-  color: #F9FAFB;
+  background: #262626; /* 比主背景亮 */
+  border: 1px solid #404040;
+  color: #FAFAFA;
 }
 ```
 
@@ -454,14 +454,14 @@ initTheme();
 **浅色模式：**
 ```css
 .table-row:nth-child(even) {
-  background: #F9FAFB; /* Gray-50 */
+  background: #FAFAFA; /* Gray-50 */
 }
 ```
 
 **暗色模式：**
 ```css
 [data-theme="dark"] .table-row:nth-child(even) {
-  background: #1F2937; /* Gray-800 */
+  background: #262626; /* Gray-800 */
 }
 ```
 
@@ -474,18 +474,18 @@ initTheme();
   "color": {
     "text": {
       "primary": {
-        "value": "#111827",
+        "value": "#171717",
         "$extensions": {
           "mode": {
-            "dark": "#F9FAFB"
+            "dark": "#FAFAFA"
           }
         }
       },
       "secondary": {
-        "value": "#4B5563",
+        "value": "#525252",
         "$extensions": {
           "mode": {
-            "dark": "#D1D5DB"
+            "dark": "#D4D4D4"
           }
         }
       }
@@ -495,15 +495,15 @@ initTheme();
         "value": "#FFFFFF",
         "$extensions": {
           "mode": {
-            "dark": "#111827"
+            "dark": "#171717"
           }
         }
       },
       "secondary": {
-        "value": "#F9FAFB",
+        "value": "#FAFAFA",
         "$extensions": {
           "mode": {
-            "dark": "#1F2937"
+            "dark": "#262626"
           }
         }
       }

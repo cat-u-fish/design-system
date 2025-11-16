@@ -10,9 +10,9 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `border-primary` | Gray-300<br>#D1D5DB | Gray-700<br>#374151 | 主边框（输入框、卡片） |
-| `border-secondary` | Gray-200<br>#E5E7EB | Gray-800<br>#1F2937 | 次级边框（表格内线） |
-| `border-tertiary` | Gray-100<br>#F3F4F6 | Gray-900<br>#111827 | 三级边框（极弱分割） |
+| `border-primary` | Gray-300<br>#D4D4D4 | Gray-700<br>#404040 | 主边框（输入框、卡片） |
+| `border-secondary` | Gray-200<br>#E5E5E5 | Gray-800<br>#262626 | 次级边框（表格内线） |
+| `border-tertiary` | Gray-100<br>#F5F5F5 | Gray-900<br>#171717 | 三级边框（极弱分割） |
 
 ---
 
@@ -20,10 +20,10 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `border-hover` | Gray-400<br>#9CA3AF | Gray-600<br>#4B5563 | 悬停边框 |
+| `border-hover` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 悬停边框 |
 | `border-focus` | Blue-500<br>#3B82F6 | Blue-500<br>#3B82F6 | 焦点边框 |
 | `border-active` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 激活边框 |
-| `border-disabled` | Gray-200<br>#E5E7EB | Gray-800<br>#1F2937 | 禁用边框 |
+| `border-disabled` | Gray-200<br>#E5E5E5 | Gray-800<br>#262626 | 禁用边框 |
 | `border-selected` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 选中边框 |
 
 ---
@@ -45,9 +45,9 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `divider-primary` | Gray-200<br>#E5E7EB | Gray-700<br>#374151 | 主分割线 |
-| `divider-secondary` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 次级分割线 |
-| `divider-strong` | Gray-300<br>#D1D5DB | Gray-600<br>#4B5563 | 强调分割线 |
+| `divider-primary` | Gray-200<br>#E5E5E5 | Gray-700<br>#404040 | 主分割线 |
+| `divider-secondary` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 次级分割线 |
+| `divider-strong` | Gray-300<br>#D4D4D4 | Gray-600<br>#525252 | 强调分割线 |
 
 ---
 
@@ -56,13 +56,13 @@
 ```css
 :root {
   /* 层级边框 */
-  --border-primary: #D1D5DB;
-  --border-secondary: #E5E7EB;
+  --border-primary: #D4D4D4;
+  --border-secondary: #E5E5E5;
   
   /* 状态边框 */
-  --border-hover: #9CA3AF;
+  --border-hover: #A3A3A3;
   --border-focus: #3B82F6;
-  --border-disabled: #E5E7EB;
+  --border-disabled: #E5E5E5;
   
   /* 功能边框 */
   --border-success: #22C55E;
@@ -70,18 +70,18 @@
   --border-error: #EF4444;
   
   /* 分割线 */
-  --divider-primary: #E5E7EB;
+  --divider-primary: #E5E5E5;
 }
 
 [data-theme="dark"] {
   /* 层级边框 */
-  --border-primary: #374151;
-  --border-secondary: #1F2937;
+  --border-primary: #404040;
+  --border-secondary: #262626;
   
   /* 状态边框 */
-  --border-hover: #4B5563;
+  --border-hover: #525252;
   --border-focus: #3B82F6;
-  --border-disabled: #1F2937;
+  --border-disabled: #262626;
   
   /* 功能边框（保持一致） */
   --border-success: #22C55E;
@@ -89,7 +89,7 @@
   --border-error: #EF4444;
   
   /* 分割线 */
-  --divider-primary: #374151;
+  --divider-primary: #404040;
 }
 ```
 

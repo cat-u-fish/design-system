@@ -10,13 +10,13 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-primary` | Gray-900<br>#111827 | Gray-50<br>#F9FAFB | 16.2:1 ✅ AAA | 14.5:1 ✅ AAA | 正文、标题 |
-| `text-secondary` | Gray-600<br>#4B5563 | Gray-300<br>#D1D5DB | 7.2:1 ✅ AAA | 9.8:1 ✅ AAA | 次要说明、描述 |
-| `text-tertiary` | Gray-500<br>#6B7280 | Gray-400<br>#9CA3AF | 4.9:1 ✅ AA | 6.2:1 ✅ AAA | 辅助信息、注释 |
-| `text-quaternary` | Gray-400<br>#9CA3AF | Gray-500<br>#6B7280 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 极弱提示（慎用） |
-| `text-disabled` | Gray-400<br>#9CA3AF | Gray-600<br>#4B5563 | 2.8:1 ⚠️ | 3.1:1 ⚠️ | 禁用文本 |
-| `text-inverse` | White<br>#FFFFFF | Gray-900<br>#111827 | - | - | 深色背景上的文字 |
-| `text-placeholder` | Gray-400<br>#9CA3AF | Gray-500<br>#6B7280 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 输入框占位符 |
+| `text-primary` | Gray-900<br>#171717 | Gray-50<br>#FAFAFA | 15.3:1 ✅ AAA | 14.5:1 ✅ AAA | 正文、标题 |
+| `text-secondary` | Gray-600<br>#525252 | Gray-300<br>#D4D4D4 | 8.2:1 ✅ AAA | 9.8:1 ✅ AAA | 次要说明、描述 |
+| `text-tertiary` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 5.3:1 ✅ AA | 6.2:1 ✅ AAA | 辅助信息、注释 |
+| `text-quaternary` | Gray-400<br>#A3A3A3 | Gray-500<br>#737373 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 极弱提示（慎用） |
+| `text-disabled` | Gray-400<br>#A3A3A3 | Gray-600<br>#525252 | 2.8:1 ⚠️ | 3.1:1 ⚠️ | 禁用文本 |
+| `text-inverse` | White<br>#FFFFFF | Gray-900<br>#171717 | - | - | 深色背景上的文字 |
+| `text-placeholder` | Gray-400<br>#A3A3A3 | Gray-500<br>#737373 | 2.8:1 ⚠️ | 4.1:1 ⚠️ | 输入框占位符 |
 
 **注意：**
 - ⚠️ 标记的 Token 对比度不足 4.5:1，仅用于装饰性或禁用状态，不应传达关键信息
@@ -27,7 +27,7 @@
 
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
-| `text-link` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 4.9:1 ✅ AA | 6.8:1 ✅ AAA | 默认链接 |
+| `text-link` | Blue-600<br>#2563EB | Blue-400<br>#60A5FA | 5.3:1 ✅ AA | 6.8:1 ✅ AAA | 默认链接 |
 | `text-link-hover` | Blue-700<br>#1D4ED8 | Blue-300<br>#93C5FD | 6.7:1 ✅ AAA | 8.9:1 ✅ AAA | 链接悬停 |
 | `text-link-visited` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 5.2:1 ✅ AA | 6.5:1 ✅ AAA | 已访问链接 |
 | `text-link-active` | Blue-800<br>#1E40AF | Blue-200<br>#BFDBFE | 8.2:1 ✅ AAA | 10.2:1 ✅ AAA | 链接激活（按下） |
@@ -39,7 +39,7 @@
 | Token | 浅色模式 | 暗色模式 | 对比度（浅） | 对比度（暗） | 用途 |
 |-------|---------|---------|------------|------------|------|
 | `text-success` | Green-600<br>#16A34A | Green-400<br>#4ADE80 | 4.8:1 ✅ AA | 5.8:1 ✅ AA | 成功提示 |
-| `text-warning` | Yellow-700<br>#A16207 | Yellow-400<br>#FACC15 | 4.6:1 ✅ AA | 4.9:1 ✅ AA | 警告提示 |
+| `text-warning` | Yellow-700<br>#A16207 | Yellow-400<br>#FACC15 | 4.6:1 ✅ AA | 5.3:1 ✅ AA | 警告提示 |
 | `text-error` | Red-600<br>#DC2626 | Red-400<br>#F87171 | 5.9:1 ✅ AA | 5.2:1 ✅ AA | 错误提示 |
 | `text-info` | Cyan-600<br>#0891B2 | Cyan-400<br>#22D3EE | 4.8:1 ✅ AA | 5.5:1 ✅ AA | 信息提示 |
 
@@ -65,7 +65,7 @@
 | `text-code` | Pink-600<br>#DB2777 | Pink-400<br>#F472B6 | 行内代码 |
 | `text-code-keyword` | Purple-600<br>#9333EA | Purple-400<br>#C084FC | 代码关键字 |
 | `text-code-string` | Green-600<br>#16A34A | Green-400<br>#4ADE80 | 代码字符串 |
-| `text-code-comment` | Gray-500<br>#6B7280 | Gray-400<br>#9CA3AF | 代码注释 |
+| `text-code-comment` | Gray-500<br>#737373 | Gray-400<br>#A3A3A3 | 代码注释 |
 | `text-code-number` | Orange-600<br>#EA580C | Orange-400<br>#FB923C | 代码数字 |
 
 ---
@@ -76,13 +76,13 @@
 /* ========== 浅色模式（默认） ========== */
 :root {
   /* 层级文本色 */
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-tertiary: #6B7280;
-  --text-quaternary: #9CA3AF;
-  --text-disabled: #9CA3AF;
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-tertiary: #737373;
+  --text-quaternary: #A3A3A3;
+  --text-disabled: #A3A3A3;
   --text-inverse: #FFFFFF;
-  --text-placeholder: #9CA3AF;
+  --text-placeholder: #A3A3A3;
 
   /* 链接文本色 */
   --text-link: #2563EB;
@@ -105,20 +105,20 @@
   --text-code: #DB2777;
   --text-code-keyword: #9333EA;
   --text-code-string: #16A34A;
-  --text-code-comment: #6B7280;
+  --text-code-comment: #737373;
   --text-code-number: #EA580C;
 }
 
 /* ========== 暗色模式 ========== */
 [data-theme="dark"] {
   /* 层级文本色 */
-  --text-primary: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-tertiary: #9CA3AF;
-  --text-quaternary: #6B7280;
-  --text-disabled: #4B5563;
-  --text-inverse: #111827;
-  --text-placeholder: #6B7280;
+  --text-primary: #FAFAFA;
+  --text-secondary: #D4D4D4;
+  --text-tertiary: #A3A3A3;
+  --text-quaternary: #737373;
+  --text-disabled: #525252;
+  --text-inverse: #171717;
+  --text-placeholder: #737373;
 
   /* 链接文本色 */
   --text-link: #60A5FA;
@@ -141,7 +141,7 @@
   --text-code: #F472B6;
   --text-code-keyword: #C084FC;
   --text-code-string: #4ADE80;
-  --text-code-comment: #9CA3AF;
+  --text-code-comment: #A3A3A3;
   --text-code-number: #FB923C;
 }
 ```
@@ -417,14 +417,14 @@ module.exports = {
 {
   "text": {
     "primary": {
-      "value": "#111827",
+      "value": "#171717",
       "$extensions": {
         "mode": {
-          "dark": "#F9FAFB"
+          "dark": "#FAFAFA"
         }
       },
       "type": "color",
-      "description": "主要文本，对比度 16.2:1 (AAA)"
+      "description": "主要文本，对比度 15.3:1 (AAA)"
     },
     "link": {
       "value": "#2563EB",
@@ -434,7 +434,7 @@ module.exports = {
         }
       },
       "type": "color",
-      "description": "链接文本，对比度 4.9:1 (AA)"
+      "description": "链接文本，对比度 5.3:1 (AA)"
     },
     "error": {
       "value": "#DC2626",

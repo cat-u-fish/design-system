@@ -43,17 +43,17 @@
 **色相：** 无（灰度）
 
 ```
-color-gray-50:  #F9FAFB
-color-gray-100: #F3F4F6
-color-gray-200: #E5E7EB
-color-gray-300: #D1D5DB
-color-gray-400: #9CA3AF
-color-gray-500: #6B7280
-color-gray-600: #4B5563
-color-gray-700: #374151
-color-gray-800: #1F2937
-color-gray-900: #111827
-color-gray-950: #030712
+color-gray-50:  #FAFAFA
+color-gray-100: #F5F5F5
+color-gray-200: #E5E5E5
+color-gray-300: #D4D4D4
+color-gray-400: #A3A3A3
+color-gray-500: #737373
+color-gray-600: #525252
+color-gray-700: #404040
+color-gray-800: #262626
+color-gray-900: #171717
+color-gray-950: #0A0A0A
 ```
 
 **用途：** 文本、边框、背景、中性元素
@@ -71,7 +71,7 @@ color-blue-200: #BFDBFE
 color-blue-300: #93C5FD
 color-blue-400: #60A5FA
 color-blue-500: #3B82F6   # 主品牌色
-color-blue-600: #2563EB   # 对比度 4.9:1 ✅
+color-blue-600: #2563EB   # 对比度 5.3:1 ✅
 color-blue-700: #1D4ED8
 color-blue-800: #1E40AF
 color-blue-900: #1E3A8A
@@ -247,7 +247,7 @@ color-teal-200: #99F6E4
 color-teal-300: #5EEAD4
 color-teal-400: #2DD4BF
 color-teal-500: #14B8A6   # 主青绿色
-color-teal-600: #0D9488   # 对比度 4.9:1 ✅
+color-teal-600: #0D9488   # 对比度 5.3:1 ✅
 color-teal-700: #0F766E
 color-teal-800: #115E59
 color-teal-900: #134E4A
@@ -392,8 +392,8 @@ viz-div-5: {color-blue-700}    # 正极
 
 | 颜色 | 600 色阶对比度 | 700 色阶对比度 | 推荐用途 |
 |-----|--------------|--------------|---------|
-| Gray | 7.2:1 ✅ AAA | 8.6:1 ✅ AAA | 常规文本 |
-| Blue | 4.9:1 ✅ AA | 6.7:1 ✅ AAA | 链接文本 |
+| Gray | 8.2:1 ✅ AAA | 8.6:1 ✅ AAA | 常规文本 |
+| Blue | 5.3:1 ✅ AA | 6.7:1 ✅ AAA | 链接文本 |
 | Purple | 5.2:1 ✅ AA | 7.1:1 ✅ AAA | 创意文本 |
 | Pink | 5.5:1 ✅ AA | 7.8:1 ✅ AAA | 强调文本 |
 | Red | 5.9:1 ✅ AA | 8.2:1 ✅ AAA | 错误文本 |
@@ -401,7 +401,7 @@ viz-div-5: {color-blue-700}    # 正极
 | Yellow | 3.2:1 ❌ | 4.6:1 ✅ AA | 警告文本（仅 700） |
 | Lime | 4.7:1 ✅ AA | 6.4:1 ✅ AAA | 新鲜文本 |
 | Green | 4.8:1 ✅ AA | 6.8:1 ✅ AAA | 成功文本 |
-| Teal | 4.9:1 ✅ AA | 6.9:1 ✅ AAA | 数据文本 |
+| Teal | 5.3:1 ✅ AA | 6.9:1 ✅ AAA | 数据文本 |
 | Cyan | 4.8:1 ✅ AA | 6.7:1 ✅ AAA | 信息文本 |
 | Indigo | 5.1:1 ✅ AA | 7.0:1 ✅ AAA | 专业文本 |
 

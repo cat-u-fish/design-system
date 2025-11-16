@@ -10,10 +10,10 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-primary` | White<br>#FFFFFF | Gray-900<br>#111827 | 主背景（页面） |
-| `bg-secondary` | Gray-50<br>#F9FAFB | Gray-800<br>#1F2937 | 次级背景（卡片、面板） |
-| `bg-tertiary` | Gray-100<br>#F3F4F6 | Gray-700<br>#374151 | 三级背景（悬浮、下拉） |
-| `bg-quaternary` | Gray-200<br>#E5E7EB | Gray-600<br>#4B5563 | 四级背景（极少用） |
+| `bg-primary` | White<br>#FFFFFF | Gray-900<br>#171717 | 主背景（页面） |
+| `bg-secondary` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 次级背景（卡片、面板） |
+| `bg-tertiary` | Gray-100<br>#F5F5F5 | Gray-700<br>#404040 | 三级背景（悬浮、下拉） |
+| `bg-quaternary` | Gray-200<br>#E5E5E5 | Gray-600<br>#525252 | 四级背景（极少用） |
 
 ---
 
@@ -21,11 +21,11 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-input` | White<br>#FFFFFF | Gray-800<br>#1F2937 | 输入框默认背景 |
-| `bg-input-hover` | Gray-50<br>#F9FAFB | Gray-700<br>#374151 | 输入框悬停背景 |
-| `bg-input-focus` | White<br>#FFFFFF | Gray-800<br>#1F2937 | 输入框聚焦背景 |
-| `bg-input-disabled` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 输入框禁用背景 |
-| `bg-input-readonly` | Gray-50<br>#F9FAFB | Gray-700<br>#374151 | 输入框只读背景 |
+| `bg-input` | White<br>#FFFFFF | Gray-800<br>#262626 | 输入框默认背景 |
+| `bg-input-hover` | Gray-50<br>#FAFAFA | Gray-700<br>#404040 | 输入框悬停背景 |
+| `bg-input-focus` | White<br>#FFFFFF | Gray-800<br>#262626 | 输入框聚焦背景 |
+| `bg-input-disabled` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 输入框禁用背景 |
+| `bg-input-readonly` | Gray-50<br>#FAFAFA | Gray-700<br>#404040 | 输入框只读背景 |
 
 ---
 
@@ -33,11 +33,11 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-hover` | Gray-50<br>#F9FAFB | Gray-800<br>#1F2937 | 通用悬停背景 |
-| `bg-active` | Gray-100<br>#F3F4F6 | Gray-700<br>#374151 | 通用激活背景 |
+| `bg-hover` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 通用悬停背景 |
+| `bg-active` | Gray-100<br>#F5F5F5 | Gray-700<br>#404040 | 通用激活背景 |
 | `bg-selected` | Blue-50<br>#EFF6FF | Blue-950<br>#172554 | 选中项背景 |
 | `bg-selected-hover` | Blue-100<br>#DBEAFE | Blue-900<br>#1E3A8A | 选中项悬停 |
-| `bg-disabled` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 禁用背景 |
+| `bg-disabled` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 禁用背景 |
 
 ---
 
@@ -71,14 +71,14 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-code` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 代码块背景 |
-| `bg-code-inline` | Gray-100<br>#F3F4F6 | Gray-800<br>#1F2937 | 行内代码背景 |
-| `bg-skeleton` | Gray-200<br>#E5E7EB | Gray-700<br>#374151 | 骨架屏背景 |
-| `bg-skeleton-shimmer` | Gray-100<br>#F3F4F6 | Gray-600<br>#4B5563 | 骨架屏动画 |
-| `bg-tooltip` | Gray-900<br>#111827 | Gray-700<br>#374151 | 工具提示背景 |
-| `bg-popover` | White<br>#FFFFFF | Gray-800<br>#1F2937 | 气泡卡片背景 |
-| `bg-modal` | White<br>#FFFFFF | Gray-800<br>#1F2937 | 模态框背景 |
-| `bg-drawer` | White<br>#FFFFFF | Gray-900<br>#111827 | 抽屉背景 |
+| `bg-code` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 代码块背景 |
+| `bg-code-inline` | Gray-100<br>#F5F5F5 | Gray-800<br>#262626 | 行内代码背景 |
+| `bg-skeleton` | Gray-200<br>#E5E5E5 | Gray-700<br>#404040 | 骨架屏背景 |
+| `bg-skeleton-shimmer` | Gray-100<br>#F5F5F5 | Gray-600<br>#525252 | 骨架屏动画 |
+| `bg-tooltip` | Gray-900<br>#171717 | Gray-700<br>#404040 | 工具提示背景 |
+| `bg-popover` | White<br>#FFFFFF | Gray-800<br>#262626 | 气泡卡片背景 |
+| `bg-modal` | White<br>#FFFFFF | Gray-800<br>#262626 | 模态框背景 |
+| `bg-drawer` | White<br>#FFFFFF | Gray-900<br>#171717 | 抽屉背景 |
 
 ---
 
@@ -86,11 +86,11 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `bg-table-header` | Gray-50<br>#F9FAFB | Gray-800<br>#1F2937 | 表头背景 |
-| `bg-table-row` | White<br>#FFFFFF | Gray-900<br>#111827 | 表格行默认背景 |
-| `bg-table-row-hover` | Gray-50<br>#F9FAFB | Gray-800<br>#1F2937 | 表格行悬停 |
+| `bg-table-header` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 表头背景 |
+| `bg-table-row` | White<br>#FFFFFF | Gray-900<br>#171717 | 表格行默认背景 |
+| `bg-table-row-hover` | Gray-50<br>#FAFAFA | Gray-800<br>#262626 | 表格行悬停 |
 | `bg-table-row-selected` | Blue-50<br>#EFF6FF | Blue-950<br>#172554 | 表格行选中 |
-| `bg-table-zebra` | Gray-50<br>#F9FAFB | Gray-850<br>rgba(31,41,55,0.5) | 斑马纹（偶数行） |
+| `bg-table-zebra` | Gray-50<br>#FAFAFA | Gray-850<br>rgba(31,41,55,0.5) | 斑马纹（偶数行） |
 
 ---
 
@@ -100,15 +100,15 @@
 :root {
   /* 层级背景 */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F9FAFB;
-  --bg-tertiary: #F3F4F6;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #F5F5F5;
   
   /* 输入/表单 */
   --bg-input: #FFFFFF;
-  --bg-input-disabled: #F3F4F6;
+  --bg-input-disabled: #F5F5F5;
   
   /* 状态 */
-  --bg-hover: #F9FAFB;
+  --bg-hover: #FAFAFA;
   --bg-selected: #EFF6FF;
   
   /* 功能反馈 */
@@ -121,22 +121,22 @@
   --bg-overlay: rgba(0,0,0,0.5);
   
   /* 特殊场景 */
-  --bg-code: #F3F4F6;
-  --bg-tooltip: #111827;
+  --bg-code: #F5F5F5;
+  --bg-tooltip: #171717;
 }
 
 [data-theme="dark"] {
   /* 层级背景 */
-  --bg-primary: #111827;
-  --bg-secondary: #1F2937;
-  --bg-tertiary: #374151;
+  --bg-primary: #171717;
+  --bg-secondary: #262626;
+  --bg-tertiary: #404040;
   
   /* 输入/表单 */
-  --bg-input: #1F2937;
-  --bg-input-disabled: #1F2937;
+  --bg-input: #262626;
+  --bg-input-disabled: #262626;
   
   /* 状态 */
-  --bg-hover: #1F2937;
+  --bg-hover: #262626;
   --bg-selected: #172554;
   
   /* 功能反馈 */
@@ -149,8 +149,8 @@
   --bg-overlay: rgba(0,0,0,0.7);
   
   /* 特殊场景 */
-  --bg-code: #1F2937;
-  --bg-tooltip: #374151;
+  --bg-code: #262626;
+  --bg-tooltip: #404040;
 }
 ```
 
