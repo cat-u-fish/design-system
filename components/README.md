@@ -59,13 +59,13 @@ Component Tokens (组件 Token) ← 组件直接使用
 
 | 分类 | 组件数 | 复杂度 | 优先级 | 完成度 |
 |------|--------|--------|--------|--------|
-| [1. 通用 (General)](#1-通用-general) | 4 | ⭐ 低 | 🔴 P0 | 🚧 规划中 |
+| [1. 通用 (General)](#1-通用-general) | 5 | ⭐ 低 | 🔴 P0 | 🚧 规划中 |
 | [2. 布局 (Layout)](#2-布局-layout) | 7 | ⭐⭐ 中 | 🔴 P0 | 🚧 规划中 |
 | [3. 导航 (Navigation)](#3-导航-navigation) | 9 | ⭐⭐ 中 | 🔴 P0 | 🚧 规划中 |
-| [4. 数据录入 (Data Entry)](#4-数据录入-data-entry) | 18 | ⭐⭐⭐ 高 | 🔴 P0 | 🚧 规划中 |
-| [5. 数据展示 (Data Display)](#5-数据展示-data-display) | 15 | ⭐⭐⭐ 高 | 🔴 P0 | 🚧 规划中 |
-| [6. 反馈 (Feedback)](#6-反馈-feedback) | 10 | ⭐⭐ 中 | 🔴 P0 | 🚧 规划中 |
-| **合计** | **63** | - | - | **0%** |
+| [4. 数据录入 (Data Entry)](#4-数据录入-data-entry) | 19 | ⭐⭐⭐ 高 | 🔴 P0 | 🚧 规划中 |
+| [5. 数据展示 (Data Display)](#5-数据展示-data-display) | 17 | ⭐⭐⭐ 高 | 🔴 P0 | 🚧 规划中 |
+| [6. 反馈 (Feedback)](#6-反馈-feedback) | 11 | ⭐⭐ 中 | 🔴 P0 | 🚧 规划中 |
+| **合计** | **68** | - | - | **0%** |
 
 ---
 
@@ -79,12 +79,14 @@ Component Tokens (组件 Token) ← 组件直接使用
 | 图标 | Icon | `Icon` | ⭐ | P0 | 图形符号，辅助信息传达 |
 | 链接 | Link | `Link` | ⭐ | P0 | 页面或外部跳转 |
 | 排版 | Typography | `Typography` | ⭐ | P0 | 文本展示（标题/段落/引用） |
+| 悬浮按钮 | Float Button | `FloatButton` | ⭐⭐ | P2 | 固定位置的悬浮操作按钮 |
 
 **设计要点：**
 - Button: 4 种类型（Primary/Secondary/Danger/Ghost），5 种尺寸
 - Icon: SVG 优先，支持多色图标和线性图标
 - Link: 下划线可选，支持禁用态
 - Typography: 基于数学公式的字阶系统（1.25 比例）
+- FloatButton: 固定在页面特定位置，支持返回顶部/帮助/快捷操作
 
 **相关文档：** [通用组件规范](./01-general.md) 🚧
 
@@ -163,13 +165,14 @@ Component Tokens (组件 Token) ← 组件直接使用
 | 穿梭框 | Transfer | `Transfer` | ⭐⭐⭐ | P1 | 双列表选择 |
 | 上传 | Upload | `Upload` | ⭐⭐⭐ | P0 | 文件上传 |
 | 提及 | Mentions | `Mentions` | ⭐⭐ | P2 | @提及功能 |
-| 颜色选择器 | Color Picker | `ColorPicker` | ⭐⭐ | P2 | 颜色选择（可选） |
+| 颜色选择器 | Color Picker | `ColorPicker` | ⭐⭐ | P2 | 颜色选择（设计工具场景） |
 
 **设计要点：**
 - Form: 支持水平/垂直/行内布局，统一验证规则
 - Input: 支持前缀/后缀/清除/密码/搜索/文本域
 - Select: 虚拟滚动（大数据）、远程搜索、分组
 - DatePicker: 快捷选择、禁用日期、自定义单元格
+- ColorPicker: 支持 HEX/RGB/HSL 格式，预设色板，取色器
 
 **相关文档：** [数据录入组件规范](./04-data-entry.md) 🚧
 
@@ -196,12 +199,16 @@ Component Tokens (组件 Token) ← 组件直接使用
 | 统计数值 | Statistic | `Statistic` | ⭐ | P1 | 数值统计展示 |
 | 分段控制器 | Segmented | `Segmented` | ⭐ | P1 | 分段选择器 |
 | 轮播图 | Carousel | `Carousel` | ⭐⭐ | P1 | 图片/内容轮播 |
+| 二维码 | QR Code | `QRCode` | ⭐ | P2 | 二维码生成（特定业务场景） |
+| 水印 | Watermark | `Watermark` | ⭐ | P2 | 页面水印（安全场景） |
 
 **设计要点：**
 - Table: 固定列/表头、树形数据、虚拟滚动、可编辑单元格
 - List: 无限滚动、栅格布局、响应式
 - Tree: 异步加载、拖拽、搜索、自定义节点
 - Tooltip: 12 个方向定位，支持受控模式
+- QRCode: 支持自定义尺寸、纠错级别、logo 嵌入
+- Watermark: 支持文字/图片水印，旋转角度、透明度可配置
 
 **相关文档：** [数据展示组件规范](./05-data-display.md) 🚧
 
@@ -223,12 +230,14 @@ Component Tokens (组件 Token) ← 组件直接使用
 | 进度条 | Progress | `Progress` | ⭐⭐ | P0 | 进度展示 |
 | 抽屉 | Drawer | `Drawer` | ⭐⭐⭐ | P0 | 侧滑面板 |
 | 结果页 | Result | `Result` | ⭐ | P1 | 操作结果反馈页 |
+| 漫游式引导 | Tour | `Tour` | ⭐⭐ | P2 | 新手引导，分步介绍功能 |
 
 **设计要点：**
 - Message: 3 秒自动关闭，支持 success/error/warning/info 类型
 - Modal: 支持确认框/信息框，可拖拽（可选）
 - Loading: Spin + 局部/全局遮罩
 - Progress: 线形/环形/仪表盘，支持步骤进度
+- Tour: 支持遮罩高亮、上/下一步、跳过，可配置位置和偏移
 
 **相关文档：** [反馈组件规范](./06-feedback.md) 🚧
 
