@@ -4,9 +4,19 @@
 
 ## 📚 相关文档
 
+### 核心文档
+
 - **[设计原理](./design-principles.md)** - 数学公式推导和设计哲学
 - **[扩展色板](./color-palette.md)** - Material Design 标准 17 色完整色阶
 - **[暗色模式](./dark-mode.md)** - 完整的暗色模式色彩映射
+
+### 专项文档
+
+- **[Typography 字体系统](./typography.md)** - 字体族、字号、字重、行高完整规范
+- **[Spacing 间距系统](./spacing.md)** - 基于 4px 网格的间距体系
+- **[Grid 栅格系统](./grid.md)** - 12 列响应式栅格布局
+- **[Motion 动效系统](./motion.md)** - 动画时长、缓动函数、过渡效果
+- **[Container Queries 容器查询](./container-queries.md)** - 现代组件级响应式方案
 
 ---
 
@@ -268,160 +278,45 @@ color-interactive-secondary-active: {color-grey-800}   # 按下 #424242
 
 ## 2. Typography（字体）
 
-### 2.1 字体族（Font Family）
+> **完整文档：** [Typography 字体系统](./typography.md) - 包含字体族、字号、字重、行高的完整规范和使用示例
 
-```
-font-family-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
-font-family-serif: "Georgia", "Times New Roman", serif
-font-family-mono:  "JetBrains Mono", "Fira Code", "Courier New", monospace
-font-family-zh:    "PingFang SC", "Microsoft YaHei", sans-serif  # 中文字体
-```
+### 快速参考
 
-### 2.2 字体大小（Font Size）
+**基础字号：** 14px × 1.25^n （B端最佳信息密度）
 
-**生成公式：** `FontSize(n) = 14 × 1.25^n`（取整到 2px 网格）
+\`\`\`
+font-size-xs:   12px   # 辅助信息、标签
+font-size-sm:   14px   # B端基准（正文）
+font-size-lg:   18px   # 小标题
+font-size-xl:   22px   # 次级标题
+font-size-2xl:  28px   # 主标题 (H3)
+font-size-3xl:  34px   # 大标题 (H2)
+font-size-4xl:  42px   # 特大标题 (H1)
+\`\`\`
 
-```
-font-size-2xs:  10px   # 14 × 1.25^(-2) ≈ 8.96  → 10px
-font-size-xs:   12px   # 14 × 1.25^(-1) ≈ 11.2  → 12px  (辅助信息)
-font-size-sm:   14px   # 14 × 1.25^0   = 14px           (B端基准字号)
-font-size-base: 14px   # 与 sm 相同，语义化别名
-font-size-lg:   18px   # 14 × 1.25^1   = 17.5   → 18px  (小标题)
-font-size-xl:   22px   # 14 × 1.25^2   = 21.875 → 22px  (次标题)
-font-size-2xl:  28px   # 14 × 1.25^3   = 27.34  → 28px  (主标题)
-font-size-3xl:  34px   # 14 × 1.25^4   = 34.18  → 34px  (大标题)
-font-size-4xl:  42px   # 14 × 1.25^5   = 42.72  → 42px  (特大标题)
-font-size-5xl:  54px   # 14 × 1.25^6   = 53.4   → 54px  (超大标题)
-```
-
-**设计说明：**
-- 14px 是 B端信息密集场景的最佳阅读字号
-- 1.25 比例（大三度）提供清晰的视觉层级
-- 所有值取整到 2px 网格，确保渲染清晰
-
-### 2.3 字重（Font Weight）
-
-```
-font-weight-light:      300
-font-weight-normal:     400   # 正文默认
-font-weight-medium:     500   # 强调文本
-font-weight-semibold:   600   # 小标题默认
-font-weight-bold:       700   # 大标题默认
-```
-
-### 2.4 行高（Line Height）
-
-**生成公式：** `LineHeight = round(字号 × 理想倍数 / 4px) × 4px / 字号`（对齐 4px 网格）
-
-```
-line-height-none:    1      # 100%  (图标、单行文本)
-line-height-tight:   1.14   # 114%  (大标题：28px → 32px)
-line-height-compact: 1.29   # 129%  (小标题：22px → 28px)
-line-height-snug:    1.33   # 133%  (表格、表单：18px → 24px)
-line-height-normal:  1.43   # 143%  (正文：14px → 20px，网格对齐)
-line-height-relaxed: 1.71   # 171%  (长文本：14px → 24px)
-line-height-loose:   2      # 200%  (特殊场景)
-```
-
-**B端场景映射：**
-
-| 场景 | 字号 | 理想行高 | 对齐网格后 | 最终比例 | Token |
-|-----|------|---------|----------|---------|-------|
-| 表格单元格 | 14px | 1.3 (18.2px) | 20px | 1.43 | line-height-normal |
-| 表单标签 | 14px | 1.4 (19.6px) | 20px | 1.43 | line-height-normal |
-| 正文阅读 | 14px | 1.5 (21px) | 20px | 1.43 | line-height-normal |
-| 小标题 | 22px | 1.3 (28.6px) | 28px | 1.27 | line-height-compact |
-| 大标题 | 28px | 1.2 (33.6px) | 32px | 1.14 | line-height-tight |
-
-**关键发现：** 由于网格对齐，14px 在不同理想行高下最终都收敛到 20px（1.43），这反而带来了**统一性优势**。
-
-### 2.5 字间距（Letter Spacing）
-
-```
-letter-spacing-tighter: -0.02em  # 大标题紧凑
-letter-spacing-tight:   -0.01em  # 小标题
-letter-spacing-normal:  0        # 正文默认
-letter-spacing-wide:    0.01em   # 强调文本
-letter-spacing-wider:   0.05em   # 全大写文本
-```
-
-### 2.6 语义化排版（Semantic Typography）
-
-```
-# 标题（Headings）
-font-heading-1: {font-size-5xl} / {line-height-tight} {font-weight-bold}      # 54px / 1.14 / 700
-font-heading-2: {font-size-4xl} / {line-height-tight} {font-weight-bold}      # 42px / 1.14 / 700
-font-heading-3: {font-size-3xl} / {line-height-compact} {font-weight-bold}    # 34px / 1.29 / 700
-font-heading-4: {font-size-2xl} / {line-height-compact} {font-weight-semibold} # 28px / 1.29 / 600
-font-heading-5: {font-size-xl} / {line-height-snug} {font-weight-semibold}    # 22px / 1.33 / 600
-font-heading-6: {font-size-lg} / {line-height-snug} {font-weight-semibold}    # 18px / 1.33 / 600
-
-# 正文（Body）
-font-body-large:  {font-size-lg} / {line-height-relaxed} {font-weight-normal}  # 18px / 1.71 / 400
-font-body-base:   {font-size-base} / {line-height-normal} {font-weight-normal} # 14px / 1.43 / 400
-font-body-small:  {font-size-xs} / {line-height-normal} {font-weight-normal}   # 12px / 1.43 / 400
-
-# 功能性文本
-font-caption:     {font-size-xs} / {line-height-snug} {font-weight-normal}     # 12px / 1.33 / 400
-font-label:       {font-size-sm} / {line-height-snug} {font-weight-medium}     # 14px / 1.33 / 500
-font-code:        {font-size-sm} / {line-height-normal} {font-family-mono}     # 14px / 1.43 / mono
-```
+**详细内容请查看：** [typography.md](./typography.md)
 
 ---
 
 ## 3. Spacing（间距）
 
-### 3.1 基础间距（Primitive Spacing）
+> **完整文档：** [Spacing 间距系统](./spacing.md) - 包含基础间距、语义化间距、负间距的完整规范
 
-**生成公式：** `Spacing(n) = 4px × n`
+### 快速参考
 
-```
-spacing-0:    0px     # 无间距
-spacing-0.5:  2px     # 微间距（图标微调）
-spacing-1:    4px     # 最小单位（图标与文字）
-spacing-1.5:  6px     #
-spacing-2:    8px     # 小组件内边距
-spacing-2.5:  10px    #
-spacing-3:    12px    # 按钮内边距
-spacing-4:    16px    # 卡片内边距（常用）
-spacing-5:    20px    #
-spacing-6:    24px    # 大组件内边距
-spacing-8:    32px    # 区块间距
-spacing-10:   40px    #
-spacing-12:   48px    # 大区块间距
-spacing-16:   64px    # 页面模块间距
-spacing-20:   80px    #
-spacing-24:   96px    # 页面顶部间距
-spacing-32:   128px   # 超大间距
-spacing-40:   160px   #
-spacing-48:   192px   #
-spacing-64:   256px   # 特大间距
-```
+**生成公式：** Spacing(n) = 4px × n
 
-**使用频率：** spacing-4 (16px) 是最常用的基准间距。
+\`\`\`
+spacing-2:    8px      # 小组件内边距
+spacing-3:    12px     # 按钮内边距
+spacing-4:    16px     # 卡片内边距（常用，基准）
+spacing-6:    24px     # 大组件内边距
+spacing-8:    32px     # 区块间距
+spacing-12:   48px     # 大区块间距
+spacing-16:   64px     # 页面模块间距
+\`\`\`
 
-### 3.2 语义化间距（Semantic Spacing）
-
-```
-# 组件内边距
-spacing-padding-xs:     {spacing-2}    # 8px   (小按钮、标签)
-spacing-padding-sm:     {spacing-3}    # 12px  (按钮)
-spacing-padding-md:     {spacing-4}    # 16px  (卡片)
-spacing-padding-lg:     {spacing-6}    # 24px  (大卡片)
-spacing-padding-xl:     {spacing-8}    # 32px  (面板)
-
-# 组件外边距
-spacing-margin-xs:      {spacing-2}    # 8px   (紧凑间距)
-spacing-margin-sm:      {spacing-4}    # 16px  (标准间距)
-spacing-margin-md:      {spacing-6}    # 24px  (表单项间距)
-spacing-margin-lg:      {spacing-8}    # 32px  (区块间距)
-spacing-margin-xl:      {spacing-12}   # 48px  (大区块间距)
-
-# 页面布局间距
-spacing-section:        {spacing-16}   # 64px  (页面模块间距)
-spacing-container:      {spacing-6}    # 24px  (容器内边距)
-spacing-gutter:         {spacing-4}    # 16px  (栅格间隙)
-```
+**详细内容请查看：** [spacing.md](./spacing.md)
 
 ---
 
@@ -630,40 +525,83 @@ breakpoint-2xl:  1536px    # 大屏显示器
 
 ---
 
-## 10. Motion（动效）
+## 10. Grid（栅格系统）
 
-### 10.1 动画时长（Duration）
+> **完整文档：** [Grid 栅格系统](./grid.md) - 包含 12 列栅格、响应式间隙、容器宽度的完整规范
 
+### 快速参考
+
+**栅格配置：**
 ```
-duration-instant:  0ms       # 无动画
-duration-fast:     100ms     # 快速（状态切换、图标旋转）
-duration-base:     200ms     # 基础（按钮悬停、颜色变化）
-duration-slow:     300ms     # 慢速（抽屉展开、下拉菜单）
-duration-slower:   500ms     # 更慢（页面转场）
-```
-
-### 10.2 缓动函数（Easing）
-
-```
-ease-linear:      cubic-bezier(0, 0, 1, 1)
-ease-in:          cubic-bezier(0.4, 0, 1, 1)                # 加速（元素离开）
-ease-out:         cubic-bezier(0, 0, 0.2, 1)                # 减速（元素进入）
-ease-in-out:      cubic-bezier(0.4, 0, 0.2, 1)              # 先加速后减速
-ease-bounce:      cubic-bezier(0.68, -0.55, 0.265, 1.55)    # 弹性（特殊效果）
+grid-columns:     12      # 标准 12 列系统
+grid-gutter-md:   16px    # 栅格间隙（基准）
+grid-container-xl: 1280px  # 容器最大宽度
 ```
 
-### 10.3 语义化动效
+**响应式栅格：**
+- 移动端（xs/sm）：4 列，8-12px 间隙
+- 平板（md）：8 列，16px 间隙
+- 桌面（lg+）：12 列，24px 间隙
 
-```
-transition-base:   all {duration-base} {ease-out}
-transition-colors: color, background-color, border-color {duration-base} {ease-out}
-transition-fade:   opacity {duration-base} {ease-in-out}
-transition-slide:  transform {duration-base} {ease-out}
-```
+**详细内容请查看：** [grid.md](./grid.md)
 
 ---
 
-## 11. Opacity（透明度）
+## 11. Container Queries（容器查询）
+
+> **完整文档：** [Container Queries 容器查询](./container-queries.md) - 现代组件级响应式方案
+
+### 快速参考
+
+**容器断点：**
+```
+container-sm:    320px     # 小容器
+container-md:    480px     # 中等容器
+container-lg:    640px     # 大容器
+container-xl:    800px     # 超大容器
+```
+
+**基础用法：**
+```css
+.container {
+  container-type: inline-size;
+}
+
+@container (min-width: 480px) {
+  .card { /* 响应式样式 */ }
+}
+```
+
+**详细内容请查看：** [container-queries.md](./container-queries.md)
+
+---
+
+## 12. Motion（动效）
+
+> **完整文档：** [Motion 动效系统](./motion.md) - 包含动画时长、缓动函数、语义化过渡的完整规范
+
+### 快速参考
+
+**动画时长：**
+\`\`\`
+duration-fast:     100ms     # 快速（状态切换）
+duration-base:     200ms     # 基础（按钮悬停，推荐）
+duration-slow:     300ms     # 慢速（抽屉展开）
+duration-slower:   500ms     # 更慢（页面转场）
+\`\`\`
+
+**缓动函数（Material Design）：**
+\`\`\`
+ease-out:         cubic-bezier(0, 0, 0.2, 1)         # 元素进入（推荐）
+ease-in:          cubic-bezier(0.4, 0, 1, 1)         # 元素离开
+ease-in-out:      cubic-bezier(0.4, 0, 0.2, 1)       # 位置变化
+\`\`\`
+
+**详细内容请查看：** [motion.md](./motion.md)
+
+---
+
+## 13. Opacity（透明度）
 
 ```
 opacity-0:        0       # 完全透明
