@@ -1,6 +1,7 @@
 # 组件色 Token 清单
 
 > 为特定 UI 组件提供专用色彩 Token，基于语义色进行二次封装。
+> **基于 Material Design 标准色板系统**
 
 ---
 
@@ -489,6 +490,7 @@
 - [语义化色彩总览](./README.md)
 - [交互色 Token](./interactive-colors.md)
 - [功能色 Token](./functional-colors.md)
+- [色板系统](../color-palette.md) - Material Design 17 色标准色板
 
-**文档版本：** v1.0
+**文档版本：** v2.0 (Material Design)
 **最后更新：** 2025-11-16

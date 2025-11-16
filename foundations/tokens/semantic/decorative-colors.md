@@ -1,6 +1,7 @@
 # 装饰色 Token 清单
 
 > 用于阴影、渐变、骨架屏、水印等视觉装饰效果的颜色定义。
+> **基于 Material Design 标准色板系统**
 
 ---
 
@@ -61,8 +62,8 @@
 
 | Token | 浅色模式 | 暗色模式 | 角度 | 用途 |
 |-------|---------|---------|-----|------|
-| `gradient-primary` | Blue-500 → Blue-600<br>#3B8CF7 → #0770FA | Blue-400 → Blue-500<br>#68A4F3 → #3B8CF7 | 135deg | 主按钮渐变 |
-| `gradient-secondary` | Gray-100 → Gray-200<br>#F5F5F5 → #E5E5E5 | Gray-800 → Gray-900<br>#262626 → #171717 | 135deg | 次要背景渐变 |
+| `gradient-primary` | Blue-600 → Blue-700<br>#1E88E5 → #1976D2 | Blue-400 → Blue-500<br>#42A5F5 → #2196F3 | 135deg | 主按钮渐变 |
+| `gradient-secondary` | Grey-100 → Grey-200<br>#F5F5F5 → #EEEEEE | Grey-800 → Grey-900<br>#424242 → #212121 | 135deg | 次要背景渐变 |
 | `gradient-success` | Green-500 → Green-600<br>#38FA86 → #008937 | Green-400 → Green-500<br>#66F59F → #38FA86 | 135deg | 成功渐变 |
 | `gradient-danger` | Red-500 → Red-600<br>#F83A3A → #ED0505 | Red-400 → Red-500<br>#F56666 → #F83A3A | 135deg | 危险操作渐变 |
 
@@ -80,8 +81,8 @@
 ```css
 :root {
   /* 主渐变 */
-  --gradient-primary: linear-gradient(135deg, #3B8CF7 0%, #0770FA 100%);
-  --gradient-secondary: linear-gradient(135deg, #F5F5F5 0%, #E5E5E5 100%);
+  --gradient-primary: linear-gradient(135deg, #1E88E5 0%, #1976D2 100%);    /* Blue-600 → Blue-700 */
+  --gradient-secondary: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);  /* Grey-100 → Grey-200 */
   --gradient-success: linear-gradient(135deg, #38FA86 0%, #008937 100%);
   --gradient-danger: linear-gradient(135deg, #F83A3A 0%, #ED0505 100%);
 
@@ -106,7 +107,7 @@
 
 [data-theme="dark"] {
   --gradient-primary: linear-gradient(135deg, #68A4F3 0%, #3B8CF7 100%);
-  --gradient-secondary: linear-gradient(135deg, #262626 0%, #171717 100%);
+  --gradient-secondary: linear-gradient(135deg, #424242 0%, #212121 100%);  /* Grey-800 → Grey-900 */
   --gradient-success: linear-gradient(135deg, #66F59F 0%, #38FA86 100%);
   --gradient-danger: linear-gradient(135deg, #F56666 0%, #F83A3A 100%);
 
@@ -124,8 +125,8 @@
 
 | Token | 浅色模式 | 暗色模式 | 用途 |
 |-------|---------|---------|------|
-| `skeleton-base` | Gray-200<br>#E5E5E5 | Gray-800<br>#262626 | 骨架屏基础色 |
-| `skeleton-highlight` | Gray-100<br>#F5F5F5 | Gray-700<br>#404040 | 骨架屏高光色 |
+| `skeleton-base` | Grey-200<br>#EEEEEE | Grey-800<br>#424242 | 骨架屏基础色 |
+| `skeleton-highlight` | Grey-100<br>#F5F5F5 | Grey-700<br>#616161 | 骨架屏高光色 |
 | `skeleton-shimmer` | 见 `gradient-shimmer` | - | 骨架屏闪光渐变 |
 
 **配套动画：**
@@ -158,9 +159,9 @@
 | `focus-ring` | rgba(7,112,250,0.3) | rgba(7,112,250,0.4) | 聚焦环颜色（蓝色 Blue-600） |
 | `focus-ring-error` | rgba(237,5,5,0.3) | rgba(237,5,5,0.4) | 错误聚焦环（红色 Red-600） |
 | `selection-bg` | rgba(7,112,250,0.2) | rgba(7,112,250,0.3) | 文本选中背景 |
-| `selection-text` | #171717 | #FAFAFA | 文本选中颜色 |
-| `mark-bg` | Yellow-200<br>#F6EACB | Yellow-800<br>#664B00 | 标记/高亮背景（<mark>） |
-| `mark-text` | #171717 | #FAFAFA | 标记文本颜色 |
+| `selection-text` | #212121 | #FAFAFA | 文本选中颜色 |
+| `mark-bg` | Amber-200<br>#FFE082 | Amber-800<br>#FF8F00 | 标记/高亮背景（<mark>） |
+| `mark-text` | #212121 | #FAFAFA | 标记文本颜色 |
 
 **CSS 定义：**
 
@@ -170,9 +171,9 @@
   --focus-ring: rgba(7, 112, 250, 0.3);
   --focus-ring-error: rgba(237, 5, 5, 0.3);
   --selection-bg: rgba(7, 112, 250, 0.2);
-  --selection-text: #171717;
-  --mark-bg: #F6EACB;
-  --mark-text: #171717;
+  --selection-text: #212121;        /* Grey-900 */
+  --mark-bg: #FFE082;              /* Amber-200 */
+  --mark-text: #212121;            /* Grey-900 */
 }
 
 [data-theme="dark"] {
@@ -403,6 +404,7 @@ shadow-xl (24px)  → 全屏浮层
 - [语义化色彩总览](./README.md)
 - [背景色 Token](./background-colors.md)
 - [功能色 Token](./functional-colors.md)
+- [色板系统](../color-palette.md) - Material Design 17 色标准色板
 
-**文档版本：** v1.0
+**文档版本：** v2.0 (Material Design)
 **最后更新：** 2025-11-16
