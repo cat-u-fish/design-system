@@ -75,13 +75,12 @@
 
 **覆盖场景：** 视觉增强和辅助元素颜色
 
-- 阴影（Shadow）：各级深度
-- 焦点环（Focus Ring）
-- 骨架屏（Skeleton）
-- 水印（Watermark）
-- 渐变（Gradient）
+- 阴影（Shadow）：8 级深度（xs/sm/base/md/lg/xl/inner/outline）
+- 渐变（Gradient）：主渐变/功能渐变/特殊渐变（8 个）
+- 骨架屏（Skeleton）：基础/高光/闪光（3 个）
+- 特殊装饰：水印/聚焦环/选中背景/标记（7 个）
 
-**Token 数量：** ~15 个
+**Token 数量：** ~26 个 ✅ 已完成
 
 ---
 
@@ -89,18 +88,14 @@
 
 **覆盖场景：** 特定组件专属的颜色
 
-- 按钮（Button）
-- 表格（Table）
-- 导航（Navigation）
-- 表单（Form）
-- 通知（Notification）
-- 标签（Tag/Badge）
-- 步骤条（Steps）
-- 代码块（Code）
-- 日期选择器（DatePicker）
-- ...
+- **按钮组件**（18 个）：Primary/Secondary/Danger/Ghost 全状态
+- **表单组件**（22 个）：Input/Checkbox/Radio/Switch 全状态
+- **导航组件**（20 个）：Navbar/Sidebar/Breadcrumb/Tabs
+- **反馈组件**（18 个）：Toast/Tooltip/Badge/Tag
+- **数据展示**（24 个）：Table/Progress/Steps/Chart/Avatar
+- **容器组件**（15 个）：Card/Modal/Drawer/Dropdown
 
-**Token 数量：** ~50 个
+**Token 数量：** ~117 个 ✅ 已完成
 
 ---
 
@@ -152,23 +147,23 @@ component-button-primary-bg     # 组件-按钮-主要-背景
 
 ```
 原始 Token:
-  color-gray-900: #111827
-  color-blue-600: #2563EB
-  color-red-50:   #FEF2F2
+  color-gray-900: #171717
+  color-blue-600: #0770FA
+  color-red-50:   #FAF4F4
 
       ↓
 
 语义 Token:
-  text-primary:      {color-gray-900}
-  interactive-primary: {color-blue-600}
-  bg-error-subtle:   {color-red-50}
+  text-primary:        {color-gray-900}      → #171717
+  interactive-primary: {color-blue-600}      → #0770FA
+  bg-error-subtle:     {color-red-50}        → #FAF4F4
 
       ↓
 
 组件 Token:
-  button-primary-bg:     {interactive-primary}
-  input-error-bg:        {bg-error-subtle}
-  table-header-text:     {text-primary}
+  button-primary-bg:   {interactive-primary} → #0770FA
+  input-error-bg:      {bg-error-subtle}     → #FAF4F4
+  table-header-text:   {text-primary}        → #171717
 ```
 
 ---
@@ -180,16 +175,16 @@ component-button-primary-bg     # 组件-按钮-主要-背景
 ```css
 /* 浅色模式 */
 :root {
-  --text-primary: #111827;           /* Gray-900 */
+  --text-primary: #171717;           /* Gray-900 */
   --bg-primary: #FFFFFF;
-  --interactive-primary: #2563EB;    /* Blue-600 */
+  --interactive-primary: #0770FA;    /* Blue-600 */
 }
 
 /* 暗色模式 */
 [data-theme="dark"] {
-  --text-primary: #F9FAFB;           /* Gray-50 */
-  --bg-primary: #111827;             /* Gray-900 */
-  --interactive-primary: #3B82F6;    /* Blue-500 */
+  --text-primary: #FAFAFA;           /* Gray-50 */
+  --bg-primary: #171717;             /* Gray-900 */
+  --interactive-primary: #3B8CF7;    /* Blue-500 */
 }
 ```
 
@@ -238,16 +233,22 @@ button-primary-hover-bg
 
 ## Token 总量统计
 
-| 分类 | Token 数量 | 浅色模式值 | 暗色模式值 |
-|-----|-----------|----------|-----------|
-| 文本色 | 20 | 20 | 20 |
-| 背景色 | 30 | 30 | 30 |
-| 边框色 | 15 | 15 | 15 |
-| 交互色 | 20 | 20 | 20 |
-| 功能色 | 20 | 20 | 20 |
-| 装饰色 | 15 | 15 | 15 |
-| 组件色 | 50 | 50 | 50 |
-| **合计** | **170** | **170** | **170** |
+| 分类 | Token 数量 | 浅色模式值 | 暗色模式值 | 完成度 |
+|-----|-----------|----------|-----------|--------|
+| 文本色 | 20 | 20 | 20 | ✅ 100% |
+| 背景色 | 30 | 30 | 30 | ✅ 100% |
+| 边框色 | 15 | 15 | 15 | ✅ 100% |
+| 交互色 | 20 | 20 | 20 | ✅ 100% |
+| 功能色 | 20 | 20 | 20 | ✅ 100% |
+| 装饰色 | 26 | 26 | 26 | ✅ 100% |
+| 组件色 | 117 | 117 | 117 | ✅ 100% |
+| **合计** | **248** | **248** | **248** | **100%** |
+
+**统计说明：**
+- 覆盖设计系统中 **所有色彩使用场景**
+- 所有 Token **100% 支持暗色模式**
+- 所有功能色 Token **符合 WCAG AA 标准**
+- 组件色 Token **引用语义色**，易于全局调整
 
 ---
 
