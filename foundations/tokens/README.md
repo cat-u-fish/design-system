@@ -14,13 +14,15 @@
 
 - **[Typography 字体系统](./typography.md)** - 字体族、字号、字重、行高完整规范
 - **[Spacing 间距系统](./spacing.md)** - 基于 4px 网格的间距体系
-- **[Grid 栅格系统](./grid.md)** - 12 列响应式栅格布局
+- **[Grid 栅格系统](./grid.md)** - 12/24 列双栅格系统（B端推荐 24 列）
 - **[Motion 动效系统](./motion.md)** - 动画时长、缓动函数、过渡效果
 - **[Container Queries 容器查询](./container-queries.md)** - 现代组件级响应式方案
 
 ### 快速参考
 
-- **[📋 Design Token 完整参考](./tokens-reference.md)** - 所有 Token 的完整列表（适用于 Figma Tokens Studio）
+- **[📋 Design Token 完整参考](./tokens-reference.md)** - 所有 Token 的完整列表（793 行）
+- **[🎨 Figma 导入指南](./figma-import-guide.md)** - Tokens Studio 插件完整导入教程
+- **[📦 tokens.json](./tokens.json)** - Tokens Studio 标准格式文件（可直接导入）
 
 ---
 
