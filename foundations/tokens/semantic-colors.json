@@ -1,0 +1,768 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "Semantic Colors - Complete color system for light and dark modes",
+  "text-colors": {
+    "primary": {
+      "value": "#212121",
+      "type": "color",
+      "$description": "主文本颜色 - 标题、正文主要内容",
+      "$extensions": {
+        "mode": {
+          "light": "#212121",
+          "dark": "#FAFAFA"
+        },
+        "contrast": {
+          "light": "16.1:1",
+          "dark": "14.5:1"
+        },
+        "wcag": "AAA"
+      }
+    },
+    "secondary": {
+      "value": "#757575",
+      "type": "color",
+      "$description": "次要文本颜色 - 辅助说明、标签",
+      "$extensions": {
+        "mode": {
+          "light": "#757575",
+          "dark": "#E0E0E0"
+        },
+        "contrast": {
+          "light": "4.61:1",
+          "dark": "9.8:1"
+        },
+        "wcag": "AA"
+      }
+    },
+    "tertiary": {
+      "value": "#9E9E9E",
+      "type": "color",
+      "$description": "三级文本颜色 - 占位符、次要信息",
+      "$extensions": {
+        "mode": {
+          "light": "#9E9E9E",
+          "dark": "#BDBDBD"
+        },
+        "contrast": {
+          "light": "2.68:1",
+          "dark": "6.2:1"
+        },
+        "wcag": "AA (dark mode only)"
+      }
+    },
+    "disabled": {
+      "value": "#BDBDBD",
+      "type": "color",
+      "$description": "禁用文本颜色 - 不可交互元素",
+      "$extensions": {
+        "mode": {
+          "light": "#BDBDBD",
+          "dark": "#757575"
+        },
+        "contrast": {
+          "light": "1.88:1",
+          "dark": "3.1:1"
+        },
+        "wcag": "Fail"
+      }
+    },
+    "inverse": {
+      "value": "#FFFFFF",
+      "type": "color",
+      "$description": "反色文本 - 用于深色按钮/卡片上的文字",
+      "$extensions": {
+        "mode": {
+          "light": "#FFFFFF",
+          "dark": "#212121"
+        },
+        "usage": "On dark backgrounds"
+      }
+    },
+    "link": {
+      "value": "#1976D2",
+      "type": "color",
+      "$description": "链接文本颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#1976D2",
+          "dark": "#42A5F5"
+        },
+        "contrast": {
+          "light": "4.64:1",
+          "dark": "6.8:1"
+        },
+        "wcag": "AA"
+      }
+    },
+    "linkHover": {
+      "value": "#1565C0",
+      "type": "color",
+      "$description": "链接悬停颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#1565C0",
+          "dark": "#64B5F6"
+        },
+        "contrast": {
+          "light": "5.85:1",
+          "dark": "8.9:1"
+        },
+        "wcag": "AA"
+      }
+    },
+    "linkVisited": {
+      "value": "#7B1FA2",
+      "type": "color",
+      "$description": "已访问链接颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#7B1FA2",
+          "dark": "#BA68C8"
+        },
+        "contrast": {
+          "light": "8.2:1",
+          "dark": "3.56:1"
+        },
+        "wcag": "AAA"
+      }
+    }
+  },
+  "background-colors": {
+    "primary": {
+      "value": "#FFFFFF",
+      "type": "color",
+      "$description": "主背景颜色 - 页面基础背景",
+      "$extensions": {
+        "mode": {
+          "light": "#FFFFFF",
+          "dark": "#212121"
+        },
+        "usage": "Main page background"
+      }
+    },
+    "secondary": {
+      "value": "#FAFAFA",
+      "type": "color",
+      "$description": "次级背景颜色 - 卡片、面板",
+      "$extensions": {
+        "mode": {
+          "light": "#FAFAFA",
+          "dark": "#424242"
+        },
+        "usage": "Cards, panels, elevated surfaces"
+      }
+    },
+    "tertiary": {
+      "value": "#F5F5F5",
+      "type": "color",
+      "$description": "三级背景颜色 - 悬浮、表格斑马纹",
+      "$extensions": {
+        "mode": {
+          "light": "#F5F5F5",
+          "dark": "#616161"
+        },
+        "usage": "Hover states, table stripes"
+      }
+    },
+    "elevated": {
+      "value": "#FFFFFF",
+      "type": "color",
+      "$description": "提升背景 - 模态框、下拉菜单",
+      "$extensions": {
+        "mode": {
+          "light": "#FFFFFF",
+          "dark": "#424242"
+        },
+        "usage": "Modals, dropdowns, tooltips"
+      }
+    },
+    "overlay": {
+      "value": "rgba(0, 0, 0, 0.5)",
+      "type": "color",
+      "$description": "遮罩层背景",
+      "$extensions": {
+        "mode": {
+          "light": "rgba(0, 0, 0, 0.5)",
+          "dark": "rgba(0, 0, 0, 0.7)"
+        },
+        "usage": "Modal backdrop"
+      }
+    },
+    "disabled": {
+      "value": "#F5F5F5",
+      "type": "color",
+      "$description": "禁用背景颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#F5F5F5",
+          "dark": "#424242"
+        },
+        "usage": "Disabled inputs, buttons"
+      }
+    },
+    "input": {
+      "value": "#FFFFFF",
+      "type": "color",
+      "$description": "输入框背景",
+      "$extensions": {
+        "mode": {
+          "light": "#FFFFFF",
+          "dark": "#424242"
+        },
+        "usage": "Input fields, textareas"
+      }
+    },
+    "code": {
+      "value": "#F5F5F5",
+      "type": "color",
+      "$description": "代码块背景",
+      "$extensions": {
+        "mode": {
+          "light": "#F5F5F5",
+          "dark": "#424242"
+        },
+        "usage": "Code blocks, pre tags"
+      }
+    }
+  },
+  "border-colors": {
+    "primary": {
+      "value": "#E0E0E0",
+      "type": "color",
+      "$description": "主边框颜色 - 分割线、卡片边框",
+      "$extensions": {
+        "mode": {
+          "light": "#E0E0E0",
+          "dark": "#616161"
+        },
+        "usage": "Dividers, card borders"
+      }
+    },
+    "secondary": {
+      "value": "#EEEEEE",
+      "type": "color",
+      "$description": "次级边框颜色 - 轻微分隔",
+      "$extensions": {
+        "mode": {
+          "light": "#EEEEEE",
+          "dark": "#424242"
+        },
+        "usage": "Subtle separators"
+      }
+    },
+    "input": {
+      "value": "#BDBDBD",
+      "type": "color",
+      "$description": "输入框边框",
+      "$extensions": {
+        "mode": {
+          "light": "#BDBDBD",
+          "dark": "#757575"
+        },
+        "usage": "Input field borders"
+      }
+    },
+    "inputHover": {
+      "value": "#9E9E9E",
+      "type": "color",
+      "$description": "输入框悬停边框",
+      "$extensions": {
+        "mode": {
+          "light": "#9E9E9E",
+          "dark": "#BDBDBD"
+        },
+        "usage": "Input field hover state"
+      }
+    },
+    "focus": {
+      "value": "#2196F3",
+      "type": "color",
+      "$description": "焦点边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#2196F3",
+          "dark": "#2196F3"
+        },
+        "usage": "Focused elements"
+      }
+    },
+    "disabled": {
+      "value": "#EEEEEE",
+      "type": "color",
+      "$description": "禁用边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#EEEEEE",
+          "dark": "#424242"
+        },
+        "usage": "Disabled elements"
+      }
+    }
+  },
+  "interactive-colors": {
+    "primary": {
+      "value": "#1976D2",
+      "type": "color",
+      "$description": "主交互色 - 主按钮、选中状态",
+      "$extensions": {
+        "mode": {
+          "light": "#1976D2",
+          "dark": "#2196F3"
+        },
+        "contrast": {
+          "light": "4.64:1",
+          "dark": "3.51:1"
+        },
+        "wcag": "AA"
+      }
+    },
+    "primaryHover": {
+      "value": "#1565C0",
+      "type": "color",
+      "$description": "主交互悬停色",
+      "$extensions": {
+        "mode": {
+          "light": "#1565C0",
+          "dark": "#42A5F5"
+        },
+        "contrast": {
+          "light": "5.85:1",
+          "dark": "2.75:1"
+        }
+      }
+    },
+    "primaryActive": {
+      "value": "#0D47A1",
+      "type": "color",
+      "$description": "主交互按下色",
+      "$extensions": {
+        "mode": {
+          "light": "#0D47A1",
+          "dark": "#64B5F6"
+        },
+        "contrast": {
+          "light": "8.59:1",
+          "dark": "2.22:1"
+        }
+      }
+    },
+    "primaryDisabled": {
+      "value": "#E0E0E0",
+      "type": "color",
+      "$description": "主交互禁用色",
+      "$extensions": {
+        "mode": {
+          "light": "#E0E0E0",
+          "dark": "#616161"
+        }
+      }
+    },
+    "secondary": {
+      "value": "#757575",
+      "type": "color",
+      "$description": "次要交互色 - 次要按钮",
+      "$extensions": {
+        "mode": {
+          "light": "#757575",
+          "dark": "#BDBDBD"
+        },
+        "contrast": {
+          "light": "4.61:1",
+          "dark": "6.2:1"
+        }
+      }
+    },
+    "secondaryHover": {
+      "value": "#616161",
+      "type": "color",
+      "$description": "次要交互悬停色",
+      "$extensions": {
+        "mode": {
+          "light": "#616161",
+          "dark": "#E0E0E0"
+        },
+        "contrast": {
+          "light": "6.19:1",
+          "dark": "9.8:1"
+        }
+      }
+    },
+    "secondaryActive": {
+      "value": "#424242",
+      "type": "color",
+      "$description": "次要交互按下色",
+      "$extensions": {
+        "mode": {
+          "light": "#424242",
+          "dark": "#EEEEEE"
+        },
+        "contrast": {
+          "light": "10.05:1",
+          "dark": "12.1:1"
+        }
+      }
+    },
+    "hover": {
+      "value": "rgba(0, 0, 0, 0.04)",
+      "type": "color",
+      "$description": "通用悬停背景",
+      "$extensions": {
+        "mode": {
+          "light": "rgba(0, 0, 0, 0.04)",
+          "dark": "rgba(255, 255, 255, 0.08)"
+        },
+        "usage": "List items, menu items hover"
+      }
+    },
+    "selected": {
+      "value": "rgba(33, 150, 243, 0.08)",
+      "type": "color",
+      "$description": "选中状态背景",
+      "$extensions": {
+        "mode": {
+          "light": "rgba(33, 150, 243, 0.08)",
+          "dark": "rgba(33, 150, 243, 0.16)"
+        },
+        "usage": "Selected items"
+      }
+    },
+    "active": {
+      "value": "rgba(0, 0, 0, 0.08)",
+      "type": "color",
+      "$description": "激活状态背景",
+      "$extensions": {
+        "mode": {
+          "light": "rgba(0, 0, 0, 0.08)",
+          "dark": "rgba(255, 255, 255, 0.12)"
+        },
+        "usage": "Active/pressed states"
+      }
+    }
+  },
+  "functional-colors": {
+    "success": {
+      "value": "#388E3C",
+      "type": "color",
+      "$description": "成功颜色 - 成功提示、确认操作",
+      "$extensions": {
+        "mode": {
+          "light": "#388E3C",
+          "dark": "#66BB6A"
+        },
+        "contrast": {
+          "light": "4.52:1",
+          "dark": "2.43:1"
+        },
+        "wcag": "AA (light mode)"
+      }
+    },
+    "successBackground": {
+      "value": "#E8F5E9",
+      "type": "color",
+      "$description": "成功背景颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#E8F5E9",
+          "dark": "#1B5E20"
+        },
+        "usage": "Success alerts, notifications"
+      }
+    },
+    "successBorder": {
+      "value": "#4CAF50",
+      "type": "color",
+      "$description": "成功边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#4CAF50",
+          "dark": "#4CAF50"
+        }
+      }
+    },
+    "error": {
+      "value": "#D32F2F",
+      "type": "color",
+      "$description": "错误颜色 - 错误提示、删除操作",
+      "$extensions": {
+        "mode": {
+          "light": "#D32F2F",
+          "dark": "#EF5350"
+        },
+        "contrast": {
+          "light": "4.98:1",
+          "dark": "3.49:1"
+        },
+        "wcag": "AA (light mode)"
+      }
+    },
+    "errorBackground": {
+      "value": "#FFEBEE",
+      "type": "color",
+      "$description": "错误背景颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#FFEBEE",
+          "dark": "#B71C1C"
+        },
+        "usage": "Error alerts, notifications"
+      }
+    },
+    "errorBorder": {
+      "value": "#F44336",
+      "type": "color",
+      "$description": "错误边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#F44336",
+          "dark": "#F44336"
+        }
+      }
+    },
+    "warning": {
+      "value": "#E65100",
+      "type": "color",
+      "$description": "警告颜色 - 警告提示、注意事项",
+      "$extensions": {
+        "mode": {
+          "light": "#E65100",
+          "dark": "#FFA726"
+        },
+        "contrast": {
+          "light": "4.92:1",
+          "dark": "2.11:1"
+        },
+        "wcag": "AA (light mode)"
+      }
+    },
+    "warningBackground": {
+      "value": "#FFF3E0",
+      "type": "color",
+      "$description": "警告背景颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#FFF3E0",
+          "dark": "#E65100"
+        },
+        "usage": "Warning alerts, notifications"
+      }
+    },
+    "warningBorder": {
+      "value": "#FF9800",
+      "type": "color",
+      "$description": "警告边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#FF9800",
+          "dark": "#FF9800"
+        }
+      }
+    },
+    "info": {
+      "value": "#1976D2",
+      "type": "color",
+      "$description": "信息颜色 - 信息提示",
+      "$extensions": {
+        "mode": {
+          "light": "#1976D2",
+          "dark": "#29B6F6"
+        },
+        "contrast": {
+          "light": "4.64:1",
+          "dark": "2.30:1"
+        },
+        "wcag": "AA (light mode)"
+      }
+    },
+    "infoBackground": {
+      "value": "#E3F2FD",
+      "type": "color",
+      "$description": "信息背景颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#E3F2FD",
+          "dark": "#0D47A1"
+        },
+        "usage": "Info alerts, notifications"
+      }
+    },
+    "infoBorder": {
+      "value": "#2196F3",
+      "type": "color",
+      "$description": "信息边框颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#2196F3",
+          "dark": "#2196F3"
+        }
+      }
+    }
+  },
+  "decorative-colors": {
+    "accent1": {
+      "value": "#9C27B0",
+      "type": "color",
+      "$description": "装饰色 1 - Purple (VIP、高级功能)",
+      "$extensions": {
+        "mode": {
+          "light": "#9C27B0",
+          "dark": "#BA68C8"
+        },
+        "usage": "VIP badges, premium features"
+      }
+    },
+    "accent2": {
+      "value": "#E91E63",
+      "type": "color",
+      "$description": "装饰色 2 - Pink (社交功能)",
+      "$extensions": {
+        "mode": {
+          "light": "#E91E63",
+          "dark": "#F06292"
+        },
+        "usage": "Like, favorite, social features"
+      }
+    },
+    "accent3": {
+      "value": "#00BCD4",
+      "type": "color",
+      "$description": "装饰色 3 - Cyan (数据可视化)",
+      "$extensions": {
+        "mode": {
+          "light": "#00BCD4",
+          "dark": "#4DD0E1"
+        },
+        "usage": "Data visualization, charts"
+      }
+    },
+    "accent4": {
+      "value": "#FF9800",
+      "type": "color",
+      "$description": "装饰色 4 - Orange (促销活动)",
+      "$extensions": {
+        "mode": {
+          "light": "#FF9800",
+          "dark": "#FFB74D"
+        },
+        "usage": "Promotions, highlights"
+      }
+    },
+    "accent5": {
+      "value": "#009688",
+      "type": "color",
+      "$description": "装饰色 5 - Teal (环保主题)",
+      "$extensions": {
+        "mode": {
+          "light": "#009688",
+          "dark": "#4DB6AC"
+        },
+        "usage": "Eco-friendly, growth indicators"
+      }
+    },
+    "gradient1Start": {
+      "value": "#2196F3",
+      "type": "color",
+      "$description": "渐变 1 起始色 - Blue",
+      "$extensions": {
+        "mode": {
+          "light": "#2196F3",
+          "dark": "#42A5F5"
+        }
+      }
+    },
+    "gradient1End": {
+      "value": "#9C27B0",
+      "type": "color",
+      "$description": "渐变 1 结束色 - Purple",
+      "$extensions": {
+        "mode": {
+          "light": "#9C27B0",
+          "dark": "#BA68C8"
+        }
+      }
+    },
+    "gradient2Start": {
+      "value": "#00BCD4",
+      "type": "color",
+      "$description": "渐变 2 起始色 - Cyan",
+      "$extensions": {
+        "mode": {
+          "light": "#00BCD4",
+          "dark": "#26C6DA"
+        }
+      }
+    },
+    "gradient2End": {
+      "value": "#4CAF50",
+      "type": "color",
+      "$description": "渐变 2 结束色 - Green",
+      "$extensions": {
+        "mode": {
+          "light": "#4CAF50",
+          "dark": "#66BB6A"
+        }
+      }
+    }
+  },
+  "comment-colors": {
+    "comment": {
+      "value": "#9E9E9E",
+      "type": "color",
+      "$description": "注释颜色 - 代码注释、辅助说明",
+      "$extensions": {
+        "mode": {
+          "light": "#9E9E9E",
+          "dark": "#BDBDBD"
+        },
+        "usage": "Code comments, helper text"
+      }
+    },
+    "placeholder": {
+      "value": "#BDBDBD",
+      "type": "color",
+      "$description": "占位符颜色 - 输入框占位符",
+      "$extensions": {
+        "mode": {
+          "light": "#BDBDBD",
+          "dark": "#757575"
+        },
+        "usage": "Input placeholders"
+      }
+    },
+    "caption": {
+      "value": "#757575",
+      "type": "color",
+      "$description": "说明文字颜色 - 图片说明、版权信息",
+      "$extensions": {
+        "mode": {
+          "light": "#757575",
+          "dark": "#BDBDBD"
+        },
+        "usage": "Captions, copyright text"
+      }
+    },
+    "helperText": {
+      "value": "#9E9E9E",
+      "type": "color",
+      "$description": "辅助文字颜色 - 表单提示、帮助信息",
+      "$extensions": {
+        "mode": {
+          "light": "#9E9E9E",
+          "dark": "#BDBDBD"
+        },
+        "usage": "Form helper text, tooltips"
+      }
+    },
+    "watermark": {
+      "value": "#EEEEEE",
+      "type": "color",
+      "$description": "水印颜色",
+      "$extensions": {
+        "mode": {
+          "light": "#EEEEEE",
+          "dark": "#424242"
+        },
+        "usage": "Watermarks, subtle backgrounds"
+      }
+    }
+  }
+}
