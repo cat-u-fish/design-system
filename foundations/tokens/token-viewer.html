@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Token Viewer - Material Design v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FAFAFA;
+            color: #212121;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1976D2;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #757575;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            background: #F5F5F5;
+            border-color: #1976D2;
+        }
+
+        .tab.active {
+            background: #1976D2;
+            color: white;
+            border-color: #1976D2;
+        }
+
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #212121;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .token-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        /* Color tokens - 3 columns */
+        .token-grid.colors {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+
+        /* Other tokens - 2 columns */
+        .token-grid.compact {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .token-item {
+            padding: 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .token-item:hover {
+            border-color: #1976D2;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .token-item.copied {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+        }
+
+        .token-name {
+            font-size: 12px;
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            color: #757575;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+
+        .token-value {
+            font-size: 13px;
+            font-weight: 500;
+            color: #212121;
+            word-break: break-all;
+        }
+
+        /* Color specific styles */
+        .color-swatch {
+            width: 100%;
+            height: 48px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .color-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #9E9E9E;
+            margin-top: 4px;
+        }
+
+        /* Shadow preview */
+        .shadow-preview {
+            width: 100%;
+            height: 60px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #757575;
+        }
+
+        /* Font preview */
+        .font-preview {
+            padding: 8px;
+            background: #F5F5F5;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Spacing preview */
+        .spacing-preview {
+            margin-bottom: 8px;
+        }
+
+        .spacing-bar {
+            background: #2196F3;
+            height: 20px;
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        /* Border radius preview */
+        .radius-preview {
+            width: 60px;
+            height: 60px;
+            background: #1976D2;
+            margin-bottom: 8px;
+        }
+
+        /* Duration/Easing preview */
+        .motion-preview {
+            width: 40px;
+            height: 40px;
+            background: #1976D2;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+
+        .copy-indicator {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #4CAF50;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .token-item.copied .copy-indicator {
+            opacity: 1;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1976D2;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 4px;
+            background: #F5F5F5;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .mode-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stats {
+            display: flex;
+            gap: 24px;
+            padding: 16px;
+            background: #E3F2FD;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1976D2;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #757575;
+        }
+
+        @media (max-width: 768px) {
+            .token-grid.colors,
+            .token-grid.compact {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Semantic colors mode indicator */
+        .mode-indicator {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .mode-light {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .mode-dark {
+            background: #424242;
+            color: #FAFAFA;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Design Token Viewer</h1>
+            <p class="subtitle">Material Design v2.0 - Complete Token System (Primitive + Semantic)</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value" id="totalTokens">0</span>
+                <span class="stat-label">Total Tokens</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="colorCount">0</span>
+                <span class="stat-label">Colors</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="categoryCount">0</span>
+                <span class="stat-label">Categories</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search tokens...">
+            <div class="mode-toggle" id="colorModeToggle" style="display: none;">
+                <button class="mode-btn active" data-mode="light">Light Mode</button>
+                <button class="mode-btn" data-mode="dark">Dark Mode</button>
+            </div>
+        </div>
+
+        <div class="tabs" id="categoryTabs"></div>
+
+        <div id="tokenContent"></div>
+    </div>
+
+    <script>
+        let primitiveTokens = {};
+        let semanticTokens = {};
+        let currentCategory = 'all';
+        let currentMode = 'light';
+        let searchTerm = '';
+
+        // Load both JSON files
+        Promise.all([
+            fetch('tokens.json').then(r => r.json()),
+            fetch('semantic-colors.json').then(r => r.json())
+        ]).then(([primitive, semantic]) => {
+            primitiveTokens = primitive;
+            semanticTokens = semantic;
+
+            // Remove brown and blueGrey from primitive colors
+            if (primitiveTokens.color) {
+                delete primitiveTokens.color.brown;
+                delete primitiveTokens.color.blueGrey;
+            }
+
+            init();
+        }).catch(err => {
+            console.error('Error loading tokens:', err);
+            document.getElementById('tokenContent').innerHTML =
+                '<div class="section"><p>Error loading token files. Please ensure tokens.json and semantic-colors.json are in the same directory.</p></div>';
+        });
+
+        function init() {
+            renderTabs();
+            renderTokens();
+            updateStats();
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchTerm = e.target.value.toLowerCase();
+                renderTokens();
+            });
+
+            // Mode toggle
+            document.getElementById('colorModeToggle').addEventListener('click', (e) => {
+                if (e.target.classList.contains('mode-btn')) {
+                    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentMode = e.target.dataset.mode;
+                    renderTokens();
+                }
+            });
+        }
+
+        function renderTabs() {
+            const tabs = document.getElementById('categoryTabs');
+            const categories = [
+                { id: 'all', name: 'All Tokens' },
+                { id: 'color', name: 'Colors (Primitive)' },
+                { id: 'semantic', name: 'Semantic Colors' },
+                { id: 'font', name: 'Typography' },
+                { id: 'spacing', name: 'Spacing' },
+                { id: 'borderRadius', name: 'Border Radius' },
+                { id: 'boxShadow', name: 'Shadows' },
+                { id: 'borderWidth', name: 'Border Width' },
+                { id: 'opacity', name: 'Opacity' },
+                { id: 'duration', name: 'Duration' },
+                { id: 'cubicBezier', name: 'Easing' },
+                { id: 'zIndex', name: 'Z-Index' },
+                { id: 'breakpoint', name: 'Breakpoints' },
+                { id: 'container', name: 'Containers' }
+            ];
+
+            tabs.innerHTML = categories.map(cat =>
+                `<div class="tab ${cat.id === currentCategory ? 'active' : ''}" onclick="selectCategory('${cat.id}')">${cat.name}</div>`
+            ).join('');
+        }
+
+        function selectCategory(category) {
+            currentCategory = category;
+            renderTabs();
+            renderTokens();
+
+            // Show/hide mode toggle for semantic colors
+            const modeToggle = document.getElementById('colorModeToggle');
+            modeToggle.style.display = category === 'semantic' ? 'flex' : 'none';
+        }
+
+        function renderTokens() {
+            const content = document.getElementById('tokenContent');
+            let html = '';
+
+            if (currentCategory === 'all') {
+                // Primitive colors
+                html += renderColorSection('Primitive Colors', primitiveTokens.color);
+
+                // Semantic colors
+                const semanticColorCategories = ['text-colors', 'background-colors', 'border-colors', 'interactive-colors', 'functional-colors', 'decorative-colors', 'comment-colors'];
+                semanticColorCategories.forEach(cat => {
+                    if (semanticTokens[cat]) {
+                        html += renderSemanticColorSection(cat, semanticTokens[cat]);
+                    }
+                });
+
+                // Other tokens
+                Object.keys(primitiveTokens).forEach(key => {
+                    if (key !== 'color' && key !== 'semantic' && key !== '$schema' && key !== '$description') {
+                        html += renderSection(key, primitiveTokens[key]);
+                    }
+                });
+            } else if (currentCategory === 'color') {
+                html += renderColorSection('Primitive Colors', primitiveTokens.color);
+            } else if (currentCategory === 'semantic') {
+                const categories = ['text-colors', 'background-colors', 'border-colors', 'interactive-colors', 'functional-colors', 'decorative-colors', 'comment-colors'];
+                categories.forEach(cat => {
+                    if (semanticTokens[cat]) {
+                        html += renderSemanticColorSection(cat, semanticTokens[cat]);
+                    }
+                });
+            } else {
+                html += renderSection(currentCategory, primitiveTokens[currentCategory]);
+            }
+
+            content.innerHTML = html;
+        }
+
+        function renderColorSection(title, colors) {
+            if (!colors) return '';
+
+            let html = `<div class="section">
+                <h2 class="section-title">${title}</h2>
+                <div class="token-grid colors">`;
+
+            Object.keys(colors).forEach(colorFamily => {
+                Object.keys(colors[colorFamily]).forEach(shade => {
+                    const token = colors[colorFamily][shade];
+                    const tokenName = `color.${colorFamily}.${shade}`;
+                    const value = token.value;
+
+                    if (matchesSearch(tokenName, value)) {
+                        html += `
+                            <div class="token-item" onclick="copyToken('${tokenName}', '${value}', this)">
+                                <div class="color-swatch" style="background-color: ${value}"></div>
+                                <div class="token-name">${tokenName}</div>
+                                <div class="token-value">${value}</div>
+                                <div class="copy-indicator">Copied!</div>
+                            </div>`;
+                    }
+                });
+            });
+
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderSemanticColorSection(category, tokens) {
+            if (!tokens) return '';
+
+            const categoryNames = {
+                'text-colors': 'Text Colors',
+                'background-colors': 'Background Colors',
+                'border-colors': 'Border Colors',
+                'interactive-colors': 'Interactive Colors',
+                'functional-colors': 'Functional Colors',
+                'decorative-colors': 'Decorative Colors',
+                'comment-colors': 'Comment Colors'
+            };
+
+            let html = `<div class="section">
+                <h2 class="section-title">${categoryNames[category] || category}</h2>
+                <div class="token-grid colors">`;
+
+            Object.keys(tokens).forEach(tokenKey => {
+                const token = tokens[tokenKey];
+                const tokenName = `${category}.${tokenKey}`;
+
+                // Get the appropriate value based on mode
+                let displayValue = token.value;
+                if (token.$extensions?.mode) {
+                    displayValue = token.$extensions.mode[currentMode] || token.value;
+                }
+
+                if (matchesSearch(tokenName, displayValue)) {
+                    const modeIndicator = token.$extensions?.mode ?
+                        `<span class="mode-indicator mode-${currentMode}">${currentMode}</span>` : '';
+
+                    const description = token.$description || '';
+                    const contrast = token.$extensions?.contrast?.[currentMode] || '';
+                    const wcag = token.$extensions?.wcag || '';
+
+                    html += `
+                        <div class="token-item" onclick="copyToken('${tokenName}', '${displayValue}', this)">
+                            <div class="color-swatch" style="background-color: ${displayValue}"></div>
+                            <div class="token-name">${tokenName}${modeIndicator}</div>
+                            <div class="token-value">${displayValue}</div>
+                            ${contrast ? `<div class="color-info"><span>${contrast}</span><span>${wcag}</span></div>` : ''}
+                            ${description ? `<div style="font-size: 10px; color: #9E9E9E; margin-top: 4px;">${description}</div>` : ''}
+                            <div class="copy-indicator">Copied!</div>
+                        </div>`;
+                }
+            });
+
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderSection(category, tokens) {
+            if (!tokens) return '';
+
+            const categoryNames = {
+                font: 'Typography',
+                spacing: 'Spacing',
+                borderRadius: 'Border Radius',
+                borderWidth: 'Border Width',
+                boxShadow: 'Box Shadow',
+                opacity: 'Opacity',
+                duration: 'Duration',
+                cubicBezier: 'Easing Functions',
+                zIndex: 'Z-Index',
+                breakpoint: 'Breakpoints',
+                container: 'Container Widths'
+            };
+
+            let html = `<div class="section">
+                <h2 class="section-title">${categoryNames[category] || category}</h2>`;
+
+            // Handle nested structures (like font.family, font.size)
+            if (category === 'font') {
+                Object.keys(tokens).forEach(subcategory => {
+                    html += `<h3 style="font-size: 14px; font-weight: 600; margin: 16px 0 8px; color: #757575;">${subcategory}</h3>`;
+                    html += `<div class="token-grid compact">`;
+
+                    Object.keys(tokens[subcategory]).forEach(tokenKey => {
+                        const token = tokens[subcategory][tokenKey];
+                        const tokenName = `font.${subcategory}.${tokenKey}`;
+                        const value = token.value;
+
+                        if (matchesSearch(tokenName, value)) {
+                            html += renderTokenItem(tokenName, value, token.$description, category);
+                        }
+                    });
+
+                    html += `</div>`;
+                });
+            } else {
+                html += `<div class="token-grid compact">`;
+
+                Object.keys(tokens).forEach(tokenKey => {
+                    const token = tokens[tokenKey];
+                    const tokenName = `${category}.${tokenKey}`;
+                    const value = token.value;
+
+                    if (matchesSearch(tokenName, value)) {
+                        html += renderTokenItem(tokenName, value, token.$description, category);
+                    }
+                });
+
+                html += `</div>`;
+            }
+
+            html += `</div>`;
+            return html;
+        }
+
+        function renderTokenItem(tokenName, value, description, category) {
+            let preview = '';
+
+            switch(category) {
+                case 'boxShadow':
+                    if (value !== 'none') {
+                        preview = `<div class="shadow-preview" style="box-shadow: ${value}">Shadow Preview</div>`;
+                    }
+                    break;
+                case 'spacing':
+                    const width = parseInt(value) > 256 ? 256 : value;
+                    preview = `<div class="spacing-preview"><div class="spacing-bar" style="width: ${width}"></div></div>`;
+                    break;
+                case 'borderRadius':
+                    preview = `<div class="radius-preview" style="border-radius: ${value}"></div>`;
+                    break;
+                case 'duration':
+                case 'cubicBezier':
+                    preview = `<div class="motion-preview" style="animation: pulse ${category === 'duration' ? value : '1s'} ${category === 'cubicBezier' ? value : 'ease-in-out'} infinite;"></div>`;
+                    break;
+                case 'font':
+                    if (tokenName.includes('family')) {
+                        preview = `<div class="font-preview" style="font-family: ${value}">The quick brown fox</div>`;
+                    } else if (tokenName.includes('size')) {
+                        preview = `<div class="font-preview" style="font-size: ${value}">Aa</div>`;
+                    } else if (tokenName.includes('weight')) {
+                        preview = `<div class="font-preview" style="font-weight: ${value}">Font Weight</div>`;
+                    }
+                    break;
+            }
+
+            return `
+                <div class="token-item" onclick="copyToken('${tokenName}', '${value}', this)">
+                    ${preview}
+                    <div class="token-name">${tokenName}</div>
+                    <div class="token-value">${value}</div>
+                    ${description ? `<div style="font-size: 10px; color: #9E9E9E; margin-top: 4px;">${description}</div>` : ''}
+                    <div class="copy-indicator">Copied!</div>
+                </div>`;
+        }
+
+        function matchesSearch(name, value) {
+            if (!searchTerm) return true;
+            return name.toLowerCase().includes(searchTerm) ||
+                   value.toString().toLowerCase().includes(searchTerm);
+        }
+
+        function copyToken(name, value, element) {
+            const textToCopy = `${name}: ${value}`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 1000);
+            });
+        }
+
+        function updateStats() {
+            let totalTokens = 0;
+            let colorTokens = 0;
+
+            // Count primitive tokens
+            Object.keys(primitiveTokens).forEach(category => {
+                if (category === '$schema' || category === '$description') return;
+
+                if (category === 'color') {
+                    Object.keys(primitiveTokens.color).forEach(family => {
+                        const count = Object.keys(primitiveTokens.color[family]).length;
+                        colorTokens += count;
+                        totalTokens += count;
+                    });
+                } else if (typeof primitiveTokens[category] === 'object') {
+                    Object.keys(primitiveTokens[category]).forEach(subcategory => {
+                        if (typeof primitiveTokens[category][subcategory] === 'object') {
+                            totalTokens += Object.keys(primitiveTokens[category][subcategory]).length;
+                        }
+                    });
+                }
+            });
+
+            // Count semantic tokens
+            Object.keys(semanticTokens).forEach(category => {
+                if (category === '$schema' || category === '$description') return;
+                const count = Object.keys(semanticTokens[category]).length;
+                colorTokens += count;
+                totalTokens += count;
+            });
+
+            document.getElementById('totalTokens').textContent = totalTokens;
+            document.getElementById('colorCount').textContent = colorTokens;
+            document.getElementById('categoryCount').textContent =
+                Object.keys(primitiveTokens).filter(k => k !== '$schema' && k !== '$description').length +
+                Object.keys(semanticTokens).filter(k => k !== '$schema' && k !== '$description').length;
+        }
+
+        // Add animation for motion preview
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
