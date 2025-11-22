@@ -1,0 +1,2438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B 端设计系统 - Design Token (架构优化版)</title>
+    <style>
+        /* --- 保持原始样式不变 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand-primary: #2196F3;
+            --brand-hover: #1976D2;
+            --brand-active: #1565C0;
+
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 20px;
+            --spacing-6: 24px;
+
+            --radius-sm: 2px;
+            --radius-base: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+
+            --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-card-active: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+            --duration-fast: 150ms;
+            --duration-base: 200ms;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.5;
+            font-size: 13px;
+            transition: background-color var(--duration-base), color var(--duration-base);
+        }
+
+        body.light {
+            background: #FAFAFA;
+            color: #212121;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #FAFAFA;
+            --bg-card: #FFFFFF;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --text-tertiary: #9E9E9E;
+            --border-light: #EEEEEE;
+        }
+
+        body.dark {
+            background: #121212;
+            color: #FAFAFA;
+            --bg-primary: #1E1E1E;
+            --bg-secondary: #121212;
+            --bg-card: #1E1E1E;
+            --text-primary: #FAFAFA;
+            --text-secondary: #E0E0E0;
+            --text-tertiary: #BDBDBD;
+            --border-light: #333333;
+            --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --shadow-card-active: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--spacing-4) var(--spacing-6);
+            transition: background-color var(--duration-base), box-shadow var(--duration-base), backdrop-filter var(--duration-base);
+        }
+
+        body.light .header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        body.dark .header {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--spacing-4);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-6);
+            flex-wrap: wrap;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-1);
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.29;
+            color: var(--text-primary);
+        }
+
+        .header-subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            color: var(--text-tertiary);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: var(--spacing-5);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.43;
+            color: var(--brand-primary);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            flex-wrap: wrap;
+        }
+
+        .copy-mode-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .copy-mode-label {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+        }
+
+        .copy-mode-toggle {
+            display: flex;
+            gap: 2px;
+            background: var(--bg-secondary);
+            padding: 3px;
+            border-radius: var(--radius-md);
+        }
+
+        .copy-mode-btn {
+            padding: 4px var(--spacing-3);
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            transition: all var(--duration-fast);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .copy-mode-btn:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .copy-mode-btn.active {
+            background: var(--brand-primary);
+            color: #FFFFFF;
+        }
+
+        .mode-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mode-label {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 2px;
+            background: var(--bg-secondary);
+            padding: 3px;
+            border-radius: var(--radius-md);
+        }
+
+        .mode-btn {
+            padding: 4px var(--spacing-3);
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            transition: all var(--duration-fast);
+            color: var(--text-secondary);
+        }
+
+        .mode-btn:hover {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .mode-btn.active {
+            background: var(--brand-primary);
+            color: #FFFFFF;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: calc(90px + var(--spacing-4)) var(--spacing-4) var(--spacing-4);
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--spacing-2);
+            flex-wrap: wrap;
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-4);
+            position: sticky;
+            top: calc(90px + var(--spacing-2));
+            z-index: 100;
+        }
+
+        body.light .tabs {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        body.dark .tabs {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .tab {
+            padding: var(--spacing-2) var(--spacing-4);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            transition: all var(--duration-fast);
+            white-space: nowrap;
+            color: var(--text-secondary);
+        }
+
+        .tab:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .tab.active {
+            background: var(--brand-primary);
+            color: #FFFFFF;
+        }
+
+        .section {
+            background: var(--bg-card);
+            padding: var(--spacing-5);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-4);
+            transition: box-shadow var(--duration-base);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.29;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+
+        .section-count {
+            padding: 2px var(--spacing-2);
+            border-radius: var(--radius-base);
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            background: var(--brand-primary);
+            color: #FFFFFF;
+        }
+
+        .subsection-title {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.43;
+            color: var(--text-secondary);
+            margin: var(--spacing-5) 0 var(--spacing-3);
+            padding-left: var(--spacing-2);
+            border-left: 3px solid var(--brand-primary);
+        }
+
+        .token-grid {
+            display: grid;
+            gap: var(--spacing-3);
+        }
+
+        .token-grid.colors {
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+
+        .token-grid.compact {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
+
+        .token-grid.typography {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+
+        .token-item {
+            padding: var(--spacing-4);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-base);
+            position: relative;
+            background: var(--bg-card);
+        }
+
+        .token-item:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .token-item.copied {
+            box-shadow: 0 0 0 2px #4CAF50;
+        }
+
+        body.light .token-item.copied {
+            background: #E8F5E9;
+        }
+
+        body.dark .token-item.copied {
+            background: #1B5E20;
+        }
+
+        .token-name {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+            color: var(--brand-primary);
+            margin-bottom: var(--spacing-2);
+            word-break: break-all;
+        }
+
+        .token-value {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.43;
+            color: var(--text-primary);
+            word-break: break-all;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+        }
+
+        .token-desc {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.43;
+            letter-spacing: 0.025em;
+            color: var(--text-tertiary);
+            margin-top: var(--spacing-2);
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 60px;
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            border: 1px solid var(--border-light);
+        }
+
+        .shadow-preview {
+            width: 100%;
+            height: 60px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+
+        .spacing-preview {
+            margin-bottom: var(--spacing-3);
+            background: var(--bg-secondary);
+            padding: var(--spacing-2);
+            border-radius: var(--radius-base);
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .spacing-bar {
+            background: var(--brand-primary);
+            height: 20px;
+            border-radius: var(--radius-sm);
+            position: relative;
+            transition: width var(--duration-base);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: var(--spacing-1);
+        }
+
+        .spacing-label {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            color: #FFFFFF;
+        }
+
+        .radius-preview {
+            width: 100%;
+            height: 60px;
+            background: var(--brand-primary);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .font-preview {
+            padding: var(--spacing-3);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+        }
+
+        .motion-preview {
+            width: 100%;
+            height: 60px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motion-ball {
+            width: 24px;
+            height: 24px;
+            background: var(--brand-primary);
+            border-radius: 50%;
+            position: absolute;
+            left: 12px;
+        }
+
+        .motion-preview:hover .motion-ball {
+            animation-play-state: running !important;
+        }
+
+        @keyframes move-linear {
+            0% {
+                left: 12px;
+            }
+
+            50% {
+                left: calc(100% - 36px);
+            }
+
+            100% {
+                left: 12px;
+            }
+        }
+
+        @keyframes move-ease-out {
+            0% {
+                left: 12px;
+            }
+
+            50% {
+                left: calc(100% - 36px);
+            }
+
+            100% {
+                left: 12px;
+            }
+        }
+
+        @keyframes move-ease-in {
+            0% {
+                left: 12px;
+            }
+
+            50% {
+                left: calc(100% - 36px);
+            }
+
+            100% {
+                left: 12px;
+            }
+        }
+
+        @keyframes move-ease-in-out {
+            0% {
+                left: 12px;
+            }
+
+            50% {
+                left: calc(100% - 36px);
+            }
+
+            100% {
+                left: 12px;
+            }
+        }
+
+        .copy-indicator {
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-2);
+            background: #4CAF50;
+            color: white;
+            padding: 4px var(--spacing-3);
+            border-radius: var(--radius-base);
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.0;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            transition: opacity var(--duration-base);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+            pointer-events: none;
+        }
+
+        .token-item.copied .copy-indicator {
+            opacity: 1;
+        }
+
+        .mode-badge {
+            padding: 4px var(--spacing-3);
+            border-radius: var(--radius-base);
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .mode-badge.light-only {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .mode-badge.dark-only {
+            background: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .mode-badge.both {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        /* --- 新增样式：用于展示透明度叠加 --- */
+        .checkered-bg {
+            background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+                linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #ccc 75%),
+                linear-gradient(-45deg, transparent 75%, #ccc 75%);
+            background-size: 10px 10px;
+            background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+        }
+
+        .layer-demo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            height: 60px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .layer-step {
+            flex: 1;
+            height: 100%;
+            border-radius: var(--radius-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- 新增样式：模糊与边框预览 --- */
+        .blur-preview {
+            width: 100%;
+            height: 60px;
+            background: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') no-repeat center/cover;
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .blur-glass {
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .border-style-preview {
+            width: 100%;
+            height: 40px;
+            background: var(--bg-secondary);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ratio-preview {
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            position: relative;
+        }
+
+        .ratio-box {
+            background: var(--brand-primary);
+            opacity: 0.2;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .layer-symbol {
+            font-weight: bold;
+            color: var(--text-tertiary);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .token-grid.colors,
+            .token-grid.compact,
+            .token-grid.typography {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-tertiary);
+            border-radius: var(--radius-base);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* --- Grid Preview --- */
+        .grid-preview-container {
+            width: 100%;
+            height: 60px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            overflow: hidden;
+        }
+
+        .grid-row {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            gap: 2px;
+        }
+
+        .grid-col {
+            flex: 1;
+            background: #BBDEFB;
+            /* Blue 100 */
+            height: 100%;
+            border-radius: 1px;
+        }
+
+        body.dark .grid-col {
+            background: #1565C0;
+            /* Blue 800 */
+        }
+
+        .grid-gutter-preview {
+            display: flex;
+            gap: 16px;
+            /* Dynamic */
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grid-gutter-col {
+            width: 40px;
+            height: 100%;
+            background: #BBDEFB;
+        }
+
+        body.dark .grid-gutter-col {
+            background: #1565C0;
+        }
+
+        .grid-margin-preview {
+            width: 100%;
+            height: 100%;
+            background: #E3F2FD;
+            /* Lighter blue */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        body.dark .grid-margin-preview {
+            background: #0D47A1;
+        }
+
+        .grid-margin-content {
+            flex: 1;
+            height: 100%;
+            background: var(--bg-card);
+            margin: 0 24px;
+            /* Dynamic */
+            border: 1px dashed var(--brand-primary);
+            opacity: 0.8;
+        }
+
+        /* --- Density Preview --- */
+        .density-preview-box {
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .density-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--brand-primary);
+            color: var(--text-primary);
+            border-radius: 4px;
+            font-size: 12px;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .density-input {
+            background: var(--bg-card);
+            border: 1px solid var(--text-tertiary);
+            border-radius: 4px;
+            font-size: 12px;
+            width: 100%;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- Z-Index Preview --- */
+        .z-index-preview {
+            width: 100%;
+            height: 120px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .z-card {
+            width: 80px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            position: absolute;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .z-card.highlight {
+            background: var(--brand-primary);
+            color: white;
+            border-color: var(--brand-primary);
+            z-index: 10;
+            transform: scale(1.1);
+        }
+
+        /* --- Layout Preview --- */
+        .layout-preview {
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .breakpoint-ruler {
+            width: 100%;
+            height: 24px;
+            background: #E0E0E0;
+            position: relative;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+
+        .breakpoint-fill {
+            height: 100%;
+            background: var(--brand-primary);
+            opacity: 0.6;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .container-box {
+            height: 40px;
+            background: var(--bg-card);
+            border: 1px dashed var(--brand-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+            transition: width 0.3s ease;
+        }
+
+        /* --- Icon Preview --- */
+        .icon-preview-box {
+            width: 100%;
+            height: 60px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body class="light">
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="header-title">
+                    <h1>🎨 MasterGo Design Tokens (Flattened)</h1>
+                    <div class="header-subtitle">适配 MasterGo：已展平变量引用 · 斜杠命名 (Slash Naming) · 纯十六进制值</div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalTokens">0</span>
+                        <span class="stat-label">令牌总数</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="categoryCount">11</span>
+                        <span class="stat-label">分类数量</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="copy-mode-selector">
+                    <div class="copy-mode-label">复制格式</div>
+                    <div class="copy-mode-toggle">
+                        <button class="copy-mode-btn" data-copy-mode="name">名称</button>
+                        <button class="copy-mode-btn" data-copy-mode="css">CSS Var</button>
+                        <button class="copy-mode-btn active" data-copy-mode="value">值</button>
+                    </div>
+                </div>
+                <div class="mode-toggle">
+                    <div class="mode-label">主题模式</div>
+                    <div class="mode-buttons">
+                        <button class="mode-btn active" data-mode="light">☀️ 亮色</button>
+                        <button class="mode-btn" data-mode="dark">🌙 暗色</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs" id="categoryTabs"></div>
+        <div id="tokenContent"></div>
+    </div>
+
+    <script>
+        const designTokens = {
+            // 新增：状态层 (State Layers)
+            stateLayers: [
+                { name: 'state-hover', light: 'rgba(0, 0, 0, 0.08)', dark: 'rgba(255, 255, 255, 0.12)', desc: '悬停状态遮罩 (变暗/变亮)', usage: '所有可点击元素的 Hover 态' },
+                { name: 'state-pressed', light: 'rgba(0, 0, 0, 0.12)', dark: 'rgba(255, 255, 255, 0.16)', desc: '按下状态遮罩', usage: '按钮、列表项的 Active 态' },
+                { name: 'state-selected', light: 'rgba(33, 150, 243, 0.12)', dark: 'rgba(33, 150, 243, 0.24)', desc: '选中状态遮罩 (品牌色)', usage: '列表选中、菜单选中' },
+                { name: 'state-drag', light: 'rgba(0, 0, 0, 0.16)', dark: 'rgba(255, 255, 255, 0.20)', desc: '拖拽状态遮罩', usage: '元素被拖拽时' },
+                { name: 'state-focus', light: 'rgba(0, 0, 0, 0.12)', dark: 'rgba(255, 255, 255, 0.12)', desc: '聚焦状态环', usage: '键盘聚焦时的 Halo 效果' }
+            ],
+            // 原有的 Typography 保持不变
+            typography: [
+                { name: 'display-hero', category: '展示', params: '54px / Bold (700) / 1.14 / -0.05em', lineHeight: '64px', purpose: '数据大屏', scenarios: '驾驶舱关键数字、营销页头图文案' },
+                { name: 'display-h1', category: '展示', params: '42px / Bold (700) / 1.14 / -0.05em', lineHeight: '48px', purpose: '特大标题', scenarios: '极少用的欢迎页、结果页状态标题' },
+                { name: 'heading-h2', category: '标题', params: '34px / Bold (700) / 1.14 / -0.025em', lineHeight: '40px', purpose: '页面标题', scenarios: '页面顶部的一级标题 (Page Header)' },
+                { name: 'heading-h3', category: '标题', params: '28px / Bold (700) / 1.29 / -0.025em', lineHeight: '36px', purpose: '模块标题', scenarios: '卡片容器标题、弹窗一级标题 (Modal)' },
+                { name: 'heading-h4', category: '标题', params: '22px / Semibold (600) / 1.29 / 0', lineHeight: '28px', purpose: '分区标题', scenarios: '内容区块一级分层、较复杂的详情页分栏' },
+                { name: 'heading-h5', category: '标题', params: '18px / Semibold (600) / 1.29 / 0', lineHeight: '24px', purpose: '小节标题', scenarios: '卡片内二级标题、对话框标题 (Dialog)' },
+                { name: 'body-regular', category: '正文', params: '14px / Regular (400) / 1.43 / 0', lineHeight: '20px', purpose: '通用默认 (UI基准)', scenarios: '表单：输入内容、占位符、Label；表格：单元格内容、空状态；反馈：对话框正文、Toast 文字' },
+                { name: 'body-medium', category: '正文', params: '14px / Medium (500) / 1.43 / 0', lineHeight: '20px', purpose: '交互控件 (交互/强调)', scenarios: '按钮：主按钮、次级按钮；导航：一级菜单、Tab 页签选中态；表格：表头文字；反馈：气泡标题、通知标题' },
+                { name: 'body-bold', category: '正文', params: '14px / Bold (700) / 1.43 / 0', lineHeight: '20px', purpose: '数据强调', scenarios: '关键数据值 (KPI)、价格、已选中状态强调' },
+                { name: 'body-long', category: '正文', params: '14px / Regular (400) / 1.71 / 0', lineHeight: '24px', purpose: '长文阅读 (阅读型)', scenarios: '帮助文档、侧滑抽屉详情描述、富文本区域' },
+                { name: 'caption-regular', category: '说明', params: '12px / Regular (400) / 1.43 / 0.025em', lineHeight: '16px', purpose: '辅助弱化 (紧凑)', scenarios: '表单：报错提示、下方辅助说明；导航：面包屑；反馈：Tooltip 纯文字' },
+                { name: 'caption-read', category: '说明', params: '12px / Regular (400) / 1.71 / 0.025em', lineHeight: '20px', purpose: '多行说明 (宽松)', scenarios: '反馈：多行 Tooltip、Popover 说明文案' },
+                { name: 'caption-medium', category: '说明', params: '12px / Medium (500) / 1.43 / 0.025em', lineHeight: '16px', purpose: '小号控件 (小控件)', scenarios: '按钮：表格操作列按钮、筛选器小按钮；标签：Tag 标签文字、胶囊按钮' },
+                { name: 'utility-overline', category: '装饰', params: '12px / Medium (500) / 1.0 / 0.1em', lineHeight: '12px', purpose: '分组标签', scenarios: '侧边栏/下拉菜单的 Group Title (通常全大写)' },
+                { name: 'utility-tiny', category: '装饰', params: '10px / Medium (500) / 1.0 / 0.05em', lineHeight: '12px', purpose: '极小修饰', scenarios: '徽标：消息红点数字 (Badge)；图表：坐标轴刻度值 (Axis Label)' }
+            ],
+            fontVariables: [
+                { name: 'font-size-base', type: 'Size', value: '14px', scenarios: '链接到所有 Body 文本的字号' },
+                { name: 'font-weight-medium', type: 'Weight', value: '500', scenarios: '链接到所有 Button、Nav、Table Header 的字重' },
+                { name: 'font-line-height-normal', type: 'Line Height', value: '1.43', scenarios: '链接到所有 Body 文本的行高 (14px -> 20px)' },
+                { name: 'font-family-zh', type: 'Family', value: 'PingFang SC, Microsoft YaHei, sans-serif', scenarios: '中文字体家族' },
+                { name: 'font-tracking-tighter', type: 'Letter Spacing', value: '-0.05em', scenarios: '链接到所有 Display/H1/H2 标题的字距' }
+            ],
+            colorPalette: {
+                // 恢复全色阶 (Primitives)
+                'Red (错误/危险)': [
+                    { step: 'red-50', hex: '#FFEBEE' }, { step: 'red-100', hex: '#FFCDD2' }, { step: 'red-200', hex: '#EF9A9A' },
+                    { step: 'red-300', hex: '#E57373' }, { step: 'red-400', hex: '#EF5350' }, { step: 'red-500', hex: '#F44336' },
+                    { step: 'red-600', hex: '#E53935' }, { step: 'red-700', hex: '#D32F2F' }, { step: 'red-800', hex: '#C62828' },
+                    { step: 'red-900', hex: '#B71C1C' }, { step: 'red-a100', hex: '#FF8A80' }, { step: 'red-a200', hex: '#FF5252' },
+                    { step: 'red-a400', hex: '#FF1744' }, { step: 'red-a700', hex: '#D50000' }
+                ],
+                'Pink (粉色)': [
+                    { step: 'pink-50', hex: '#FCE4EC' }, { step: 'pink-100', hex: '#F8BBD0' }, { step: 'pink-200', hex: '#F48FB1' },
+                    { step: 'pink-300', hex: '#F06292' }, { step: 'pink-400', hex: '#EC407A' }, { step: 'pink-500', hex: '#E91E63' },
+                    { step: 'pink-600', hex: '#D81B60' }, { step: 'pink-700', hex: '#C2185B' }, { step: 'pink-800', hex: '#AD1457' },
+                    { step: 'pink-900', hex: '#880E4F' }, { step: 'pink-a100', hex: '#FF80AB' }, { step: 'pink-a200', hex: '#FF4081' },
+                    { step: 'pink-a400', hex: '#F50057' }, { step: 'pink-a700', hex: '#C51162' }
+                ],
+                'Purple (紫色)': [
+                    { step: 'purple-50', hex: '#F3E5F5' }, { step: 'purple-100', hex: '#E1BEE7' }, { step: 'purple-200', hex: '#CE93D8' },
+                    { step: 'purple-300', hex: '#BA68C8' }, { step: 'purple-400', hex: '#AB47BC' }, { step: 'purple-500', hex: '#9C27B0' },
+                    { step: 'purple-600', hex: '#8E24AA' }, { step: 'purple-700', hex: '#7B1FA2' }, { step: 'purple-800', hex: '#6A1B9A' },
+                    { step: 'purple-900', hex: '#4A148C' }, { step: 'purple-a100', hex: '#EA80FC' }, { step: 'purple-a200', hex: '#E040FB' },
+                    { step: 'purple-a400', hex: '#D500F9' }, { step: 'purple-a700', hex: '#AA00FF' }
+                ],
+                'Deep Purple (深紫)': [
+                    { step: 'deepPurple-50', hex: '#EDE7F6' }, { step: 'deepPurple-100', hex: '#D1C4E9' }, { step: 'deepPurple-200', hex: '#B39DDB' },
+                    { step: 'deepPurple-300', hex: '#9575CD' }, { step: 'deepPurple-400', hex: '#7E57C2' }, { step: 'deepPurple-500', hex: '#673AB7' },
+                    { step: 'deepPurple-600', hex: '#5E35B1' }, { step: 'deepPurple-700', hex: '#512DA8' }, { step: 'deepPurple-800', hex: '#4527A0' },
+                    { step: 'deepPurple-900', hex: '#311B92' }, { step: 'deepPurple-a100', hex: '#B388FF' }, { step: 'deepPurple-a200', hex: '#7C4DFF' },
+                    { step: 'deepPurple-a400', hex: '#651FFF' }, { step: 'deepPurple-a700', hex: '#6200EA' }
+                ],
+                'Indigo (靛蓝)': [
+                    { step: 'indigo-50', hex: '#E8EAF6' }, { step: 'indigo-100', hex: '#C5CAE9' }, { step: 'indigo-200', hex: '#9FA8DA' },
+                    { step: 'indigo-300', hex: '#7986CB' }, { step: 'indigo-400', hex: '#5C6BC0' }, { step: 'indigo-500', hex: '#3F51B5' },
+                    { step: 'indigo-600', hex: '#3949AB' }, { step: 'indigo-700', hex: '#303F9F' }, { step: 'indigo-800', hex: '#283593' },
+                    { step: 'indigo-900', hex: '#1A237E' }, { step: 'indigo-a100', hex: '#8C9EFF' }, { step: 'indigo-a200', hex: '#536DFE' },
+                    { step: 'indigo-a400', hex: '#3D5AFE' }, { step: 'indigo-a700', hex: '#304FFE' }
+                ],
+                'Blue (主品牌色)': [
+                    { step: 'blue-50', hex: '#E3F2FD' }, { step: 'blue-100', hex: '#BBDEFB' }, { step: 'blue-200', hex: '#90CAF9' },
+                    { step: 'blue-300', hex: '#64B5F6' }, { step: 'blue-400', hex: '#42A5F5' }, { step: 'blue-500', hex: '#2196F3' },
+                    { step: 'blue-600', hex: '#1E88E5' }, { step: 'blue-700', hex: '#1976D2' }, { step: 'blue-800', hex: '#1565C0' },
+                    { step: 'blue-900', hex: '#0D47A1' }, { step: 'blue-a100', hex: '#82B1FF' }, { step: 'blue-a200', hex: '#448AFF' },
+                    { step: 'blue-a400', hex: '#2979FF' }, { step: 'blue-a700', hex: '#2962FF' }
+                ],
+                'Light Blue (浅蓝)': [
+                    { step: 'lightBlue-50', hex: '#E1F5FE' }, { step: 'lightBlue-100', hex: '#B3E5FC' }, { step: 'lightBlue-200', hex: '#81D4FA' },
+                    { step: 'lightBlue-300', hex: '#4FC3F7' }, { step: 'lightBlue-400', hex: '#29B6F6' }, { step: 'lightBlue-500', hex: '#03A9F4' },
+                    { step: 'lightBlue-600', hex: '#039BE5' }, { step: 'lightBlue-700', hex: '#0288D1' }, { step: 'lightBlue-800', hex: '#0277BD' },
+                    { step: 'lightBlue-900', hex: '#01579B' }, { step: 'lightBlue-a100', hex: '#80D8FF' }, { step: 'lightBlue-a200', hex: '#40C4FF' },
+                    { step: 'lightBlue-a400', hex: '#00B0FF' }, { step: 'lightBlue-a700', hex: '#0091EA' }
+                ],
+                'Cyan (青色)': [
+                    { step: 'cyan-50', hex: '#E0F7FA' }, { step: 'cyan-100', hex: '#B2EBF2' }, { step: 'cyan-200', hex: '#80DEEA' },
+                    { step: 'cyan-300', hex: '#4DD0E1' }, { step: 'cyan-400', hex: '#26C6DA' }, { step: 'cyan-500', hex: '#00BCD4' },
+                    { step: 'cyan-600', hex: '#00ACC1' }, { step: 'cyan-700', hex: '#0097A7' }, { step: 'cyan-800', hex: '#00838F' },
+                    { step: 'cyan-900', hex: '#006064' }, { step: 'cyan-a100', hex: '#84FFFF' }, { step: 'cyan-a200', hex: '#18FFFF' },
+                    { step: 'cyan-a400', hex: '#00E5FF' }, { step: 'cyan-a700', hex: '#00B8D4' }
+                ],
+                'Teal (水鸭绿)': [
+                    { step: 'teal-50', hex: '#E0F2F1' }, { step: 'teal-100', hex: '#B2DFDB' }, { step: 'teal-200', hex: '#80CBC4' },
+                    { step: 'teal-300', hex: '#4DB6AC' }, { step: 'teal-400', hex: '#26A69A' }, { step: 'teal-500', hex: '#009688' },
+                    { step: 'teal-600', hex: '#00897B' }, { step: 'teal-700', hex: '#00796B' }, { step: 'teal-800', hex: '#00695C' },
+                    { step: 'teal-900', hex: '#004D40' }, { step: 'teal-a100', hex: '#A7FFEB' }, { step: 'teal-a200', hex: '#64FFDA' },
+                    { step: 'teal-a400', hex: '#1DE9B6' }, { step: 'teal-a700', hex: '#00BFA5' }
+                ],
+                'Green (绿色/成功)': [
+                    { step: 'green-50', hex: '#E8F5E9' }, { step: 'green-100', hex: '#C8E6C9' }, { step: 'green-200', hex: '#A5D6A7' },
+                    { step: 'green-300', hex: '#81C784' }, { step: 'green-400', hex: '#66BB6A' }, { step: 'green-500', hex: '#4CAF50' },
+                    { step: 'green-600', hex: '#43A047' }, { step: 'green-700', hex: '#388E3C' }, { step: 'green-800', hex: '#2E7D32' },
+                    { step: 'green-900', hex: '#1B5E20' }, { step: 'green-a100', hex: '#B9F6CA' }, { step: 'green-a200', hex: '#69F0AE' },
+                    { step: 'green-a400', hex: '#00E676' }, { step: 'green-a700', hex: '#00C853' }
+                ],
+                'Light Green (浅绿)': [
+                    { step: 'lightGreen-50', hex: '#F1F8E9' }, { step: 'lightGreen-100', hex: '#DCEDC8' }, { step: 'lightGreen-200', hex: '#C5E1A5' },
+                    { step: 'lightGreen-300', hex: '#AED581' }, { step: 'lightGreen-400', hex: '#9CCC65' }, { step: 'lightGreen-500', hex: '#8BC34A' },
+                    { step: 'lightGreen-600', hex: '#7CB342' }, { step: 'lightGreen-700', hex: '#689F38' }, { step: 'lightGreen-800', hex: '#558B2F' },
+                    { step: 'lightGreen-900', hex: '#33691E' }, { step: 'lightGreen-a100', hex: '#CCFF90' }, { step: 'lightGreen-a200', hex: '#B2FF59' },
+                    { step: 'lightGreen-a400', hex: '#76FF03' }, { step: 'lightGreen-a700', hex: '#64DD17' }
+                ],
+                'Lime (青柠)': [
+                    { step: 'lime-50', hex: '#F9FBE7' }, { step: 'lime-100', hex: '#F0F4C3' }, { step: 'lime-200', hex: '#E6EE9C' },
+                    { step: 'lime-300', hex: '#DCE775' }, { step: 'lime-400', hex: '#D4E157' }, { step: 'lime-500', hex: '#CDDC39' },
+                    { step: 'lime-600', hex: '#C0CA33' }, { step: 'lime-700', hex: '#AFB42B' }, { step: 'lime-800', hex: '#9E9D24' },
+                    { step: 'lime-900', hex: '#827717' }, { step: 'lime-a100', hex: '#F4FF81' }, { step: 'lime-a200', hex: '#EEFF41' },
+                    { step: 'lime-a400', hex: '#C6FF00' }, { step: 'lime-a700', hex: '#AEEA00' }
+                ],
+                'Yellow (黄色)': [
+                    { step: 'yellow-50', hex: '#FFFDE7' }, { step: 'yellow-100', hex: '#FFF9C4' }, { step: 'yellow-200', hex: '#FFF59D' },
+                    { step: 'yellow-300', hex: '#FFF176' }, { step: 'yellow-400', hex: '#FFEE58' }, { step: 'yellow-500', hex: '#FFEB3B' },
+                    { step: 'yellow-600', hex: '#FDD835' }, { step: 'yellow-700', hex: '#FBC02D' }, { step: 'yellow-800', hex: '#F9A825' },
+                    { step: 'yellow-900', hex: '#F57F17' }, { step: 'yellow-a100', hex: '#FFFF8D' }, { step: 'yellow-a200', hex: '#FFFF00' },
+                    { step: 'yellow-a400', hex: '#FFEA00' }, { step: 'yellow-a700', hex: '#FFD600' }
+                ],
+                'Amber (琥珀色)': [
+                    { step: 'amber-50', hex: '#FFF8E1' }, { step: 'amber-100', hex: '#FFECB3' }, { step: 'amber-200', hex: '#FFE082' },
+                    { step: 'amber-300', hex: '#FFD54F' }, { step: 'amber-400', hex: '#FFCA28' }, { step: 'amber-500', hex: '#FFC107' },
+                    { step: 'amber-600', hex: '#FFB300' }, { step: 'amber-700', hex: '#FFA000' }, { step: 'amber-800', hex: '#FF8F00' },
+                    { step: 'amber-900', hex: '#FF6F00' }, { step: 'amber-a100', hex: '#FFE57F' }, { step: 'amber-a200', hex: '#FFD740' },
+                    { step: 'amber-a400', hex: '#FFC400' }, { step: 'amber-a700', hex: '#FFAB00' }
+                ],
+                'Orange (橙色/警告)': [
+                    { step: 'orange-50', hex: '#FFF3E0' }, { step: 'orange-100', hex: '#FFE0B2' }, { step: 'orange-200', hex: '#FFCC80' },
+                    { step: 'orange-300', hex: '#FFB74D' }, { step: 'orange-400', hex: '#FFA726' }, { step: 'orange-500', hex: '#FF9800' },
+                    { step: 'orange-600', hex: '#FB8C00' }, { step: 'orange-700', hex: '#F57C00' }, { step: 'orange-800', hex: '#EF6C00' },
+                    { step: 'orange-900', hex: '#E65100' }, { step: 'orange-a100', hex: '#FFD180' }, { step: 'orange-a200', hex: '#FFAB40' },
+                    { step: 'orange-a400', hex: '#FF9100' }, { step: 'orange-a700', hex: '#FF6D00' }
+                ],
+                'Deep Orange (深橙)': [
+                    { step: 'deepOrange-50', hex: '#FBE9E7' }, { step: 'deepOrange-100', hex: '#FFCCBC' }, { step: 'deepOrange-200', hex: '#FFAB91' },
+                    { step: 'deepOrange-300', hex: '#FF8A65' }, { step: 'deepOrange-400', hex: '#FF7043' }, { step: 'deepOrange-500', hex: '#FF5722' },
+                    { step: 'deepOrange-600', hex: '#F4511E' }, { step: 'deepOrange-700', hex: '#E64A19' }, { step: 'deepOrange-800', hex: '#D84315' },
+                    { step: 'deepOrange-900', hex: '#BF360C' }, { step: 'deepOrange-a100', hex: '#FF9E80' }, { step: 'deepOrange-a200', hex: '#FF6E40' },
+                    { step: 'deepOrange-a400', hex: '#FF3D00' }, { step: 'deepOrange-a700', hex: '#DD2C00' }
+                ],
+                'Gray (中性灰 - 已修正拼写)': [
+                    { step: 'white', hex: '#FFFFFF', desc: '纯白' }, { step: 'gray-50', hex: '#FAFAFA', desc: '页面底色' },
+                    { step: 'gray-100', hex: '#F5F5F5', desc: '容器底色' }, { step: 'gray-200', hex: '#EEEEEE', desc: '禁用背景' },
+                    { step: 'gray-300', hex: '#E0E0E0', desc: '边框' }, { step: 'gray-400', hex: '#BDBDBD', desc: '禁用文字' },
+                    { step: 'gray-500', hex: '#9E9E9E', desc: '占位符' }, { step: 'gray-600', hex: '#757575', desc: '次要文本' },
+                    { step: 'gray-700', hex: '#616161', desc: '图标' }, { step: 'gray-800', hex: '#424242', desc: '标题' },
+                    { step: 'gray-900', hex: '#212121', desc: '正文' }, { step: 'black', hex: '#000000', desc: '纯黑' }
+                ]
+            },
+            semanticColors: {
+                '基础颜色变量': [
+                    // CTI Aliases
+                    { name: 'sys.color.bg.page', desc: '页面背景 (Alias of bg-page)', light: 'gray-50 (#FAFAFA)', dark: 'gray-900 (#212121)', usage: 'System Alias' },
+                    { name: 'sys.color.bg.container', desc: '容器背景 (Alias of bg-container)', light: 'white (#FFFFFF)', dark: 'gray-800 (#424242)', usage: 'System Alias' },
+
+                    { name: 'bg-page', desc: '页面背景', light: 'gray-50 (#FAFAFA)', dark: 'gray-900 (#212121)', usage: '全局页面底色、画布区域' },
+                    { name: 'bg-container', desc: '容器背景', light: 'white (#FFFFFF)', dark: 'gray-800 (#424242)', usage: '卡片、侧边栏、主要内容面板' },
+                    { name: 'bg-elevated', desc: '浮层背景', light: 'white (#FFFFFF)', dark: 'gray-700 (#616161)', usage: '悬浮层（下拉菜单/弹窗）、工具提示' },
+                    { name: 'bg-neutral', desc: '次级背景', light: 'gray-100 (#F5F5F5)', dark: 'gray-700 (#616161)', usage: '次级区域、斑马纹表格' },
+                    { name: 'bg-overlay', desc: '遮罩层', light: 'black (#000000) - opacity-40', dark: 'black (#000000) - opacity-60', usage: '模态框 (Modal) 黑色遮罩' },
+                    { name: 'bg-hover', desc: '通用悬停背景', light: 'gray-100 (#F5F5F5)', dark: 'gray-700 (#616161)', usage: '列表项、菜单项、表格行 Hover' },
+                    { name: 'bg-selected', desc: '选中背景', light: 'blue-50 (#E3F2FD)', dark: 'blue-900 (#0D47A1)', usage: '选中表格行、选中菜单背景' }
+                ],
+                '边框颜色': [
+                    { name: 'border-base', desc: '普通边框', light: 'gray-200 (#EEEEEE)', dark: 'gray-700 (#616161)', usage: '分割线、普通边框' },
+                    { name: 'border-strong', desc: '强调边框', light: 'gray-300 (#E0E0E0)', dark: 'gray-600 (#757575)', usage: '输入框默认描边、卡片描边' },
+                    { name: 'border-focus', desc: '焦点描边', light: 'blue-500 (#2196F3)', dark: 'blue-400 (#42A5F5)', usage: '键盘 Tab 切换到的 Input 边框' },
+                    { name: 'border-error', desc: '错误描边', light: 'red-500 (#F44336)', dark: 'red-400 (#EF5350)', usage: '表单校验失败的 Input 边框' }
+                ],
+                '文本颜色': [
+                    // CTI Aliases
+                    { name: 'sys.color.text.primary', desc: '主要文本 (Alias of text-primary)', light: 'gray-900 (#212121)', dark: 'gray-50 (#FAFAFA)', usage: 'System Alias' },
+                    { name: 'sys.color.text.secondary', desc: '次要文本 (Alias of text-secondary)', light: 'gray-600 (#757575)', dark: 'gray-300 (#E0E0E0)', usage: 'System Alias' },
+
+                    { name: 'text-primary', desc: '主要文本', light: 'gray-900 (#212121)', dark: 'gray-50 (#FAFAFA)', usage: '标题、核心内容、表格数据' },
+                    { name: 'text-secondary', desc: '次要文本', light: 'gray-600 (#757575)', dark: 'gray-300 (#E0E0E0)', usage: '次要信息、表单 Label、辅助信息' },
+                    { name: 'text-tertiary', desc: '极弱文本', light: 'gray-500 (#9E9E9E)', dark: 'gray-500 (#9E9E9E)', usage: '占位符、极弱说明' },
+                    { name: 'text-disabled', desc: '禁用文本', light: 'gray-400 (#BDBDBD)', dark: 'gray-600 (#757575)', usage: '不可点文字、禁用状态的文字' },
+                    { name: 'text-link', desc: '链接文本', light: 'blue-700 (#1976D2)', dark: 'blue-500 (#2196F3)', usage: '文字链接、可点击的面包屑' },
+                    { name: 'text-inverse', desc: '反白文本', light: 'white (#FFFFFF)', dark: 'gray-900 (#212121)', usage: '深色背景上的反白字（如主按钮文字）' }
+                ],
+                'Status Containers (状态容器)': [
+                    // Success
+                    { name: 'color-success-container', desc: '成功容器背景', light: 'green-50 (#E8F5E9)', dark: 'green-900 (#1B5E20)', usage: 'Success Flag/Alert Background' },
+                    { name: 'color-on-success-container', desc: '成功容器文字', light: 'green-900 (#1B5E20)', dark: 'green-100 (#C8E6C9)', usage: 'Text on Success Container' },
+                    // Warning
+                    { name: 'color-warning-container', desc: '警告容器背景', light: 'orange-50 (#FFF3E0)', dark: 'orange-900 (#E65100)', usage: 'Warning Flag/Alert Background' },
+                    { name: 'color-on-warning-container', desc: '警告容器文字', light: 'orange-900 (#E65100)', dark: 'orange-100 (#FFE0B2)', usage: 'Text on Warning Container' },
+                    // Error
+                    { name: 'color-error-container', desc: '错误容器背景', light: 'red-50 (#FFEBEE)', dark: 'red-900 (#B71C1C)', usage: 'Error Flag/Alert Background' },
+                    { name: 'color-on-error-container', desc: '错误容器文字', light: 'red-900 (#B71C1C)', dark: 'red-100 (#FFCDD2)', usage: 'Text on Error Container' },
+                    // Info
+                    { name: 'color-info-container', desc: '信息容器背景', light: 'blue-50 (#E3F2FD)', dark: 'blue-900 (#0D47A1)', usage: 'Info Flag/Alert Background' },
+                    { name: 'color-on-info-container', desc: '信息容器文字', light: 'blue-900 (#0D47A1)', dark: 'blue-100 (#BBDEFB)', usage: 'Text on Info Container' }
+                ],
+                '状态颜色': [
+                    { name: 'color-success', desc: '成功状态色', light: 'green-600 (#43A047)', dark: 'green-500 (#4CAF50)', usage: '成功图标、小圆点、进度条' },
+                    { name: 'color-warning', desc: '警告状态色', light: 'orange-600 (#FB8C00)', dark: 'orange-500 (#FF9800)', usage: '警告图标、待处理状态描边' },
+                    { name: 'color-error', desc: '错误状态色', light: 'red-600 (#E53935)', dark: 'red-500 (#F44336)', usage: '错误图标、表单报错描边' },
+                    { name: 'color-info', desc: '信息状态色', light: 'blue-600 (#1E88E5)', dark: 'blue-500 (#2196F3)', usage: '信息图标' }
+                ],
+                'On Colors (内容色 - 确保对比度)': [
+                    { name: 'color-on-primary', desc: '主色背景上的内容', light: 'white (#FFFFFF)', dark: 'white (#FFFFFF)', usage: '配合 color-primary 使用' },
+                    { name: 'color-on-success', desc: '成功色背景上的内容', light: 'white (#FFFFFF)', dark: 'black (#000000)', usage: '配合 color-success 使用' },
+                    { name: 'color-on-warning', desc: '警告色背景上的内容', light: 'black (#000000)', dark: 'black (#000000)', usage: '配合 color-warning 使用' },
+                    { name: 'color-on-error', desc: '错误色背景上的内容', light: 'white (#FFFFFF)', dark: 'white (#FFFFFF)', usage: '配合 color-error 使用' },
+                    { name: 'color-on-surface', desc: '卡片背景上的内容', light: 'gray-900 (#212121)', dark: 'gray-50 (#FAFAFA)', usage: '配合 bg-container 使用' },
+                    { name: 'color-on-inverse', desc: '反色背景上的内容', light: 'white (#FFFFFF)', dark: 'gray-900 (#212121)', usage: '配合 text-inverse 使用' }
+                ]
+            },
+            componentTokens: {
+                'Action (操作类)': [
+                    { name: 'action-primary-bg', desc: '主按钮背景', light: 'blue-600 (#1E88E5)', dark: 'blue-600 (#1E88E5)', usage: '主要行为触发器' },
+                    { name: 'action-primary-text', desc: '主按钮文字', light: 'white (#FFFFFF)', dark: 'white (#FFFFFF)', usage: '主按钮内容色' },
+                    { name: 'action-secondary-bg', desc: '次级按钮背景', light: 'gray-100 (#F5F5F5)', dark: 'gray-800 (#424242)', usage: '辅助行为背景' },
+                    { name: 'action-secondary-text', desc: '次级按钮文字', light: 'gray-900 (#212121)', dark: 'gray-100 (#F5F5F5)', usage: '辅助行为内容' },
+                    { name: 'action-outline-border', desc: '描边按钮边框', light: 'blue-600 (#1E88E5)', dark: 'blue-500 (#2196F3)', usage: '幽灵按钮描边' },
+                    { name: 'action-ghost-bg', desc: '幽灵按钮背景', light: 'transparent', dark: 'transparent', usage: '仅在 Hover 时通过 State Layer 显示背景' },
+
+                    // 新增: Disabled 状态
+                    { name: 'action-disabled-bg', desc: '禁用按钮背景', light: 'gray-200 (#EEEEEE)', dark: 'white (#FFFFFF) - opacity-12', usage: '不可点击状态背景 (覆盖)' },
+                    { name: 'action-disabled-text', desc: '禁用按钮文字', light: 'gray-400 (#BDBDBD)', dark: 'white (#FFFFFF) - opacity-30', usage: '不可点击状态文字' },
+                    { name: 'action-disabled-border', desc: '禁用按钮边框', light: 'gray-200 (#EEEEEE)', dark: 'white (#FFFFFF) - opacity-12', usage: '描边按钮禁用时的边框' }
+                ],
+                'Entry (输入类)': [
+                    { name: 'input-bg', desc: '输入框背景色', light: 'white (#FFFFFF)', dark: 'gray-800 (#424242)', usage: '文本输入框底色' },
+                    { name: 'input-border', desc: '输入框边框', light: 'gray-300 (#E0E0E0)', dark: 'gray-600 (#757575)', usage: '默认描边' },
+                    { name: 'input-border-active', desc: '输入框激活边框', light: 'blue-600 (#1E88E5)', dark: 'blue-500 (#2196F3)', usage: 'Focus 状态的高亮描边' }
+                ],
+                'Navigation (导航类)': [
+                    { name: 'nav-item-bg-selected', desc: '导航选中背景', light: 'blue-50 (#E3F2FD)', dark: 'blue-900 (#0D47A1)', usage: '侧边栏/菜单选中项底色' },
+                    { name: 'nav-item-text', desc: '导航文字', light: 'gray-700 (#616161)', dark: 'gray-300 (#E0E0E0)', usage: '默认导航文字' },
+                    { name: 'nav-item-text-selected', desc: '导航选中文字', light: 'blue-700 (#1976D2)', dark: 'blue-400 (#42A5F5)', usage: '高亮文字' }
+                ],
+                'Feedback (反馈类)': [
+                    { name: 'feedback-bg-success', desc: '成功背景', light: 'green-50 (#E8F5E9)', dark: 'green-900 (#1B5E20)', usage: 'Toast/Alert 背景' },
+                    { name: 'feedback-bg-warning', desc: '警告背景', light: 'orange-50 (#FFF3E0)', dark: 'orange-900 (#E65100)', usage: 'Toast/Alert 背景' },
+                    { name: 'feedback-bg-error', desc: '错误背景', light: 'red-50 (#FFEBEE)', dark: 'red-900 (#B71C1C)', usage: 'Toast/Alert 背景' }
+                ]
+            },
+            sizes: [
+                { name: 'size-xs', value: '16px', scenarios: '极小徽章 (Badge) 高度、极小 Icon 尺寸' },
+                { name: 'size-sm', value: '24px', scenarios: '小按钮 (Small Button) 高度、小输入框高度' },
+                { name: 'size-md', value: '32px', scenarios: '标准按钮 (Base Button) 高度、表格行高、标准输入框高度' },
+                { name: 'size-lg', value: '40px', scenarios: '大按钮高度、搜索框、复杂筛选器高度' },
+                { name: 'size-xl', value: '48px', scenarios: '导航栏高度、大型 Avatar 尺寸' },
+                { name: 'size-2xl', value: '64px', scenarios: '页面顶部 Header 高度、大图容器尺寸' }
+            ],
+            icons: [
+                { name: 'icon-size-base', value: '16px', scenarios: '最小 Icon 尺寸（表格操作图标、状态图标）' },
+                { name: 'icon-size-md', value: '20px', scenarios: '标准 Icon 尺寸（侧边栏、按钮、输入框前缀）' },
+                { name: 'icon-size-lg', value: '24px', scenarios: '导航栏图标、大卡片功能图标' }
+            ],
+            spacing: [
+                { name: 'space-0', value: '0px', scenarios: '清除间距、重置样式' },
+                { name: 'space-0-5', value: '2px', scenarios: '微调：图标与文本紧密排列、分割线与内容的极小边距' },
+                { name: 'space-1', value: '4px', scenarios: '最小间距：紧凑型按钮内边距、Tag 标签内容边距' },
+                { name: 'space-1-5', value: '6px', scenarios: '微调：下拉菜单项的垂直间距、输入框内文字上下边距' },
+                { name: 'space-2', value: '8px', scenarios: '原子间距：图标与文字的默认距离、小卡片内部元素间距' },
+                { name: 'space-2-5', value: '10px', scenarios: '微调：表单 Label 与 Input 的垂直距离' },
+                { name: 'space-3', value: '12px', scenarios: '组件内边距：按钮左右 Padding、Toast 提示框内边距' },
+                { name: 'space-4', value: '16px', scenarios: '标准间距 (Base)：卡片 (Card) 内边距、表格单元格 Padding' },
+                { name: 'space-5', value: '20px', scenarios: '舒适间距：大号按钮 Padding、Form 表单项之间的水平间距' },
+                { name: 'space-6', value: '24px', scenarios: '容器间距：弹窗 (Modal) 边缘 Padding、页面顶部面包屑区域' },
+                { name: 'space-8', value: '32px', scenarios: '模块分隔：卡片与卡片之间的距离、详情页上下分栏间距' },
+                { name: 'space-10', value: '40px', scenarios: '大分隔：表单区块之间的距离、页脚 (Footer) 上方间距' },
+                { name: 'space-12', value: '48px', scenarios: '区块分隔：着陆页 (Landing) 板块间距、数据大屏模块间距' },
+                { name: 'space-16', value: '64px', scenarios: '页面留白：首页顶部 Banner 留白、超大空状态图留白' },
+                { name: 'space-20', value: '80px', scenarios: '(极少用) 营销页、登录页大片留白' },
+                { name: 'space-24', value: '96px', scenarios: '(极少用) 营销页' }
+            ],
+            radius: [
+                { name: 'radius-none', value: '0px', scenarios: '直角：全屏容器、吸顶导航栏、分割线' },
+                { name: 'radius-sm', value: '2px', scenarios: '微圆角：复选框 (Checkbox)、极小的状态点、键盘按键' },
+                { name: 'radius-base', value: '4px', scenarios: '标准圆角：按钮 (Button)、输入框 (Input)、下拉菜单面板' },
+                { name: 'radius-md', value: '6px', scenarios: '中圆角：如果你希望界面比 4px 更柔和，可用此代替 base' },
+                { name: 'radius-lg', value: '8px', scenarios: '容器圆角：卡片 (Card)、气泡卡片 (Popover)、Toast' },
+                { name: 'radius-xl', value: '12px', scenarios: '大圆角：模态对话框 (Modal)、侧边抽屉 (Drawer)' },
+                { name: 'radius-2xl', value: '16px', scenarios: '超大圆角：移动端适配卡片、营销弹窗' },
+                { name: 'radius-3xl', value: '24px', scenarios: '特殊装饰卡片' },
+                { name: 'radius-full', value: '9999px', scenarios: '全圆角：胶囊按钮、Tag 标签、头像 (Avatar)、徽标 (Badge)' }
+            ],
+            shadows: [
+                { name: 'shadow-none', light: 'none', dark: 'none', scenarios: '清除阴影' },
+                { name: 'shadow-xs', light: '0 1px 2px rgba(0,0,0,0.05)', dark: '0 1px 3px rgba(0,0,0,0.3)', scenarios: '微弱层次：表格行 hover、卡片描边替代方案' },
+                { name: 'shadow-sm', light: '0 2px 4px rgba(0,0,0,0.06)', dark: '0 2px 8px rgba(0,0,0,0.4)', scenarios: '交互反馈：按钮 hover、输入框 focus 状态' },
+                { name: 'shadow-base', light: '0 4px 8px rgba(0,0,0,0.08)', dark: '0 4px 12px rgba(0,0,0,0.5)', scenarios: '悬浮层：下拉菜单 (Dropdown)、Select 选项面板' },
+                { name: 'shadow-md', light: '0 8px 16px rgba(0,0,0,0.12)', dark: '0 8px 20px rgba(0,0,0,0.6)', scenarios: '中层级：气泡卡片 (Popover)、日期选择器面板' },
+                { name: 'shadow-lg', light: '0 16px 32px rgba(0,0,0,0.16)', dark: '0 16px 32px rgba(0,0,0,0.7)', scenarios: '高层级：模态对话框 (Modal)、侧边抽屉 (Drawer)' },
+                { name: 'shadow-xl', light: '0 24px 48px rgba(0,0,0,0.20)', dark: '0 24px 48px rgba(0,0,0,0.8)', scenarios: '最高层：全屏引导、通知中心面板' },
+                { name: 'shadow-inner', light: 'inset 0 2px 4px rgba(0,0,0,0.05)', dark: 'inset 0 2px 4px rgba(0,0,0,0.05)', scenarios: '内阴影：沉浸式输入框背景、进度槽背景' }
+            ],
+            borders: [
+                { name: 'border-0', value: '0px', scenarios: '无边框' },
+                { name: 'border-1', value: '1px', scenarios: '通用描边：输入框、卡片、分割线、表格边框' },
+                { name: 'border-2', value: '2px', scenarios: '强调描边：选中状态 (Selected)、聚焦光环 (Focus Ring)' },
+                { name: 'border-4', value: '4px', scenarios: '指示条：侧边栏选中项左侧的高亮竖条' }
+            ],
+            opacity: [
+                { name: 'opacity-0', value: '0', scenarios: '完全透明 (隐藏但占位)' },
+                { name: 'opacity-5', value: '0.05', scenarios: '极淡的背景纹理' },
+                { name: 'opacity-10', value: '0.1', scenarios: '交互态：按钮 Hover 时叠加的黑色遮罩' },
+                { name: 'opacity-20', value: '0.2', scenarios: '交互态：按钮 Active 时叠加的黑色遮罩' },
+                { name: 'opacity-30', value: '0.3', scenarios: '失效的图标、极弱的水印' },
+                { name: 'opacity-40', value: '0.4', scenarios: '禁用态：整个 Disabled 组件的透明度' },
+                { name: 'opacity-50', value: '0.5', scenarios: '半透明遮罩' },
+                { name: 'opacity-60', value: '0.6', scenarios: '深色模式下的次要文本' },
+                { name: 'opacity-80', value: '0.8', scenarios: '强强调背景' },
+                { name: 'opacity-100', value: '1', scenarios: '完全不透明' }
+            ],
+            zindex: [
+                { name: 'z-base', value: '0', scenarios: '普通文档流内容' },
+                { name: 'z-dropdown', value: '1000', scenarios: '下拉菜单 (Select/Dropdown)' },
+                { name: 'z-sticky', value: '1020', scenarios: '吸顶表头 (Table Header)、吸顶导航栏' },
+                { name: 'z-fixed', value: '1030', scenarios: '侧边悬浮按钮、回到顶部按钮' },
+                { name: 'z-backdrop', value: '1040', scenarios: '模态框的黑色遮罩层' },
+                { name: 'z-modal', value: '1050', scenarios: '对话框 (Dialog)、抽屉 (Drawer)' },
+                { name: 'z-popover', value: '1060', scenarios: '气泡确认框 (Popconfirm)' },
+                { name: 'z-tooltip', value: '1070', scenarios: '文字提示 (Tooltip) - 必须比弹窗高' },
+                { name: 'z-notification', value: '1080', scenarios: '全局通知 (Toast/Message) - 最高层级' }
+            ],
+            breakpoints: [
+                { name: 'breakpoint-xs', value: '0px', desc: '响应断点：超小屏（手机竖屏）', rationale: '最小设备宽度基准' },
+                { name: 'breakpoint-sm', value: '640px', desc: '响应断点：小屏（手机横屏）', rationale: '手机横屏或部分平板' },
+                { name: 'breakpoint-md', value: '768px', desc: '响应断点：中屏（平板）', rationale: '典型平板尺寸' },
+                { name: 'breakpoint-lg', value: '1024px', desc: '响应断点：大屏（笔记本）', rationale: '典型笔记本电脑或小桌面' },
+                { name: 'breakpoint-xl', value: '1280px', desc: '响应断点：超大屏（桌面）', rationale: '常见桌面显示器宽度' },
+                { name: 'breakpoint-2xl', value: '1536px', desc: '响应断点：2倍大屏', rationale: '超宽屏显示器' }
+            ],
+            containers: [
+                { name: 'container-xs', value: '320px', desc: '容器宽度：超小屏（手机）', rationale: '最小容器宽度限制' },
+                { name: 'container-sm', value: '640px', desc: '容器宽度：小屏', rationale: '适应 sm 宽度内容' },
+                { name: 'container-md', value: '768px', desc: '容器宽度：中屏', rationale: '适应 md 宽度内容' },
+                { name: 'container-lg', value: '1024px', desc: '容器宽度：大屏', rationale: '适应 lg 宽度内容' },
+                { name: 'container-xl', value: '1280px', desc: '容器宽度：超大屏', rationale: '适应 xl 宽度内容' },
+                { name: 'container-2xl', value: '1536px', desc: '容器宽度：2倍大屏', rationale: '适应 2xl 宽度内容' }
+            ],
+            motion: [
+                { name: 'duration-instant', value: '0ms', ease: 'linear', scenarios: '即时（无动画），用于不可见元素的切换' },
+                { name: 'duration-fast', value: '100ms', ease: 'ease-out', scenarios: '微交互：按钮 Hover、Checkbox 勾选、微弱的淡入/淡出' },
+                { name: 'duration-base', value: '200ms', ease: 'ease-out', scenarios: '组件变化：Dropdown 下拉菜单展开、Tooltip 出现、Tabs 切换' },
+                { name: 'duration-slow', value: '300ms', ease: 'ease-out', scenarios: '大位移：模态框弹出、抽屉滑出、卡片内容展开/收起' },
+                { name: 'duration-slower', value: '500ms', ease: 'ease-in-out', scenarios: '页面转场：全屏加载动画、大区块动画' },
+                { name: 'ease-linear', value: 'cubic-bezier(0, 0, 1, 1)', duration: '2s', scenarios: '旋转 Loading、进度条匀速前进' },
+                { name: 'ease-out', value: 'cubic-bezier(0, 0, 0.2, 1)', duration: '1.5s', scenarios: '推荐入场曲线：弹窗、抽屉滑入（快速进入，减速停止）' },
+                { name: 'ease-in', value: 'cubic-bezier(0.4, 0, 1, 1)', duration: '1.5s', scenarios: '推荐退场曲线：元素消失（加速离开）' },
+                { name: 'ease-in-out', value: 'cubic-bezier(0.4, 0, 0.2, 1)', duration: '2s', scenarios: '侧边栏折叠/展开、元素位置温和交换' }
+            ],
+            // 新增：数据可视化色
+            dataViz: {
+                'Categorical (分类色)': [
+                    { name: 'viz-color-1', light: '#5470C6', dark: '#5470C6', desc: '分类一', usage: '主要数据类别' },
+                    { name: 'viz-color-2', light: '#91CC75', dark: '#91CC75', desc: '分类二', usage: '次要数据类别' },
+                    { name: 'viz-color-3', light: '#FAC858', dark: '#FAC858', desc: '分类三', usage: '对比数据类别' },
+                    { name: 'viz-color-4', light: '#EE6666', dark: '#EE6666', desc: '分类四', usage: '强调数据类别' },
+                    { name: 'viz-color-5', light: '#73C0DE', dark: '#73C0DE', desc: '分类五', usage: '补充数据类别' },
+                    { name: 'viz-color-6', light: '#3BA272', dark: '#3BA272', desc: '分类六', usage: '补充数据类别' },
+                    { name: 'viz-color-7', light: '#FC8452', dark: '#FC8452', desc: '分类七', usage: '补充数据类别' },
+                    { name: 'viz-color-8', light: '#9A60B4', dark: '#9A60B4', desc: '分类八', usage: '补充数据类别' }
+                ],
+                'Sequential (顺序色 - 热力图)': [
+                    { name: 'viz-seq-1', light: '#E3F2FD', dark: '#0D47A1', desc: '顺序色-极浅', usage: '低密度/低数值' },
+                    { name: 'viz-seq-2', light: '#BBDEFB', dark: '#1565C0', desc: '顺序色-浅', usage: '中低数值' },
+                    { name: 'viz-seq-3', light: '#64B5F6', dark: '#1976D2', desc: '顺序色-中', usage: '中等数值' },
+                    { name: 'viz-seq-4', light: '#2196F3', dark: '#1E88E5', desc: '顺序色-深', usage: '中高数值' },
+                    { name: 'viz-seq-5', light: '#1565C0', dark: '#0D47A1', desc: '顺序色-极深', usage: '高密度/极高数值' }
+                ]
+            },
+            // 新增：网格系统
+            grid: [
+                { name: 'grid-cols-desktop', value: '12', desc: '标准 12 列', usage: 'Desktop Main Grid' },
+                { name: 'grid-cols-wide', value: '24', desc: '高密度 24 列', usage: 'Wide Screen / Complex Data' },
+                { name: 'grid-gutter', value: '16px', desc: '列间距 (Space-4)', usage: 'Column Gap' },
+                { name: 'grid-margin', value: '24px', desc: '页边距', usage: 'Page Margin' }
+            ],
+            // 新增：模糊与滤镜
+            effects: [
+                { name: 'effect-blur-sm', value: '4px', desc: '轻微模糊', usage: '局部弱化背景' },
+                { name: 'effect-blur-md', value: '8px', desc: '中度模糊', usage: '常规毛玻璃效果' },
+                { name: 'effect-blur-lg', value: '20px', desc: '深度模糊', usage: 'Header 或 Modal 背景遮罩' }
+            ],
+            // 新增：边框样式
+            borderStyles: [
+                { name: 'border-style-solid', value: 'solid', desc: '实线', usage: '默认边框样式' },
+                { name: 'border-style-dashed', value: 'dashed', desc: '虚线', usage: '上传区域、未完成状态' },
+                { name: 'border-style-dotted', value: 'dotted', desc: '点线', usage: '特殊分割线' }
+            ],
+            // 新增：宽高比
+            ratios: [
+                { name: 'ratio-square', value: '1/1', desc: '正方形', usage: '头像、产品缩略图' },
+                { name: 'ratio-video', value: '16/9', desc: '视频比例', usage: '视频播放器、大图展示' },
+                { name: 'ratio-card', value: '4/3', desc: '卡片比例', usage: '标准内容卡片' },
+                { name: 'ratio-portrait', value: '3/4', desc: '人像比例', usage: '文档封面、手机截图' }
+            ],
+            // 新增：密度系统 (Density)
+            densityScale: [
+                { name: 'density.scale.default', value: '1.0', desc: '默认视图', usage: 'Standard' },
+                { name: 'density.scale.compact', value: '0.75', desc: '紧凑视图', usage: 'Data Heavy / Admin' },
+                { name: 'density.scale.loose', value: '1.25', desc: '宽松视图', usage: 'Reading / Landing' }
+            ],
+            componentSizing: [
+                { name: 'size.height.control.default', value: '40px', desc: '标准控件高度', usage: 'Button / Input' },
+                { name: 'size.height.control.compact', value: '32px', desc: '紧凑控件高度', usage: 'Dense Mode' },
+                { name: 'size.height.control.small', value: '24px', desc: '小号控件高度', usage: 'Small Actions' }
+            ],
+            spacingModifiers: [
+                { name: 'spacing.padding.control.default', value: '12px 16px', desc: '标准内边距', usage: 'Button Padding' },
+                { name: 'spacing.padding.control.compact', value: '8px 12px', desc: '紧凑内边距', usage: 'Dense Button Padding' }
+            ]
+        };
+
+        // --- MasterGo Helper Functions ---
+
+        // 1. Resolve Alias to Hex
+        // Finds the primitive hex value for a given alias (e.g., "blue-600" -> "#1E88E5")
+        function resolveTokenValue(value) {
+            if (!value) return '';
+            if (value.startsWith('#') || value.startsWith('rgba') || value.startsWith('transparent')) {
+                return value;
+            }
+
+            // Extract alias name from format like "blue-600 (#1E88E5)" or just "blue-600"
+            let alias = value.split(' ')[0];
+
+            // Search in Color Palette
+            for (const category in designTokens.colorPalette) {
+                const found = designTokens.colorPalette[category].find(c => c.step === alias);
+                if (found) return found.hex;
+            }
+
+            return value; // Fallback if not found
+        }
+
+        // 2. Format Name for MasterGo (Slash Naming)
+        // e.g., "color-primary" -> "Color / Primary"
+        function formatMasterGoName(name, prefix = '') {
+            // Replace hyphens with slashes and capitalize
+            const parts = name.split('-');
+            const capitalized = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1));
+            return (prefix ? prefix + ' / ' : '') + capitalized.join(' / ');
+        }
+
+        let currentTab = 'semantic'; // Default to Semantic for MasterGo view
+        let currentMode = 'light'; // For functions that still reference mode
+        let currentCopyMode = 'value'; // Copy mode: name, css, or value
+
+        // --- Helper Functions for Color Contrast ---
+        function hexToRgb(hex) {
+            const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function luminance(r, g, b) {
+            const a = [r, g, b].map(function (v) {
+                v /= 255;
+                return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+            });
+            return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+        }
+
+        function calculateContrast(hex1, hex2) {
+            const rgb1 = hexToRgb(hex1);
+            const rgb2 = hexToRgb(hex2);
+            if (!rgb1 || !rgb2) return null;
+            const lum1 = luminance(rgb1.r, rgb1.g, rgb1.b);
+            const lum2 = luminance(rgb2.r, rgb2.g, rgb2.b);
+            const brightest = Math.max(lum1, lum2);
+            const darkest = Math.min(lum1, lum2);
+            return (brightest + 0.05) / (darkest + 0.05);
+        }
+
+        function getWCAGLevel(ratio) {
+            if (ratio >= 7) return 'AAA';
+            if (ratio >= 4.5) return 'AA';
+            if (ratio >= 3) return 'AA Large';
+            return 'Fail';
+        }
+
+        function getContrastBadge(hex) {
+            if (!hex || !hex.startsWith('#')) return '';
+
+            const whiteContrast = calculateContrast(hex, '#FFFFFF');
+            const blackContrast = calculateContrast(hex, '#000000');
+
+            if (!whiteContrast || !blackContrast) return '';
+
+            const bestColor = whiteContrast > blackContrast ? 'White' : 'Black';
+            const bestRatio = Math.max(whiteContrast, blackContrast).toFixed(2);
+            const level = getWCAGLevel(Math.max(whiteContrast, blackContrast));
+
+            return `<div style="font-size: 10px; margin-top: 4px; display: flex; gap: 4px;">
+                <span style="background: rgba(0,0,0,0.1); padding: 2px 4px; border-radius: 2px;">On ${bestColor}: ${bestRatio} (${level})</span>
+            </div>`;
+        }
+
+        function init() {
+            updateStats();
+            renderTabs();
+            renderContent();
+            setupEventListeners();
+        }
+
+        function updateStats() {
+            let total = 0;
+            total += designTokens.stateLayers.length; // Count State Layers
+            total += designTokens.typography.length;
+            total += designTokens.fontVariables.length;
+            total += Object.values(designTokens.colorPalette).reduce((sum, colors) => sum + colors.length, 0);
+            total += Object.values(designTokens.semanticColors).reduce((sum, colors) => sum + colors.length, 0);
+            total += Object.values(designTokens.componentTokens).reduce((sum, tokens) => sum + tokens.length, 0);
+            total += designTokens.sizes.length;
+            total += designTokens.icons.length;
+            total += designTokens.spacing.length;
+            total += designTokens.radius.length;
+            total += designTokens.shadows.length;
+            total += designTokens.borders.length;
+            total += designTokens.opacity.length;
+            total += designTokens.zindex.length;
+            total += designTokens.breakpoints.length;
+            total += designTokens.containers.length;
+            total += designTokens.motion.length;
+            total += Object.values(designTokens.dataViz).reduce((sum, colors) => sum + colors.length, 0);
+            total += designTokens.grid.length;
+            total += designTokens.effects.length;
+            total += designTokens.borderStyles.length;
+            total += designTokens.ratios.length;
+            total += designTokens.densityScale.length;
+            total += designTokens.componentSizing.length;
+            total += designTokens.spacingModifiers.length;
+
+            document.getElementById('totalTokens').textContent = total;
+        }
+
+        function renderTabs() {
+            const tabs = [
+                { id: 'colors', label: '🎨 颜色体系', count: Object.values(designTokens.colorPalette).reduce((sum, colors) => sum + colors.length, 0) },
+                { id: 'semantic', label: '🏷️ 语义颜色', count: Object.values(designTokens.semanticColors).reduce((sum, colors) => sum + colors.length, 0) },
+                { id: 'typography', label: '📝 文字排版', count: designTokens.typography.length },
+                { id: 'layout', label: '📐 布局系统', count: designTokens.spacing.length + designTokens.grid.length + designTokens.breakpoints.length + designTokens.containers.length + designTokens.sizes.length + designTokens.densityScale.length + designTokens.componentSizing.length + designTokens.spacingModifiers.length },
+                { id: 'components', label: '🧩 组件意图', count: Object.values(designTokens.componentTokens).reduce((sum, tokens) => sum + tokens.length, 0) },
+                { id: 'borders', label: '🔲 边框与圆角', count: designTokens.borders.length + designTokens.borderStyles.length + designTokens.radius.length },
+                { id: 'effects', label: '💧 效果与阴影', count: designTokens.shadows.length + designTokens.effects.length + designTokens.opacity.length },
+                { id: 'icons', label: '🔣 图标与比例', count: designTokens.icons.length + designTokens.ratios.length },
+                { id: 'interaction', label: '⚡ 交互动画', count: designTokens.stateLayers.length + designTokens.motion.length + designTokens.zindex.length },
+                { id: 'dataviz', label: '📊 数据可视化', count: Object.values(designTokens.dataViz).reduce((sum, colors) => sum + colors.length, 0) }
+            ];
+
+            const tabsHtml = tabs.map(tab =>
+                `<div class="tab ${tab.id === currentTab ? 'active' : ''}" data-tab="${tab.id}">
+                    ${tab.label} <span style="opacity: 0.7">(${tab.count})</span>
+                </div>`
+            ).join('');
+
+            document.getElementById('categoryTabs').innerHTML = tabsHtml;
+            document.getElementById('categoryCount').textContent = tabs.length;
+        }
+
+        function renderContent() {
+            const content = document.getElementById('tokenContent');
+            let html = '';
+
+            switch (currentTab) {
+                case 'colors':
+                    html = renderColors();
+                    break;
+                case 'semantic':
+                    html = renderSemanticColors();
+                    break;
+                case 'typography':
+                    html = renderTypography();
+                    break;
+                case 'layout':
+                    html = renderSpacing() + renderGrid() + renderLayout() + renderSizes() + renderDensity();
+                    break;
+                case 'components':
+                    html = renderComponentTokens();
+                    break;
+                case 'borders':
+                    html = renderBorders() + renderBorderStyles() + renderRadius();
+                    break;
+                case 'effects':
+                    html = renderShadows() + renderEffects() + renderOpacity();
+                    break;
+                case 'icons':
+                    html = renderIcons() + renderRatios();
+                    break;
+                case 'interaction':
+                    html = renderStateLayers() + renderMotion() + renderZIndex();
+                    break;
+                case 'dataviz':
+                    html = renderDataViz();
+                    break;
+            }
+
+            content.innerHTML = html;
+        }
+
+        // 新增：渲染状态层叠加演示
+        function renderStateLayers() {
+            let html = '<div class="section"><h2 class="section-title">⚡ 状态层 (State Layers) <span class="section-count">' + designTokens.stateLayers.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.stateLayers.forEach(token => {
+                const overlayColor = currentMode === 'light' ? token.light : token.dark;
+                // 演示底色：根据 Token 类型选择一个底色，或者默认用蓝色
+                const baseColor = currentMode === 'light' ? '#2196F3' : '#2196F3';
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${overlayColor}">
+                        <div class="layer-demo-container">
+                            <div class="layer-step" style="background: ${baseColor}">
+                                <div style="margin-top:auto; padding-bottom:4px; color:white; font-size:9px;">Base</div>
+                            </div>
+                            <div class="layer-symbol">+</div>
+                            <div class="layer-step checkered-bg">
+                                <div style="width:100%; height:100%; background:${overlayColor};"></div>
+                                <div style="position:absolute; bottom:4px; width:100%; text-align:center; font-size:9px; color:#666;">Layer</div>
+                            </div>
+                            <div class="layer-symbol">=</div>
+                            <div class="layer-step" style="position:relative;">
+                                <div style="position:absolute; inset:0; background:${baseColor};"></div>
+                                <div style="position:absolute; inset:0; background:${overlayColor};"></div>
+                                <div style="position:absolute; bottom:4px; width:100%; text-align:center; color:white; font-size:9px; z-index:2;">Result</div>
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${overlayColor}</div>
+                        <div class="token-desc">${token.desc}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderTypography() {
+            const categories = [...new Set(designTokens.typography.map(t => t.category))];
+
+            let html = '<div class="section"><h2 class="section-title">📝 基础文字样式 <span class="section-count">' + designTokens.typography.length + '</span></h2>';
+
+            categories.forEach(cat => {
+                const tokens = designTokens.typography.filter(t => t.category === cat);
+                html += `<div class="subsection-title">${cat}</div>`;
+                html += '<div class="token-grid typography">';
+
+                tokens.forEach(token => {
+                    const parts = token.params.split('/').map(p => p.trim());
+                    const fontSize = parts[0];
+                    const fontWeight = parts[1].match(/\((\d+)\)/)?.[1] || '400';
+                    const lineHeight = parts[2];
+                    const letterSpacing = parts[3] || '0';
+
+                    html += `
+                        <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.params}">
+                            <div class="token-name">${token.name}</div>
+                            <div class="font-preview" style="font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}; letter-spacing: ${letterSpacing};">
+                                Aa 永中优雅
+                            </div>
+                            <div class="token-value">${token.params}</div>
+                            <div class="token-desc">行高: ${token.lineHeight} · ${token.scenarios}</div>
+                            <div class="copy-indicator">已复制!</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            html += '</div>';
+
+            html += '<div class="section"><h2 class="section-title">⚙️ 字体代码变量 <span class="section-count">' + designTokens.fontVariables.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.fontVariables.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.type} · ${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+
+            return html;
+        }
+
+        function renderColors() {
+            let html = '';
+
+            for (const [family, colors] of Object.entries(designTokens.colorPalette)) {
+                html += `<div class="section">
+                    <h2 class="section-title">🎨 ${family} <span class="section-count">${colors.length}</span></h2>
+                    <div class="token-grid colors">`;
+
+                colors.forEach(color => {
+                    const contrastBadge = getContrastBadge(color.hex);
+                    html += `
+                        <div class="token-item" data-copy-name="${color.step}" data-copy-value="${color.hex}">
+                            <div class="color-swatch" style="background: ${color.hex}"></div>
+                            <div class="token-name">${color.step}</div>
+                            <div class="token-value">${color.hex}</div>
+                            ${color.desc ? `<div class="token-desc">${color.desc}</div>` : ''}
+                            ${contrastBadge}
+                            <div class="copy-indicator">已复制!</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div></div>';
+            }
+
+            return html;
+        }
+
+        function renderSemanticColors() {
+            let html = '<div class="section"><h2 class="section-title">🏷️ 语义颜色 (Semantic Colors) - MasterGo Style</h2>';
+
+            // Follow current theme mode (like original DesignToken 2.html)
+            // But use MasterGo naming and resolved hex values
+
+            for (const [category, tokens] of Object.entries(designTokens.semanticColors)) {
+                html += `<h3 class="subsection-title">${category}</h3>`;
+                html += '<div class="token-grid colors">';
+
+                tokens.forEach(token => {
+                    // 1. Get the value for current mode
+                    const rawValue = currentMode === 'light' ? token.light : token.dark;
+
+                    // 2. Resolve it to a Hex
+                    const resolvedHex = resolveTokenValue(rawValue);
+
+                    // 3. Generate MasterGo Name with slash format
+                    const masterGoName = `Semantic / ${category.split(' ')[0]} / ${formatMasterGoName(token.name)}`;
+
+                    html += `
+                        <div class="token-item" data-copy-name="${masterGoName}" data-copy-value="${resolvedHex}">
+                            <div class="color-swatch" style="background-color: ${resolvedHex}"></div>
+                            <div class="token-name" style="font-size: 11px;">${masterGoName}</div>
+                            <div class="token-value" style="font-weight: 700;">${resolvedHex}</div>
+                            <div class="token-desc">${token.desc}</div>
+                            <span class="mode-badge both">☀️/🌙</span>
+                            <div class="copy-indicator">已复制 Hex!</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderComponentTokens() {
+            let html = '';
+
+            for (const [category, tokens] of Object.entries(designTokens.componentTokens)) {
+                html += `<div class="section">
+                    <h2 class="section-title">🧩 ${category} <span class="section-count">${tokens.length}</span></h2>
+                    <div class="token-grid compact">`;
+
+                tokens.forEach(token => {
+                    const value = currentMode === 'light' ? token.light : token.dark;
+                    const hexMatch = value.match(/(#[A-Fa-f0-9]{6}|rgba\([^)]+\))/);
+                    const hex = hexMatch ? hexMatch[0] : 'transparent';
+
+                    const isTransparent = hex === 'transparent';
+                    const swatchStyle = isTransparent
+                        ? 'background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%); background-size: 10px 10px;'
+                        : `background: ${hex}`;
+
+                    html += `
+                        <div class="token-item" data-copy-name="${token.name}" data-copy-value="${value}">
+                            <div class="color-swatch" style="${swatchStyle}"></div>
+                            <div class="token-name">${token.name}</div>
+                            <div class="token-value">${value}</div>
+                            <div class="token-desc">${token.desc} · ${token.usage}</div>
+                            <span class="mode-badge both">☀️/🌙</span>
+                            <div class="copy-indicator">已复制!</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div></div>';
+            }
+
+            return html;
+        }
+
+        function renderSpacing() {
+            let html = '<div class="section"><h2 class="section-title">📏 间距系统 <span class="section-count">' + designTokens.spacing.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.spacing.forEach(token => {
+                const pixels = parseInt(token.value);
+                const maxWidth = 200;
+                const width = Math.min((pixels / 96) * maxWidth, maxWidth);
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="spacing-preview">
+                            <div class="spacing-bar" style="width: ${width}px">
+                                <span class="spacing-label">${token.value}</span>
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderRadius() {
+            let html = '<div class="section"><h2 class="section-title">⭕ 圆角规范 <span class="section-count">' + designTokens.radius.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.radius.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="radius-preview" style="border-radius: ${token.value}"></div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderShadows() {
+            let html = '<div class="section"><h2 class="section-title">🌫️ 阴影深度 <span class="section-count">' + designTokens.shadows.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.shadows.forEach(token => {
+                const shadow = currentMode === 'light' ? token.light : token.dark;
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${shadow}">
+                        <div class="shadow-preview" style="box-shadow: ${shadow}">Shadow</div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value" style="font-size: 10px">${shadow}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <span class="mode-badge both">☀️/🌙</span>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderSizes() {
+            let html = '<div class="section"><h2 class="section-title">📐 尺寸变量 <span class="section-count">' + designTokens.sizes.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.sizes.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="spacing-preview">
+                            <div class="spacing-bar" style="width: ${token.value}; height: ${token.value}; display: inline-block;">
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderBorders() {
+            let html = '<div class="section"><h2 class="section-title">🔲 描边宽度 <span class="section-count">' + designTokens.borders.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.borders.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="spacing-preview">
+                            <div style="width: 80%; height: 40px; background: var(--bg-card); border: ${token.value} solid var(--brand-primary); border-radius: 4px;"></div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderOpacity() {
+            let html = '<div class="section"><h2 class="section-title">⚪ 透明度 <span class="section-count">' + designTokens.opacity.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.opacity.forEach(token => {
+                const alpha = parseFloat(token.value);
+                const baseColor = currentMode === 'light' ? '0,0,0' : '255,255,255';
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="spacing-preview">
+                            <div style="width: 100px; height: 40px; background-color: rgba(${baseColor},${alpha}); border-radius: 4px;"></div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderIcons() {
+            let html = '<div class="section"><h2 class="section-title">🧩 图标尺寸 (Icons) <span class="section-count">' + designTokens.icons.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.icons.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="icon-preview-box">
+                            <svg width="${token.value}" height="${token.value}" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                            </svg>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderZIndex() {
+            let html = '<div class="section"><h2 class="section-title">🔢 Z-Index 层级管理 <span class="section-count">' + designTokens.zindex.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            const sortedZIndex = [...designTokens.zindex].sort((a, b) => parseInt(a.value) - parseInt(b.value));
+
+            designTokens.zindex.forEach(token => {
+                // Find relative position for visualization
+                const index = sortedZIndex.findIndex(t => t.name === token.name);
+                const total = sortedZIndex.length;
+
+                // Generate stack visualization
+                let stackHtml = '';
+                // Show 3 cards: one below, one current, one above (if exist)
+                const layers = [-1, 0, 1];
+                layers.forEach(offset => {
+                    const targetIndex = Math.max(0, Math.min(total - 1, index + offset));
+                    // Only show if it makes sense visually (e.g. don't show same card twice if at edges)
+                    if (offset === 0 || targetIndex !== index) {
+                        const isCurrent = offset === 0;
+                        const zVal = isCurrent ? 10 : (offset < 0 ? 5 : 15);
+                        const scale = isCurrent ? 1.1 : 0.9;
+                        const yOffset = offset * 10;
+                        const xOffset = offset * 15;
+                        const opacity = isCurrent ? 1 : 0.5;
+                        const bg = isCurrent ? 'var(--brand-primary)' : 'var(--bg-card)';
+                        const color = isCurrent ? 'white' : 'var(--text-secondary)';
+
+                        stackHtml += `
+                            <div class="z-card ${isCurrent ? 'highlight' : ''}" style="
+                                z-index: ${zVal}; 
+                                transform: translate(${xOffset}px, ${yOffset}px) scale(${scale});
+                                opacity: ${opacity};
+                            ">
+                                ${isCurrent ? token.value : ''}
+                            </div>
+                        `;
+                    }
+                });
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="z-index-preview">
+                            ${stackHtml}
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderLayout() {
+            let html = '<div class="section"><h2 class="section-title">📱 响应式断点 (Breakpoints) <span class="section-count">' + designTokens.breakpoints.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            const maxBreakpoint = 1600; // Base for calculation
+
+            designTokens.breakpoints.forEach(token => {
+                const val = parseInt(token.value);
+                const widthPercent = Math.min(100, (val / maxBreakpoint) * 100);
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="layout-preview">
+                            <div class="breakpoint-ruler">
+                                <div class="breakpoint-fill" style="width: ${widthPercent}%"></div>
+                            </div>
+                            <div style="font-size: 10px; color: var(--text-tertiary); width: 100%; display: flex; justify-content: space-between;">
+                                <span>0</span>
+                                <span>${token.value}</span>
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+
+            html += '<div class="section"><h2 class="section-title">📦 容器宽度 (Containers) <span class="section-count">' + designTokens.containers.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.containers.forEach(token => {
+                const val = parseInt(token.value);
+                const widthPercent = Math.min(100, (val / maxBreakpoint) * 100);
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="layout-preview">
+                            <div class="container-box" style="width: ${widthPercent}%">
+                                Content
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+
+            return html;
+        }
+
+        function renderMotion() {
+            let html = '<div class="section"><h2 class="section-title">⚡ 动效参数 <span class="section-count">' + designTokens.motion.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.motion.forEach(token => {
+                const isDuration = token.name.startsWith('duration-');
+                const isEase = token.name.startsWith('ease-');
+
+                let previewHtml = '';
+                if (isEase) {
+                    const animName = `move-${token.name.replace('ease-', '')}`;
+                    const duration = token.duration || '2s';
+                    previewHtml = `
+                        <div class="motion-preview">
+                            <div class="motion-ball" style="animation: ${animName} ${duration} ${token.value} infinite; animation-play-state: paused;"></div>
+                        </div>
+                    `;
+                } else if (isDuration) {
+                    const ease = token.ease || 'ease-out';
+                    const milliseconds = parseInt(token.value);
+                    const duration = milliseconds + 'ms';
+                    previewHtml = `
+                        <div class="motion-preview">
+                            <div class="motion-ball" style="animation: move-ease-out ${duration} ${ease} infinite; animation-play-state: paused;"></div>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        ${previewHtml}
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.scenarios}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderDataViz() {
+            let html = '';
+
+            for (const [category, tokens] of Object.entries(designTokens.dataViz)) {
+                html += `<div class="section">
+                    <h2 class="section-title">📊 ${category} <span class="section-count">${tokens.length}</span></h2>
+                    <div class="token-grid colors">`;
+
+                tokens.forEach(token => {
+                    const value = currentMode === 'light' ? token.light : token.dark;
+                    html += `
+                        <div class="token-item" data-copy-name="${token.name}" data-copy-value="${value}">
+                            <div class="color-swatch" style="background: ${value}"></div>
+                            <div class="token-name">${token.name}</div>
+                            <div class="token-value">${value}</div>
+                            <div class="token-desc">${token.desc} · ${token.usage}</div>
+                            <span class="mode-badge both">☀️/🌙</span>
+                            <div class="copy-indicator">已复制!</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div></div>';
+            }
+
+            return html;
+        }
+
+        function renderGrid() {
+            let html = '<div class="section"><h2 class="section-title">Grid System (栅格) <span class="section-count">' + designTokens.grid.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.grid.forEach(token => {
+                let previewHtml = '';
+                if (token.name.includes('cols')) {
+                    const cols = parseInt(token.value);
+                    let colsHtml = '';
+                    for (let i = 0; i < cols; i++) {
+                        colsHtml += '<div class="grid-col"></div>';
+                    }
+                    previewHtml = `<div class="grid-preview-container"><div class="grid-row">${colsHtml}</div></div>`;
+                } else if (token.name.includes('gutter')) {
+                    previewHtml = `
+                        <div class="grid-preview-container">
+                            <div class="grid-gutter-preview" style="gap: ${token.value}">
+                                <div class="grid-gutter-col"></div>
+                                <div class="grid-gutter-col"></div>
+                            </div>
+                        </div>`;
+                } else if (token.name.includes('margin')) {
+                    previewHtml = `
+                        <div class="grid-preview-container">
+                            <div class="grid-margin-preview">
+                                <div class="grid-margin-content" style="margin: 0 ${token.value}"></div>
+                            </div>
+                        </div>`;
+                }
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        ${previewHtml}
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderRatios() {
+            let html = '<div class="section"><h2 class="section-title">Aspect Ratio (比例) <span class="section-count">' + designTokens.ratios.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.ratios.forEach(token => {
+                const [w, h] = token.value.split('/').map(Number);
+
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="ratio-preview" style="padding-top: 60%;">
+                            <div class="ratio-box" style="width: 60px; height: ${60 * (h / w)}px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--brand-primary); opacity: 0.5; border-radius: 4px;"></div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderEffects() {
+            let html = '<div class="section"><h2 class="section-title">💧 模糊与滤镜 (Blur) <span class="section-count">' + designTokens.effects.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.effects.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="blur-preview">
+                            <div class="blur-glass" style="backdrop-filter: blur(${token.value}); -webkit-backdrop-filter: blur(${token.value});">
+                                Blur
+                            </div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc} · ${token.usage}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderBorderStyles() {
+            let html = '<div class="section"><h2 class="section-title">🔲 边框样式 (Border Styles) <span class="section-count">' + designTokens.borderStyles.length + '</span></h2>';
+            html += '<div class="token-grid compact">';
+
+            designTokens.borderStyles.forEach(token => {
+                html += `
+                    <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                        <div class="border-style-preview">
+                            <div style="width: 80%; height: 0; border-top: 2px ${token.value} var(--text-primary);"></div>
+                        </div>
+                        <div class="token-name">${token.name}</div>
+                        <div class="token-value">${token.value}</div>
+                        <div class="token-desc">${token.desc} · ${token.usage}</div>
+                        <div class="copy-indicator">已复制!</div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderDensity() {
+            let html = '<div class="section"><h2 class="section-title">📏 密度系统 (Density)</h2>';
+
+            // 1. Density Scale
+            html += '<h3 class="subsection-title">Density Scale (密度系数) <span class="section-count">' + designTokens.densityScale.length + '</span></h3>';
+            html += '<div class="token-grid compact">';
+            designTokens.densityScale.forEach(token => {
+                html += `
+            <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                <div class="token-name">${token.name}</div>
+                <div class="token-value">${token.value}</div>
+                <div class="token-desc">${token.desc} · ${token.usage}</div>
+                <div class="copy-indicator">已复制!</div>
+            </div>
+        `;
+            });
+            html += '</div>';
+
+            // 2. Component Sizing
+            html += '<h3 class="subsection-title">Component Sizing (组件尺寸) <span class="section-count">' + designTokens.componentSizing.length + '</span></h3>';
+            html += '<div class="token-grid compact">';
+            designTokens.componentSizing.forEach(token => {
+                html += `
+            <div class="token-item" data-copy-name="${token.name}" data-copy-value="${token.value}">
+                <div class="spacing-preview">
+                    <div style="height: ${token.value}; width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-base); border-radius: 4px; display: flex; align-items: center; padding: 0 8px; font-size: 12px;">
+                        Height: ${token.value}
+                    </div>
+                </div>
+                <div class="token-name">${token.name}</div>
+                <div class="token-value">${token.value}</div>
+                <div class="token-desc">${token.desc}</div>
+                <div class="copy-indicator">已复制!</div>
+            </div>
+        `;
+            });
+            html += '</div>';
+
+            // 3. Interactive Demo
+            html += '<h3 class="subsection-title">Interactive Demo (交互演示)</h3>';
+            html += '<div class="density-preview-box" style="gap: 16px; align-items: flex-start;">';
+
+            const scales = [
+                { name: 'Compact (0.75)', height: '32px', padding: '8px 12px', fontSize: '12px' },
+                { name: 'Default (1.0)', height: '40px', padding: '12px 16px', fontSize: '14px' },
+                { name: 'Loose (1.25)', height: '48px', padding: '16px 24px', fontSize: '16px' }
+            ];
+
+            scales.forEach(scale => {
+                html += `
+            <div style="width: 100%; display: flex; align-items: center; gap: 16px;">
+                <div style="width: 100px; font-size: 12px; color: var(--text-secondary);">${scale.name}</div>
+                <button style="
+                    height: ${scale.height}; 
+                    padding: ${scale.padding}; 
+                    font-size: ${scale.fontSize}; 
+                    background: var(--brand-primary); 
+                    color: white; 
+                    border: none; 
+                    border-radius: 4px; 
+                    cursor: pointer;
+                ">Button</button>
+                <input type="text" placeholder="Input" style="
+                    height: ${scale.height}; 
+                    padding: 0 ${scale.padding.split(' ')[1]}; 
+                    font-size: ${scale.fontSize}; 
+                    border: 1px solid var(--border-base); 
+                    border-radius: 4px; 
+                    background: var(--bg-card);
+                    color: var(--text-primary);
+                ">
+            </div>
+        `;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const mode = e.target.dataset.mode;
+                    currentMode = mode;
+                    document.body.className = mode;
+                    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    renderContent();
+                });
+            });
+
+            document.querySelectorAll('.copy-mode-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    currentCopyMode = e.target.dataset.copyMode;
+                    document.querySelectorAll('.copy-mode-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.tab')) {
+                    const tab = e.target.closest('.tab');
+                    currentTab = tab.dataset.tab;
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderContent();
+                }
+
+                if (e.target.closest('.token-item')) {
+                    const item = e.target.closest('.token-item');
+                    const name = item.dataset.copyName;
+                    const value = item.dataset.copyValue;
+
+                    let textToCopy = value;
+                    if (currentCopyMode === 'name') {
+                        textToCopy = name;
+                    } else if (currentCopyMode === 'css') {
+                        textToCopy = `--${name}`;
+                    } else if (currentCopyMode === 'value') {
+                        // Fix: If value format is "Name (#Hex)", extract only the Hex part
+                        // Example: "red-900 (#B71C1C)" -> "#B71C1C"
+                        const match = value.match(/\((#[0-9A-Fa-f]{6})\)/);
+                        if (match) {
+                            textToCopy = match[1];
+                        }
+                    }
+
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        item.classList.add('copied');
+                        setTimeout(() => item.classList.remove('copied'), 1500);
+                    });
+                }
+            });
+
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
